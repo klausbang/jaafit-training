@@ -1,0 +1,1850 @@
+{
+  "meta": {
+    "description": "JAAFIT oevelsesdatabase - graph model",
+    "source": "https://www.skool.com/jaafit",
+    "exercises_library_url": "https://www.skool.com/jaafit/classroom/1b2baa38",
+    "programs_url": "https://www.skool.com/jaafit/classroom/448639cb",
+    "last_updated": "2026-03-16",
+    "note": "Kraever JAAFIT-medlemskab for adgang. Webadresser virker kun med login paa skool.com."
+  },
+  "nodes": {
+    "muscle_groups": [
+      {
+        "id": "mg_Bryst",
+        "label": "Bryst"
+      },
+      {
+        "id": "mg_Ryg",
+        "label": "Ryg"
+      },
+      {
+        "id": "mg_Forlaar",
+        "label": "Forlaar"
+      },
+      {
+        "id": "mg_Baglaar og baller",
+        "label": "Baglaar og baller"
+      },
+      {
+        "id": "mg_Inder og ydersiden af laarene",
+        "label": "Inder og ydersiden af laarene"
+      },
+      {
+        "id": "mg_Biceps",
+        "label": "Biceps"
+      },
+      {
+        "id": "mg_Triceps",
+        "label": "Triceps"
+      },
+      {
+        "id": "mg_Skulder",
+        "label": "Skulder"
+      },
+      {
+        "id": "mg_Mave",
+        "label": "Mave"
+      },
+      {
+        "id": "mg_Laeg",
+        "label": "Laeg"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_elastik",
+        "label": "elastik"
+      },
+      {
+        "id": "eq_bar",
+        "label": "bar"
+      },
+      {
+        "id": "eq_haandtag",
+        "label": "haandtag"
+      },
+      {
+        "id": "eq_ankelstropper",
+        "label": "ankelstropper"
+      },
+      {
+        "id": "eq_PowerPress",
+        "label": "PowerPress"
+      },
+      {
+        "id": "eq_kropsvagt",
+        "label": "kropsvagt"
+      }
+    ],
+    "exercises": [
+      {
+        "id": "2b1ab4ce18d84fc8a6989120e00d1824",
+        "title": "Brystfly m. haandtag",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=2b1ab4ce18d84fc8a6989120e00d1824"
+      },
+      {
+        "id": "573e4c0f38d147f593ab1f52f036eb16",
+        "title": "Staaende Brystpres m. bar",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=573e4c0f38d147f593ab1f52f036eb16"
+      },
+      {
+        "id": "1f7932321cb340d38ccead6c6bf3d28b",
+        "title": "Fritstaaende Brystpres m. bar",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1f7932321cb340d38ccead6c6bf3d28b"
+      },
+      {
+        "id": "7a19ac3633ea47688ad8de5859c93f03",
+        "title": "Armboejning m. elastik",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=7a19ac3633ea47688ad8de5859c93f03"
+      },
+      {
+        "id": "2a85ddf941904c7b8793f91cbee7a963",
+        "title": "Bent over Row m. bar",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=2a85ddf941904c7b8793f91cbee7a963"
+      },
+      {
+        "id": "1a2b6b6a598941259e97506f0dde70c6",
+        "title": "Traek til Hofte m. haandtag",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1a2b6b6a598941259e97506f0dde70c6"
+      },
+      {
+        "id": "bc8448939d6b4de4bbaf1f868898f220",
+        "title": "Staaende Row m. bar",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=bc8448939d6b4de4bbaf1f868898f220"
+      },
+      {
+        "id": "21c670a4f5d84c01a8a0e3a84280d087",
+        "title": "Pullover m. bar",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=21c670a4f5d84c01a8a0e3a84280d087"
+      },
+      {
+        "id": "a4612851822b47518aa797ab0c28fc72",
+        "title": "Siddende Traek til Bryst m. bar",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=a4612851822b47518aa797ab0c28fc72"
+      },
+      {
+        "id": "12d5fec659a34a0aaae05ae43a8e2de3",
+        "title": "Siddende pull down 1 arm",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=12d5fec659a34a0aaae05ae43a8e2de3"
+      },
+      {
+        "id": "b74385a88ac44026b5bed3bbbba35218",
+        "title": "Siddende traek til hofte haandtag en arm",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=b74385a88ac44026b5bed3bbbba35218"
+      },
+      {
+        "id": "bb50d1d9bee444528887906d40c07b34",
+        "title": "Squat m. bar",
+        "muscle_group": "Forlaar",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=bb50d1d9bee444528887906d40c07b34"
+      },
+      {
+        "id": "8461e0d9e9dd4c35872734d03092b8ea",
+        "title": "Split Squat m. bar",
+        "muscle_group": "Forlaar",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=8461e0d9e9dd4c35872734d03092b8ea"
+      },
+      {
+        "id": "ce15f8fe0c9d47ec8f2278f534b96b20",
+        "title": "Front Squat m. bar",
+        "muscle_group": "Forlaar",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=ce15f8fe0c9d47ec8f2278f534b96b20"
+      },
+      {
+        "id": "ea1a793cfae948e2819054015ce6a5cd",
+        "title": "Begyndervenlig Squat m. bar",
+        "muscle_group": "Forlaar",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=ea1a793cfae948e2819054015ce6a5cd"
+      },
+      {
+        "id": "23cda7c5540d4549996cf51ecd23479a",
+        "title": "Leg Extension m. ankelstropper",
+        "muscle_group": "Forlaar",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=23cda7c5540d4549996cf51ecd23479a"
+      },
+      {
+        "id": "7aee8ec48aab422fb2df2b4a09452b55",
+        "title": "Hofte Extension m. haandtag",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=7aee8ec48aab422fb2df2b4a09452b55"
+      },
+      {
+        "id": "171aaafa82e147439900695ac5eaec36",
+        "title": "Donkey Kick m. ankelstropper",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=171aaafa82e147439900695ac5eaec36"
+      },
+      {
+        "id": "4a63032c35fe402ab6416a127eac5ecd",
+        "title": "Rumaensk Doedloeft m. bar",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=4a63032c35fe402ab6416a127eac5ecd"
+      },
+      {
+        "id": "f77d97b6c2db4271af5496cb9d036bf5",
+        "title": "Doedloeft m. bar",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=f77d97b6c2db4271af5496cb9d036bf5"
+      },
+      {
+        "id": "ff6526db998140368cee351fa2184ed1",
+        "title": "Leg Curl m. ankelstropper",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=ff6526db998140368cee351fa2184ed1"
+      },
+      {
+        "id": "b43cec0635494eeaa7eb602bab97b6c1",
+        "title": "Hip Thrust m. bar",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=b43cec0635494eeaa7eb602bab97b6c1"
+      },
+      {
+        "id": "794c1c718af9464a9d8099973e00fdaa",
+        "title": "Adduction m. ankelstropper",
+        "muscle_group": "Inder og ydersiden af laarene",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=794c1c718af9464a9d8099973e00fdaa"
+      },
+      {
+        "id": "5aeac24a3d354740b2314864e005386a",
+        "title": "Abduktion m. ankelstropper",
+        "muscle_group": "Inder og ydersiden af laarene",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=5aeac24a3d354740b2314864e005386a"
+      },
+      {
+        "id": "1e407305f56e4c178e5f67fea9ca5d84",
+        "title": "Biceps Curl m. bar",
+        "muscle_group": "Biceps",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1e407305f56e4c178e5f67fea9ca5d84"
+      },
+      {
+        "id": "6f01796cb46f4d798d2ec24e017edff9",
+        "title": "Biceps Curl Faceaway m. haandtag",
+        "muscle_group": "Biceps",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=6f01796cb46f4d798d2ec24e017edff9"
+      },
+      {
+        "id": "3be46dbb6f4d45b08d0570c100b2e835",
+        "title": "Hammercurl m. elastik",
+        "muscle_group": "Biceps",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=3be46dbb6f4d45b08d0570c100b2e835"
+      },
+      {
+        "id": "07d4f5ea9a444a83901be6c2485164a5",
+        "title": "Triceps Pushdown m. haandtag",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=07d4f5ea9a444a83901be6c2485164a5"
+      },
+      {
+        "id": "39e9e9e70fd441b0978840bcb99fbcf0",
+        "title": "Skullcrusher m. bar",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=39e9e9e70fd441b0978840bcb99fbcf0"
+      },
+      {
+        "id": "6c5732539ca24ce69ba99790fc39d519",
+        "title": "Triceps Extension m. elastik",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=6c5732539ca24ce69ba99790fc39d519"
+      },
+      {
+        "id": "1883d88e769548d3a6a09419e4ae1b8c",
+        "title": "Triceps Kickback m. elastik",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1883d88e769548d3a6a09419e4ae1b8c"
+      },
+      {
+        "id": "3d282b1b76424a8a88850cae89c55ff2",
+        "title": "Triceps Pushdown m. elastik",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=3d282b1b76424a8a88850cae89c55ff2"
+      },
+      {
+        "id": "831f796f738d41478e165a2c03924dcb",
+        "title": "Triceps Pushdown m. bar",
+        "muscle_group": "Triceps",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=831f796f738d41478e165a2c03924dcb"
+      },
+      {
+        "id": "03b4a420e2b04921a89813fd2dfddbe7",
+        "title": "Overhead Press m. bar",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=03b4a420e2b04921a89813fd2dfddbe7"
+      },
+      {
+        "id": "785b16d8e44744a49db0c2abd1322004",
+        "title": "Lateral Raises m. haandtag",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=785b16d8e44744a49db0c2abd1322004"
+      },
+      {
+        "id": "3e7115bbf11a4b3186734902c07c59a1",
+        "title": "Rear Delt Fly m. elastik",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=3e7115bbf11a4b3186734902c07c59a1"
+      },
+      {
+        "id": "0f13ee8efc0449e582961b757adefdc1",
+        "title": "Lateral Raise m. dooranker Oevetl",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=0f13ee8efc0449e582961b757adefdc1"
+      },
+      {
+        "id": "946f3cabfd314b2883520918a2abfc82",
+        "title": "Front Raise m. haandtag",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=946f3cabfd314b2883520918a2abfc82"
+      },
+      {
+        "id": "55b79aab39ad4e1f9ac8323abe15f3ac",
+        "title": "Face Pull m. haandtag",
+        "muscle_group": "Skulder",
+        "equipment": [
+          "haandtag"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=55b79aab39ad4e1f9ac8323abe15f3ac"
+      },
+      {
+        "id": "fa7a7fc50aeb41688709858222bf800e",
+        "title": "Side Bend m. elastik",
+        "muscle_group": "Mave",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=fa7a7fc50aeb41688709858222bf800e"
+      },
+      {
+        "id": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+        "title": "Chrunches m. elastik",
+        "muscle_group": "Mave",
+        "equipment": [
+          "elastik"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=3c405fd6ecf94a53b5d10e6f2c7e48b3"
+      },
+      {
+        "id": "4c48a8783f3f4925b5ece9a0c3b2c767",
+        "title": "Leg Raises m. ankelstropper",
+        "muscle_group": "Mave",
+        "equipment": [
+          "ankelstropper"
+        ],
+        "requires_door_anchor": true,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=4c48a8783f3f4925b5ece9a0c3b2c767"
+      },
+      {
+        "id": "888cc143f1214523adb2bfd576b1356d",
+        "title": "Calf Raises m. bar",
+        "muscle_group": "Laeg",
+        "equipment": [
+          "bar"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=888cc143f1214523adb2bfd576b1356d"
+      },
+      {
+        "id": "e9278e59e4e54c3e86d3b5d08b636d38",
+        "title": "Calf Raises m. kropsvagt",
+        "muscle_group": "Laeg",
+        "equipment": [
+          "kropsvagt"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=e9278e59e4e54c3e86d3b5d08b636d38"
+      },
+      {
+        "id": "0801acfa4fa54e1d8845df77df3ef9f0",
+        "title": "Seated row m. PowerPress",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "PowerPress"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=0801acfa4fa54e1d8845df77df3ef9f0"
+      },
+      {
+        "id": "8731db109e424017a2472dbf9bd9c55b",
+        "title": "Liggende brystpres m. PowerPress",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "PowerPress"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=8731db109e424017a2472dbf9bd9c55b"
+      },
+      {
+        "id": "28d05260cca14bc691a153777324c7b8",
+        "title": "Staaende brystpres m. PowerPress",
+        "muscle_group": "Bryst",
+        "equipment": [
+          "PowerPress"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=28d05260cca14bc691a153777324c7b8"
+      },
+      {
+        "id": "bbc611bcea8946ba9267da0fb9493b84",
+        "title": "Rumaensk doedloeft m. PowerPress",
+        "muscle_group": "Baglaar og baller",
+        "equipment": [
+          "PowerPress"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=bbc611bcea8946ba9267da0fb9493b84"
+      },
+      {
+        "id": "1ee1031e9c6343fe81b612194b620437",
+        "title": "Bent over row m. PowerPress",
+        "muscle_group": "Ryg",
+        "equipment": [
+          "PowerPress"
+        ],
+        "requires_door_anchor": false,
+        "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1ee1031e9c6343fe81b612194b620437"
+      }
+    ],
+    "programs": [
+      {
+        "id": "prog1",
+        "name": "Effektiv Velvaere",
+        "number": 1,
+        "url": "https://www.skool.com/jaafit/classroom/448639cb",
+        "days": [
+          {
+            "day": 1,
+            "type": "Fullbody",
+            "exercise_ids": [
+              "573e4c0f38d147f593ab1f52f036eb16",
+              "bc8448939d6b4de4bbaf1f868898f220",
+              "785b16d8e44744a49db0c2abd1322004",
+              "6c5732539ca24ce69ba99790fc39d519",
+              "23cda7c5540d4549996cf51ecd23479a",
+              "ff6526db998140368cee351fa2184ed1"
+            ]
+          },
+          {
+            "day": 2,
+            "type": "Fullbody",
+            "exercise_ids": [
+              "f77d97b6c2db4271af5496cb9d036bf5",
+              "ea1a793cfae948e2819054015ce6a5cd",
+              "2b1ab4ce18d84fc8a6989120e00d1824",
+              "1a2b6b6a598941259e97506f0dde70c6",
+              "03b4a420e2b04921a89813fd2dfddbe7",
+              "1e407305f56e4c178e5f67fea9ca5d84"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prog2",
+        "name": "Feminin Styrke",
+        "number": 2,
+        "url": "https://www.skool.com/jaafit/classroom/448639cb",
+        "days": [
+          {
+            "day": 1,
+            "type": "Fullbody",
+            "exercise_ids": [
+              "4a63032c35fe402ab6416a127eac5ecd",
+              "5aeac24a3d354740b2314864e005386a",
+              "794c1c718af9464a9d8099973e00fdaa",
+              "1a2b6b6a598941259e97506f0dde70c6",
+              "07d4f5ea9a444a83901be6c2485164a5",
+              "3c405fd6ecf94a53b5d10e6f2c7e48b3"
+            ]
+          },
+          {
+            "day": 2,
+            "type": "Fullbody",
+            "exercise_ids": [
+              "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "03b4a420e2b04921a89813fd2dfddbe7",
+              "1e407305f56e4c178e5f67fea9ca5d84",
+              "7aee8ec48aab422fb2df2b4a09452b55",
+              "171aaafa82e147439900695ac5eaec36",
+              "4c48a8783f3f4925b5ece9a0c3b2c767"
+            ]
+          },
+          {
+            "day": 3,
+            "type": "Fullbody",
+            "exercise_ids": [
+              "f77d97b6c2db4271af5496cb9d036bf5",
+              "ea1a793cfae948e2819054015ce6a5cd",
+              "2a85ddf941904c7b8793f91cbee7a963",
+              "785b16d8e44744a49db0c2abd1322004",
+              "573e4c0f38d147f593ab1f52f036eb16",
+              "fa7a7fc50aeb41688709858222bf800e"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prog3",
+        "name": "Hverdagskrigeren",
+        "number": 3,
+        "url": "https://www.skool.com/jaafit/classroom/448639cb",
+        "days": [
+          {
+            "day": 1,
+            "type": "Ben og Biceps",
+            "exercise_ids": [
+              "f77d97b6c2db4271af5496cb9d036bf5",
+              "1e407305f56e4c178e5f67fea9ca5d84"
+            ]
+          },
+          {
+            "day": 2,
+            "type": "Ryg og Triceps",
+            "exercise_ids": [
+              "1a2b6b6a598941259e97506f0dde70c6",
+              "07d4f5ea9a444a83901be6c2485164a5"
+            ]
+          },
+          {
+            "day": 3,
+            "type": "Bryst og Skuldre",
+            "exercise_ids": [
+              "573e4c0f38d147f593ab1f52f036eb16",
+              "785b16d8e44744a49db0c2abd1322004"
+            ]
+          },
+          {
+            "day": 4,
+            "type": "Ben og Biceps",
+            "exercise_ids": [
+              "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "3be46dbb6f4d45b08d0570c100b2e835"
+            ]
+          },
+          {
+            "day": 5,
+            "type": "Mave og Skuldre",
+            "exercise_ids": [
+              "03b4a420e2b04921a89813fd2dfddbe7",
+              "3c405fd6ecf94a53b5d10e6f2c7e48b3"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prog4",
+        "name": "Fundamental Styrke",
+        "number": 4,
+        "url": "https://www.skool.com/jaafit/classroom/448639cb",
+        "days": [
+          {
+            "day": 1,
+            "type": "Lower 1",
+            "exercise_ids": [
+              "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "4a63032c35fe402ab6416a127eac5ecd",
+              "23cda7c5540d4549996cf51ecd23479a",
+              "ff6526db998140368cee351fa2184ed1",
+              "3c405fd6ecf94a53b5d10e6f2c7e48b3"
+            ]
+          },
+          {
+            "day": 2,
+            "type": "Upper 1",
+            "exercise_ids": [
+              "2b1ab4ce18d84fc8a6989120e00d1824",
+              "1a2b6b6a598941259e97506f0dde70c6",
+              "03b4a420e2b04921a89813fd2dfddbe7",
+              "1e407305f56e4c178e5f67fea9ca5d84",
+              "39e9e9e70fd441b0978840bcb99fbcf0"
+            ]
+          },
+          {
+            "day": 3,
+            "type": "Lower 2",
+            "exercise_ids": [
+              "f77d97b6c2db4271af5496cb9d036bf5",
+              "8461e0d9e9dd4c35872734d03092b8ea",
+              "5aeac24a3d354740b2314864e005386a",
+              "794c1c718af9464a9d8099973e00fdaa",
+              "4c48a8783f3f4925b5ece9a0c3b2c767"
+            ]
+          },
+          {
+            "day": 4,
+            "type": "Upper 2",
+            "exercise_ids": [
+              "1f7932321cb340d38ccead6c6bf3d28b",
+              "2a85ddf941904c7b8793f91cbee7a963",
+              "6c5732539ca24ce69ba99790fc39d519",
+              "6f01796cb46f4d798d2ec24e017edff9",
+              "785b16d8e44744a49db0c2abd1322004"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prog5",
+        "name": "Maksimal Styrke",
+        "number": 5,
+        "url": "https://www.skool.com/jaafit/classroom/448639cb",
+        "days": [
+          {
+            "day": 1,
+            "type": "Push 1",
+            "exercise_ids": [
+              "7a19ac3633ea47688ad8de5859c93f03",
+              "2b1ab4ce18d84fc8a6989120e00d1824",
+              "07d4f5ea9a444a83901be6c2485164a5",
+              "785b16d8e44744a49db0c2abd1322004"
+            ]
+          },
+          {
+            "day": 2,
+            "type": "Pull 1",
+            "exercise_ids": [
+              "a4612851822b47518aa797ab0c28fc72",
+              "21c670a4f5d84c01a8a0e3a84280d087",
+              "1e407305f56e4c178e5f67fea9ca5d84",
+              "55b79aab39ad4e1f9ac8323abe15f3ac"
+            ]
+          },
+          {
+            "day": 3,
+            "type": "Legs 1",
+            "exercise_ids": [
+              "23cda7c5540d4549996cf51ecd23479a",
+              "ff6526db998140368cee351fa2184ed1",
+              "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "f77d97b6c2db4271af5496cb9d036bf5"
+            ]
+          },
+          {
+            "day": 4,
+            "type": "Push 2",
+            "exercise_ids": [
+              "03b4a420e2b04921a89813fd2dfddbe7",
+              "2b1ab4ce18d84fc8a6989120e00d1824",
+              "1f7932321cb340d38ccead6c6bf3d28b",
+              "3d282b1b76424a8a88850cae89c55ff2"
+            ]
+          },
+          {
+            "day": 5,
+            "type": "Pull 2",
+            "exercise_ids": [
+              "2a85ddf941904c7b8793f91cbee7a963",
+              "12d5fec659a34a0aaae05ae43a8e2de3",
+              "3e7115bbf11a4b3186734902c07c59a1",
+              "3be46dbb6f4d45b08d0570c100b2e835"
+            ]
+          },
+          {
+            "day": 6,
+            "type": "Legs 2",
+            "exercise_ids": [
+              "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "f77d97b6c2db4271af5496cb9d036bf5",
+              "23cda7c5540d4549996cf51ecd23479a",
+              "ff6526db998140368cee351fa2184ed1"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "573e4c0f38d147f593ab1f52f036eb16",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "1f7932321cb340d38ccead6c6bf3d28b",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "7a19ac3633ea47688ad8de5859c93f03",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "2a85ddf941904c7b8793f91cbee7a963",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "1a2b6b6a598941259e97506f0dde70c6",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "bc8448939d6b4de4bbaf1f868898f220",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "21c670a4f5d84c01a8a0e3a84280d087",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "a4612851822b47518aa797ab0c28fc72",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "12d5fec659a34a0aaae05ae43a8e2de3",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "b74385a88ac44026b5bed3bbbba35218",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "bb50d1d9bee444528887906d40c07b34",
+      "to": "mg_Forlaar",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "8461e0d9e9dd4c35872734d03092b8ea",
+      "to": "mg_Forlaar",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "to": "mg_Forlaar",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "ea1a793cfae948e2819054015ce6a5cd",
+      "to": "mg_Forlaar",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "23cda7c5540d4549996cf51ecd23479a",
+      "to": "mg_Forlaar",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "7aee8ec48aab422fb2df2b4a09452b55",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "171aaafa82e147439900695ac5eaec36",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "4a63032c35fe402ab6416a127eac5ecd",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "f77d97b6c2db4271af5496cb9d036bf5",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "ff6526db998140368cee351fa2184ed1",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "b43cec0635494eeaa7eb602bab97b6c1",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "794c1c718af9464a9d8099973e00fdaa",
+      "to": "mg_Inder og ydersiden af laarene",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "5aeac24a3d354740b2314864e005386a",
+      "to": "mg_Inder og ydersiden af laarene",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "1e407305f56e4c178e5f67fea9ca5d84",
+      "to": "mg_Biceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "6f01796cb46f4d798d2ec24e017edff9",
+      "to": "mg_Biceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "3be46dbb6f4d45b08d0570c100b2e835",
+      "to": "mg_Biceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "07d4f5ea9a444a83901be6c2485164a5",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "39e9e9e70fd441b0978840bcb99fbcf0",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "6c5732539ca24ce69ba99790fc39d519",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "1883d88e769548d3a6a09419e4ae1b8c",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "3d282b1b76424a8a88850cae89c55ff2",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "831f796f738d41478e165a2c03924dcb",
+      "to": "mg_Triceps",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "03b4a420e2b04921a89813fd2dfddbe7",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "785b16d8e44744a49db0c2abd1322004",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "3e7115bbf11a4b3186734902c07c59a1",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "0f13ee8efc0449e582961b757adefdc1",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "946f3cabfd314b2883520918a2abfc82",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "55b79aab39ad4e1f9ac8323abe15f3ac",
+      "to": "mg_Skulder",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "fa7a7fc50aeb41688709858222bf800e",
+      "to": "mg_Mave",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "to": "mg_Mave",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "4c48a8783f3f4925b5ece9a0c3b2c767",
+      "to": "mg_Mave",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "888cc143f1214523adb2bfd576b1356d",
+      "to": "mg_Laeg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "e9278e59e4e54c3e86d3b5d08b636d38",
+      "to": "mg_Laeg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "0801acfa4fa54e1d8845df77df3ef9f0",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "8731db109e424017a2472dbf9bd9c55b",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "28d05260cca14bc691a153777324c7b8",
+      "to": "mg_Bryst",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "bbc611bcea8946ba9267da0fb9493b84",
+      "to": "mg_Baglaar og baller",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "1ee1031e9c6343fe81b612194b620437",
+      "to": "mg_Ryg",
+      "relation": "TRAENER_MUSKEL"
+    },
+    {
+      "from": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "573e4c0f38d147f593ab1f52f036eb16",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1f7932321cb340d38ccead6c6bf3d28b",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "7a19ac3633ea47688ad8de5859c93f03",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "2a85ddf941904c7b8793f91cbee7a963",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1a2b6b6a598941259e97506f0dde70c6",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "bc8448939d6b4de4bbaf1f868898f220",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "21c670a4f5d84c01a8a0e3a84280d087",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "a4612851822b47518aa797ab0c28fc72",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "12d5fec659a34a0aaae05ae43a8e2de3",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "b74385a88ac44026b5bed3bbbba35218",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "bb50d1d9bee444528887906d40c07b34",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "8461e0d9e9dd4c35872734d03092b8ea",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "ea1a793cfae948e2819054015ce6a5cd",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "23cda7c5540d4549996cf51ecd23479a",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "7aee8ec48aab422fb2df2b4a09452b55",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "171aaafa82e147439900695ac5eaec36",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "4a63032c35fe402ab6416a127eac5ecd",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "f77d97b6c2db4271af5496cb9d036bf5",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "ff6526db998140368cee351fa2184ed1",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "b43cec0635494eeaa7eb602bab97b6c1",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "794c1c718af9464a9d8099973e00fdaa",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "5aeac24a3d354740b2314864e005386a",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1e407305f56e4c178e5f67fea9ca5d84",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "6f01796cb46f4d798d2ec24e017edff9",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "3be46dbb6f4d45b08d0570c100b2e835",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "07d4f5ea9a444a83901be6c2485164a5",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "39e9e9e70fd441b0978840bcb99fbcf0",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "6c5732539ca24ce69ba99790fc39d519",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1883d88e769548d3a6a09419e4ae1b8c",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "3d282b1b76424a8a88850cae89c55ff2",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "831f796f738d41478e165a2c03924dcb",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "03b4a420e2b04921a89813fd2dfddbe7",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "785b16d8e44744a49db0c2abd1322004",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "3e7115bbf11a4b3186734902c07c59a1",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "0f13ee8efc0449e582961b757adefdc1",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "946f3cabfd314b2883520918a2abfc82",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "55b79aab39ad4e1f9ac8323abe15f3ac",
+      "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "fa7a7fc50aeb41688709858222bf800e",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "4c48a8783f3f4925b5ece9a0c3b2c767",
+      "to": "eq_ankelstropper",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "888cc143f1214523adb2bfd576b1356d",
+      "to": "eq_bar",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "e9278e59e4e54c3e86d3b5d08b636d38",
+      "to": "eq_kropsvagt",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "0801acfa4fa54e1d8845df77df3ef9f0",
+      "to": "eq_PowerPress",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "8731db109e424017a2472dbf9bd9c55b",
+      "to": "eq_PowerPress",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "28d05260cca14bc691a153777324c7b8",
+      "to": "eq_PowerPress",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "bbc611bcea8946ba9267da0fb9493b84",
+      "to": "eq_PowerPress",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1ee1031e9c6343fe81b612194b620437",
+      "to": "eq_PowerPress",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "prog1",
+      "to": "prog1_dag1",
+      "relation": "HAR_DAG",
+      "label": "Dag 1: Fullbody"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "573e4c0f38d147f593ab1f52f036eb16",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "bc8448939d6b4de4bbaf1f868898f220",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "785b16d8e44744a49db0c2abd1322004",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "6c5732539ca24ce69ba99790fc39d519",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "23cda7c5540d4549996cf51ecd23479a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag1",
+      "to": "ff6526db998140368cee351fa2184ed1",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1",
+      "to": "prog1_dag2",
+      "relation": "HAR_DAG",
+      "label": "Dag 2: Fullbody"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "ea1a793cfae948e2819054015ce6a5cd",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "1a2b6b6a598941259e97506f0dde70c6",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "03b4a420e2b04921a89813fd2dfddbe7",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog1_dag2",
+      "to": "1e407305f56e4c178e5f67fea9ca5d84",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2",
+      "to": "prog2_dag1",
+      "relation": "HAR_DAG",
+      "label": "Dag 1: Fullbody"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "4a63032c35fe402ab6416a127eac5ecd",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "5aeac24a3d354740b2314864e005386a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "794c1c718af9464a9d8099973e00fdaa",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "1a2b6b6a598941259e97506f0dde70c6",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "07d4f5ea9a444a83901be6c2485164a5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag1",
+      "to": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2",
+      "to": "prog2_dag2",
+      "relation": "HAR_DAG",
+      "label": "Dag 2: Fullbody"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "03b4a420e2b04921a89813fd2dfddbe7",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "1e407305f56e4c178e5f67fea9ca5d84",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "7aee8ec48aab422fb2df2b4a09452b55",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "171aaafa82e147439900695ac5eaec36",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag2",
+      "to": "4c48a8783f3f4925b5ece9a0c3b2c767",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2",
+      "to": "prog2_dag3",
+      "relation": "HAR_DAG",
+      "label": "Dag 3: Fullbody"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "ea1a793cfae948e2819054015ce6a5cd",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "2a85ddf941904c7b8793f91cbee7a963",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "785b16d8e44744a49db0c2abd1322004",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "573e4c0f38d147f593ab1f52f036eb16",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog2_dag3",
+      "to": "fa7a7fc50aeb41688709858222bf800e",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3",
+      "to": "prog3_dag1",
+      "relation": "HAR_DAG",
+      "label": "Dag 1: Ben og Biceps"
+    },
+    {
+      "from": "prog3_dag1",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3_dag1",
+      "to": "1e407305f56e4c178e5f67fea9ca5d84",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3",
+      "to": "prog3_dag2",
+      "relation": "HAR_DAG",
+      "label": "Dag 2: Ryg og Triceps"
+    },
+    {
+      "from": "prog3_dag2",
+      "to": "1a2b6b6a598941259e97506f0dde70c6",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3_dag2",
+      "to": "07d4f5ea9a444a83901be6c2485164a5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3",
+      "to": "prog3_dag3",
+      "relation": "HAR_DAG",
+      "label": "Dag 3: Bryst og Skuldre"
+    },
+    {
+      "from": "prog3_dag3",
+      "to": "573e4c0f38d147f593ab1f52f036eb16",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3_dag3",
+      "to": "785b16d8e44744a49db0c2abd1322004",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3",
+      "to": "prog3_dag4",
+      "relation": "HAR_DAG",
+      "label": "Dag 4: Ben og Biceps"
+    },
+    {
+      "from": "prog3_dag4",
+      "to": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3_dag4",
+      "to": "3be46dbb6f4d45b08d0570c100b2e835",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3",
+      "to": "prog3_dag5",
+      "relation": "HAR_DAG",
+      "label": "Dag 5: Mave og Skuldre"
+    },
+    {
+      "from": "prog3_dag5",
+      "to": "03b4a420e2b04921a89813fd2dfddbe7",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog3_dag5",
+      "to": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4",
+      "to": "prog4_dag1",
+      "relation": "HAR_DAG",
+      "label": "Dag 1: Lower 1"
+    },
+    {
+      "from": "prog4_dag1",
+      "to": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag1",
+      "to": "4a63032c35fe402ab6416a127eac5ecd",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag1",
+      "to": "23cda7c5540d4549996cf51ecd23479a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag1",
+      "to": "ff6526db998140368cee351fa2184ed1",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag1",
+      "to": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4",
+      "to": "prog4_dag2",
+      "relation": "HAR_DAG",
+      "label": "Dag 2: Upper 1"
+    },
+    {
+      "from": "prog4_dag2",
+      "to": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag2",
+      "to": "1a2b6b6a598941259e97506f0dde70c6",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag2",
+      "to": "03b4a420e2b04921a89813fd2dfddbe7",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag2",
+      "to": "1e407305f56e4c178e5f67fea9ca5d84",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag2",
+      "to": "39e9e9e70fd441b0978840bcb99fbcf0",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4",
+      "to": "prog4_dag3",
+      "relation": "HAR_DAG",
+      "label": "Dag 3: Lower 2"
+    },
+    {
+      "from": "prog4_dag3",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag3",
+      "to": "8461e0d9e9dd4c35872734d03092b8ea",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag3",
+      "to": "5aeac24a3d354740b2314864e005386a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag3",
+      "to": "794c1c718af9464a9d8099973e00fdaa",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag3",
+      "to": "4c48a8783f3f4925b5ece9a0c3b2c767",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4",
+      "to": "prog4_dag4",
+      "relation": "HAR_DAG",
+      "label": "Dag 4: Upper 2"
+    },
+    {
+      "from": "prog4_dag4",
+      "to": "1f7932321cb340d38ccead6c6bf3d28b",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag4",
+      "to": "2a85ddf941904c7b8793f91cbee7a963",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag4",
+      "to": "6c5732539ca24ce69ba99790fc39d519",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag4",
+      "to": "6f01796cb46f4d798d2ec24e017edff9",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog4_dag4",
+      "to": "785b16d8e44744a49db0c2abd1322004",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag1",
+      "relation": "HAR_DAG",
+      "label": "Dag 1: Push 1"
+    },
+    {
+      "from": "prog5_dag1",
+      "to": "7a19ac3633ea47688ad8de5859c93f03",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag1",
+      "to": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag1",
+      "to": "07d4f5ea9a444a83901be6c2485164a5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag1",
+      "to": "785b16d8e44744a49db0c2abd1322004",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag2",
+      "relation": "HAR_DAG",
+      "label": "Dag 2: Pull 1"
+    },
+    {
+      "from": "prog5_dag2",
+      "to": "a4612851822b47518aa797ab0c28fc72",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag2",
+      "to": "21c670a4f5d84c01a8a0e3a84280d087",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag2",
+      "to": "1e407305f56e4c178e5f67fea9ca5d84",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag2",
+      "to": "55b79aab39ad4e1f9ac8323abe15f3ac",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag3",
+      "relation": "HAR_DAG",
+      "label": "Dag 3: Legs 1"
+    },
+    {
+      "from": "prog5_dag3",
+      "to": "23cda7c5540d4549996cf51ecd23479a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag3",
+      "to": "ff6526db998140368cee351fa2184ed1",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag3",
+      "to": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag3",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag4",
+      "relation": "HAR_DAG",
+      "label": "Dag 4: Push 2"
+    },
+    {
+      "from": "prog5_dag4",
+      "to": "03b4a420e2b04921a89813fd2dfddbe7",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag4",
+      "to": "2b1ab4ce18d84fc8a6989120e00d1824",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag4",
+      "to": "1f7932321cb340d38ccead6c6bf3d28b",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag4",
+      "to": "3d282b1b76424a8a88850cae89c55ff2",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag5",
+      "relation": "HAR_DAG",
+      "label": "Dag 5: Pull 2"
+    },
+    {
+      "from": "prog5_dag5",
+      "to": "2a85ddf941904c7b8793f91cbee7a963",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag5",
+      "to": "12d5fec659a34a0aaae05ae43a8e2de3",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag5",
+      "to": "3e7115bbf11a4b3186734902c07c59a1",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag5",
+      "to": "3be46dbb6f4d45b08d0570c100b2e835",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5",
+      "to": "prog5_dag6",
+      "relation": "HAR_DAG",
+      "label": "Dag 6: Legs 2"
+    },
+    {
+      "from": "prog5_dag6",
+      "to": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag6",
+      "to": "f77d97b6c2db4271af5496cb9d036bf5",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag6",
+      "to": "23cda7c5540d4549996cf51ecd23479a",
+      "relation": "INKLUDERER_OEVELSE"
+    },
+    {
+      "from": "prog5_dag6",
+      "to": "ff6526db998140368cee351fa2184ed1",
+      "relation": "INKLUDERER_OEVELSE"
+    }
+  ]
+}
