@@ -658,12 +658,14 @@ function onNodeClick(params) {
     const totalEx = new Set(prog.days.flatMap(d=>d.exs)).size;
     body.innerHTML = `<p style="color:#888;margin-bottom:8px">${prog.days.length} dage · ${totalEx} unikke øvelser</p>` +
       prog.days.map(d => `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: ` +
+        `<span style="color:#f39c12">Opvarmning</span>, ` +
         d.exs.map(eid => EX_DISPLAY[eid]||eid).join(', ') + '</p>').join('') +
       `<p style="margin-top:8px"><a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">🔗 Se program på JAAFIT (kræver login)</a></p>`;
   } else if (node.nodeType === 'day') {
     const day = node.dayData;
     title.textContent = `${node.progName} – Dag ${day.n}: ${day.type}`;
-    body.innerHTML = day.exs.map((eid,i) => `<p>${i+1}. ${EX_DISPLAY[eid]||eid}</p>`).join('');
+    body.innerHTML = `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>` +
+      day.exs.map((eid,i) => `<p>${i+1}. ${EX_DISPLAY[eid]||eid}</p>`).join('');
   } else {
     closeInfo(); return;
   }
