@@ -124,8 +124,25 @@ svg.body-svg{overflow:visible}
 .next-ex-row:last-child{border-bottom:none}
 .next-ex-num{color:#e94560;font-size:0.75rem;width:20px;flex-shrink:0}
 .next-ex-name{flex:1;color:#e0e0e0}
+a.next-ex-name{text-decoration:none}
+a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
 .next-ex-weight{color:#4fc3f7;font-size:0.75rem;white-space:nowrap}
 .next-ex-mg{font-size:0.68rem;color:#666;white-space:nowrap}
+.next-eq-summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  margin-top:10px;padding-top:8px;border-top:1px solid #2a2a4a}
+.next-eq-label{font-size:0.72rem;color:#666;white-space:nowrap}
+.next-eq-tag{font-size:0.72rem;padding:2px 8px;border-radius:10px;
+  background:#1e1e3a;border:1px solid #3a3a5a;color:#aaa;white-space:nowrap}
+.next-elastik-summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;
+  margin-top:6px}
+.next-elastik-row{font-size:0.75rem;color:#888}
+.next-elastik-row strong{color:#4fc3f7}
+.warmup-name{color:#f39c12;font-weight:600}
+.warmup-desc{font-size:0.75rem;margin:0 0 8px 28px;color:#888;font-style:italic;
+  padding-bottom:8px;border-bottom:1px solid #2a2a4a}
+.warmup-desc.has-desc{color:#ccc;font-style:normal}
+.warmup-pill{border-color:#f39c1244 !important;color:#f39c12 !important}
+.warmup-tr td{padding:4px 6px;font-size:0.78rem}
 
 /* ── PROGRAM OVERVIEW ─────────────────────────────────────── */
 .prog-day{border:1px solid #2a2a4a;border-radius:8px;padding:10px;margin-bottom:8px}
@@ -182,6 +199,29 @@ svg.body-svg{overflow:visible}
 .mydata-table tr:hover td{background:#1a1a2e}
 .col-weight,.col-date{white-space:nowrap;color:#4fc3f7}
 
+/* ── MINE PROGRAMMER (screen) ────────────────────────────── */
+.myprog-print-header{display:none}
+.myprog-screen-header{background:#12122a;border:1px solid #2a2a4a;
+  border-radius:10px;padding:16px;margin-bottom:16px}
+.myprog-card{background:#12122a;border:1px solid #2a2a4a;border-radius:10px;
+  padding:16px;margin-bottom:16px}
+.myprog-card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  padding-bottom:10px;border-bottom:1px solid #2a2a4a;flex-wrap:wrap}
+.myprog-title{font-size:1rem;font-weight:700;color:#e94560;flex:1}
+.myprog-badge{font-size:0.7rem;padding:2px 8px;background:#e9456020;
+  border:1px solid #e9456060;border-radius:10px;color:#e94560;white-space:nowrap}
+.myprog-print-check{display:flex;align-items:center;gap:4px;cursor:pointer;
+  font-size:0.75rem;color:#666}
+.myprog-day{margin-bottom:12px}
+.myprog-day-title{font-size:0.82rem;font-weight:600;color:#4fc3f7;
+  margin-bottom:6px;padding:4px 0;border-bottom:1px solid #1e1e3a}
+.myprog-ex-table{width:100%;border-collapse:collapse}
+.myprog-ex-table tr:hover td{background:#1a1a2e}
+.myprog-ex-name{padding:5px 8px;font-size:0.82rem;color:#c0c0c0;width:100%}
+.myprog-ex-mg{padding:5px 8px;font-size:0.72rem;white-space:nowrap;min-width:90px}
+.myprog-ex-weight{padding:5px 8px;font-size:0.82rem;color:#4fc3f7;
+  white-space:nowrap;text-align:right;min-width:60px}
+
 /* ── PRINT ───────────────────────────────────────────────── */
 @media print {
   @page{size:A4 portrait;margin:20mm 28mm}
@@ -221,6 +261,26 @@ svg.body-svg{overflow:visible}
   .col-mg{display:none !important}
   .col-weight{color:#000 !important;white-space:nowrap}
   .col-date{color:#555 !important;white-space:nowrap}
+  /* Mine programmer print */
+  .myprog-print-header{display:block !important;margin-bottom:5mm;
+    padding-bottom:3mm;border-bottom:1.5pt solid #333}
+  .myprog-print-header h1{font-size:13pt;font-weight:700;color:#000;margin:0}
+  .myprog-print-header p{font-size:8.5pt;color:#444;margin-top:1.5mm}
+  .myprog-card{display:none !important;background:none;border:none;padding:0;margin-bottom:0}
+  .myprog-card.print-selected{display:block !important;margin-bottom:6mm;
+    border:0.5pt solid #bbb;padding:4mm;border-radius:2mm}
+  .myprog-card.print-selected:not(.first-print){break-before:page}
+  .myprog-card-header{border-bottom:1pt solid #333;padding-bottom:2mm;margin-bottom:3mm}
+  .myprog-title{font-size:11pt;font-weight:700;color:#000}
+  .myprog-badge{font-size:7pt;color:#555;background:none;border:none;padding-left:3mm}
+  .myprog-day{margin-bottom:2.5mm}
+  .myprog-day-title{font-size:8.5pt;font-weight:700;color:#333;
+    border-bottom:0.5pt solid #ddd;padding-bottom:0.5mm;margin-bottom:1mm}
+  .myprog-ex-table{font-size:7.5pt;width:100%}
+  .myprog-ex-table tr:hover td{background:none}
+  .myprog-ex-name{padding:1pt 2pt;color:#000}
+  .myprog-ex-mg{padding:1pt 2pt;font-size:7pt}
+  .myprog-ex-weight{padding:1pt 2pt;color:#333}
 }
 </style>
 </head>
@@ -245,6 +305,7 @@ svg.body-svg{overflow:visible}
   <button class="nav-tab" onclick="showPage('muscles')">💪 Muskler</button>
   <button class="nav-tab" onclick="showPage('program')">📋 Program</button>
   <button class="nav-tab" onclick="showPage('mydata')">📄 Mine data</button>
+  <button class="nav-tab" onclick="showPage('myprograms')">🗂 Mine programmer</button>
 </nav>
 
 <!-- ════════════════════════════════════════════════════════ -->
@@ -549,6 +610,13 @@ svg.body-svg{overflow:visible}
   <div id="mydata-body"></div>
 </div>
 
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  PAGE: MINE TRÆNINGSPROGRAMMER                         -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="page" id="page-myprograms">
+  <div id="myprograms-body"></div>
+</div>
+
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
 
@@ -571,87 +639,88 @@ const MG_DISPLAY={
   "Biceps":"Biceps","Triceps":"Triceps","Skulder":"Skulder","Mave":"Mave","Laeg":"Læg"
 };
 const EX={
-  "2b1ab4ce18d84fc8a6989120e00d1824":{t:"Brystfly m. håndtag",mg:"Bryst"},
-  "573e4c0f38d147f593ab1f52f036eb16":{t:"Stående Brystpres m. bar",mg:"Bryst"},
-  "1f7932321cb340d38ccead6c6bf3d28b":{t:"Fritstående Brystpres m. bar",mg:"Bryst"},
-  "7a19ac3633ea47688ad8de5859c93f03":{t:"Armbøjning m. elastik",mg:"Bryst"},
-  "2a85ddf941904c7b8793f91cbee7a963":{t:"Bent over Row m. bar",mg:"Ryg"},
-  "1a2b6b6a598941259e97506f0dde70c6":{t:"Træk til Hofte m. håndtag",mg:"Ryg"},
-  "bc8448939d6b4de4bbaf1f868898f220":{t:"Stående Row m. bar",mg:"Ryg"},
-  "21c670a4f5d84c01a8a0e3a84280d087":{t:"Pullover m. bar",mg:"Ryg"},
-  "a4612851822b47518aa797ab0c28fc72":{t:"Siddende Træk til Bryst m. bar",mg:"Ryg"},
-  "12d5fec659a34a0aaae05ae43a8e2de3":{t:"Siddende pull down (1 arm)",mg:"Ryg"},
-  "b74385a88ac44026b5bed3bbbba35218":{t:"Siddende træk til hofte m. håndtag",mg:"Ryg"},
-  "bb50d1d9bee444528887906d40c07b34":{t:"Squat m. bar",mg:"Forlaar"},
-  "8461e0d9e9dd4c35872734d03092b8ea":{t:"Split Squat m. bar",mg:"Forlaar"},
-  "ce15f8fe0c9d47ec8f2278f534b96b20":{t:"Front Squat m. bar",mg:"Forlaar"},
-  "ea1a793cfae948e2819054015ce6a5cd":{t:"Begyndervenlig Squat m. bar",mg:"Forlaar"},
-  "23cda7c5540d4549996cf51ecd23479a":{t:"Leg Extension m. ankelstropper",mg:"Forlaar"},
-  "7aee8ec48aab422fb2df2b4a09452b55":{t:"Hofte Extension m. håndtag",mg:"Baglaar og baller"},
-  "171aaafa82e147439900695ac5eaec36":{t:"Donkey Kick m. ankelstropper",mg:"Baglaar og baller"},
-  "4a63032c35fe402ab6416a127eac5ecd":{t:"Rumænsk Dødløft m. bar",mg:"Baglaar og baller"},
-  "f77d97b6c2db4271af5496cb9d036bf5":{t:"Dødløft m. bar",mg:"Baglaar og baller"},
-  "ff6526db998140368cee351fa2184ed1":{t:"Leg Curl m. ankelstropper",mg:"Baglaar og baller"},
-  "b43cec0635494eeaa7eb602bab97b6c1":{t:"Hip Thrust m. bar",mg:"Baglaar og baller"},
-  "794c1c718af9464a9d8099973e00fdaa":{t:"Adduction m. ankelstropper",mg:"Inder og ydersiden af laarene"},
-  "5aeac24a3d354740b2314864e005386a":{t:"Abduktion m. ankelstropper",mg:"Inder og ydersiden af laarene"},
-  "1e407305f56e4c178e5f67fea9ca5d84":{t:"Biceps Curl m. bar",mg:"Biceps"},
-  "6f01796cb46f4d798d2ec24e017edff9":{t:"Biceps Curl Faceaway m. håndtag",mg:"Biceps"},
-  "3be46dbb6f4d45b08d0570c100b2e835":{t:"Hammercurl m. elastik",mg:"Biceps"},
-  "07d4f5ea9a444a83901be6c2485164a5":{t:"Triceps Pushdown m. håndtag",mg:"Triceps"},
-  "39e9e9e70fd441b0978840bcb99fbcf0":{t:"Skullcrusher m. bar",mg:"Triceps"},
-  "6c5732539ca24ce69ba99790fc39d519":{t:"Triceps Extension m. elastik",mg:"Triceps"},
-  "1883d88e769548d3a6a09419e4ae1b8c":{t:"Triceps Kickback m. elastik",mg:"Triceps"},
-  "3d282b1b76424a8a88850cae89c55ff2":{t:"Triceps Pushdown m. elastik",mg:"Triceps"},
-  "831f796f738d41478e165a2c03924dcb":{t:"Triceps Pushdown m. bar",mg:"Triceps"},
-  "03b4a420e2b04921a89813fd2dfddbe7":{t:"Overhead Press m. bar",mg:"Skulder"},
-  "785b16d8e44744a49db0c2abd1322004":{t:"Lateral Raises m. håndtag",mg:"Skulder"},
-  "3e7115bbf11a4b3186734902c07c59a1":{t:"Rear Delt Fly m. elastik",mg:"Skulder"},
-  "0f13ee8efc0449e582961b757adefdc1":{t:"Lateral Raise m. døranker (Øvet)",mg:"Skulder"},
-  "946f3cabfd314b2883520918a2abfc82":{t:"Front Raise m. håndtag",mg:"Skulder"},
-  "55b79aab39ad4e1f9ac8323abe15f3ac":{t:"Face Pull m. håndtag",mg:"Skulder"},
-  "fa7a7fc50aeb41688709858222bf800e":{t:"Side Bend m. elastik",mg:"Mave"},
-  "3c405fd6ecf94a53b5d10e6f2c7e48b3":{t:"Chrunches m. elastik",mg:"Mave"},
-  "4c48a8783f3f4925b5ece9a0c3b2c767":{t:"Leg Raises m. ankelstropper",mg:"Mave"},
-  "888cc143f1214523adb2bfd576b1356d":{t:"Calf Raises m. bar",mg:"Laeg"},
-  "e9278e59e4e54c3e86d3b5d08b636d38":{t:"Calf Raises m. kropsvægt",mg:"Laeg"},
-  "0801acfa4fa54e1d8845df77df3ef9f0":{t:"Seated row m. PowerPress",mg:"Ryg"},
-  "8731db109e424017a2472dbf9bd9c55b":{t:"Liggende brystpres m. PowerPress",mg:"Bryst"},
-  "28d05260cca14bc691a153777324c7b8":{t:"Stående brystpres m. PowerPress",mg:"Bryst"},
-  "bbc611bcea8946ba9267da0fb9493b84":{t:"Rumænsk dødløft m. PowerPress",mg:"Baglaar og baller"},
-  "1ee1031e9c6343fe81b612194b620437":{t:"Bent over row m. PowerPress",mg:"Ryg"}
+  "2b1ab4ce18d84fc8a6989120e00d1824":{t:"Brystfly m. håndtag",mg:"Bryst",eq:["haandtag"],anchor:true},
+  "573e4c0f38d147f593ab1f52f036eb16":{t:"Stående Brystpres m. bar",mg:"Bryst",eq:["bar"],anchor:true},
+  "1f7932321cb340d38ccead6c6bf3d28b":{t:"Fritstående Brystpres m. bar",mg:"Bryst",eq:["bar"],anchor:false},
+  "7a19ac3633ea47688ad8de5859c93f03":{t:"Armbøjning m. elastik",mg:"Bryst",eq:["elastik"],anchor:false},
+  "2a85ddf941904c7b8793f91cbee7a963":{t:"Bent over Row m. bar",mg:"Ryg",eq:["bar"],anchor:false},
+  "1a2b6b6a598941259e97506f0dde70c6":{t:"Træk til Hofte m. håndtag",mg:"Ryg",eq:["haandtag"],anchor:true},
+  "bc8448939d6b4de4bbaf1f868898f220":{t:"Stående Row m. bar",mg:"Ryg",eq:["bar"],anchor:true},
+  "21c670a4f5d84c01a8a0e3a84280d087":{t:"Pullover m. bar",mg:"Ryg",eq:["bar"],anchor:true},
+  "a4612851822b47518aa797ab0c28fc72":{t:"Siddende Træk til Bryst m. bar",mg:"Ryg",eq:["bar"],anchor:true},
+  "12d5fec659a34a0aaae05ae43a8e2de3":{t:"Siddende pull down (1 arm)",mg:"Ryg",eq:["haandtag"],anchor:true},
+  "b74385a88ac44026b5bed3bbbba35218":{t:"Siddende træk til hofte m. håndtag",mg:"Ryg",eq:["haandtag"],anchor:true},
+  "bb50d1d9bee444528887906d40c07b34":{t:"Squat m. bar",mg:"Forlaar",eq:["bar"],anchor:false},
+  "8461e0d9e9dd4c35872734d03092b8ea":{t:"Split Squat m. bar",mg:"Forlaar",eq:["bar"],anchor:false},
+  "ce15f8fe0c9d47ec8f2278f534b96b20":{t:"Front Squat m. bar",mg:"Forlaar",eq:["bar"],anchor:false},
+  "ea1a793cfae948e2819054015ce6a5cd":{t:"Begyndervenlig Squat m. bar",mg:"Forlaar",eq:["bar"],anchor:false},
+  "23cda7c5540d4549996cf51ecd23479a":{t:"Leg Extension m. ankelstropper",mg:"Forlaar",eq:["ankelstropper"],anchor:true},
+  "7aee8ec48aab422fb2df2b4a09452b55":{t:"Hofte Extension m. håndtag",mg:"Baglaar og baller",eq:["haandtag"],anchor:true},
+  "171aaafa82e147439900695ac5eaec36":{t:"Donkey Kick m. ankelstropper",mg:"Baglaar og baller",eq:["ankelstropper"],anchor:true},
+  "4a63032c35fe402ab6416a127eac5ecd":{t:"Rumænsk Dødløft m. bar",mg:"Baglaar og baller",eq:["bar"],anchor:false},
+  "f77d97b6c2db4271af5496cb9d036bf5":{t:"Dødløft m. bar",mg:"Baglaar og baller",eq:["bar"],anchor:false},
+  "ff6526db998140368cee351fa2184ed1":{t:"Leg Curl m. ankelstropper",mg:"Baglaar og baller",eq:["ankelstropper"],anchor:true},
+  "b43cec0635494eeaa7eb602bab97b6c1":{t:"Hip Thrust m. bar",mg:"Baglaar og baller",eq:["bar"],anchor:false},
+  "794c1c718af9464a9d8099973e00fdaa":{t:"Adduction m. ankelstropper",mg:"Inder og ydersiden af laarene",eq:["ankelstropper"],anchor:true},
+  "5aeac24a3d354740b2314864e005386a":{t:"Abduktion m. ankelstropper",mg:"Inder og ydersiden af laarene",eq:["ankelstropper"],anchor:true},
+  "1e407305f56e4c178e5f67fea9ca5d84":{t:"Biceps Curl m. bar",mg:"Biceps",eq:["bar"],anchor:false},
+  "6f01796cb46f4d798d2ec24e017edff9":{t:"Biceps Curl Faceaway m. håndtag",mg:"Biceps",eq:["haandtag"],anchor:true},
+  "3be46dbb6f4d45b08d0570c100b2e835":{t:"Hammercurl m. elastik",mg:"Biceps",eq:["elastik"],anchor:false},
+  "07d4f5ea9a444a83901be6c2485164a5":{t:"Triceps Pushdown m. håndtag",mg:"Triceps",eq:["haandtag"],anchor:true},
+  "39e9e9e70fd441b0978840bcb99fbcf0":{t:"Skullcrusher m. bar",mg:"Triceps",eq:["bar"],anchor:false},
+  "6c5732539ca24ce69ba99790fc39d519":{t:"Triceps Extension m. elastik",mg:"Triceps",eq:["elastik"],anchor:false},
+  "1883d88e769548d3a6a09419e4ae1b8c":{t:"Triceps Kickback m. elastik",mg:"Triceps",eq:["elastik"],anchor:false},
+  "3d282b1b76424a8a88850cae89c55ff2":{t:"Triceps Pushdown m. elastik",mg:"Triceps",eq:["elastik"],anchor:false},
+  "831f796f738d41478e165a2c03924dcb":{t:"Triceps Pushdown m. bar",mg:"Triceps",eq:["bar"],anchor:true},
+  "03b4a420e2b04921a89813fd2dfddbe7":{t:"Overhead Press m. bar",mg:"Skulder",eq:["bar"],anchor:false},
+  "785b16d8e44744a49db0c2abd1322004":{t:"Lateral Raises m. håndtag",mg:"Skulder",eq:["haandtag"],anchor:false},
+  "3e7115bbf11a4b3186734902c07c59a1":{t:"Rear Delt Fly m. elastik",mg:"Skulder",eq:["elastik"],anchor:false},
+  "0f13ee8efc0449e582961b757adefdc1":{t:"Lateral Raise m. døranker (Øvet)",mg:"Skulder",eq:["haandtag"],anchor:true},
+  "946f3cabfd314b2883520918a2abfc82":{t:"Front Raise m. håndtag",mg:"Skulder",eq:["haandtag"],anchor:false},
+  "55b79aab39ad4e1f9ac8323abe15f3ac":{t:"Face Pull m. håndtag",mg:"Skulder",eq:["haandtag"],anchor:true},
+  "fa7a7fc50aeb41688709858222bf800e":{t:"Side Bend m. elastik",mg:"Mave",eq:["elastik"],anchor:false},
+  "3c405fd6ecf94a53b5d10e6f2c7e48b3":{t:"Chrunches m. elastik",mg:"Mave",eq:["elastik"],anchor:false},
+  "4c48a8783f3f4925b5ece9a0c3b2c767":{t:"Leg Raises m. ankelstropper",mg:"Mave",eq:["ankelstropper"],anchor:true},
+  "888cc143f1214523adb2bfd576b1356d":{t:"Calf Raises m. bar",mg:"Laeg",eq:["bar"],anchor:false},
+  "e9278e59e4e54c3e86d3b5d08b636d38":{t:"Calf Raises m. kropsvægt",mg:"Laeg",eq:["kropsvagt"],anchor:false},
+  "0801acfa4fa54e1d8845df77df3ef9f0":{t:"Seated row m. PowerPress",mg:"Ryg",eq:["PowerPress"],anchor:false},
+  "8731db109e424017a2472dbf9bd9c55b":{t:"Liggende brystpres m. PowerPress",mg:"Bryst",eq:["PowerPress"],anchor:false},
+  "28d05260cca14bc691a153777324c7b8":{t:"Stående brystpres m. PowerPress",mg:"Bryst",eq:["PowerPress"],anchor:false},
+  "bbc611bcea8946ba9267da0fb9493b84":{t:"Rumænsk dødløft m. PowerPress",mg:"Baglaar og baller",eq:["PowerPress"],anchor:false},
+  "1ee1031e9c6343fe81b612194b620437":{t:"Bent over row m. PowerPress",mg:"Ryg",eq:["PowerPress"],anchor:false}
 };
 
+const SKOOL = 'https://www.skool.com/jaafit/classroom/448639cb?md=';
 const PROGRAMS=[
   {id:"prog1",name:"1: Effektiv Velvære",days:[
-    {n:1,type:"Fullbody",exs:["573e4c0f38d147f593ab1f52f036eb16","bc8448939d6b4de4bbaf1f868898f220","785b16d8e44744a49db0c2abd1322004","6c5732539ca24ce69ba99790fc39d519","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1"]},
-    {n:2,type:"Fullbody",exs:["f77d97b6c2db4271af5496cb9d036bf5","ea1a793cfae948e2819054015ce6a5cd","2b1ab4ce18d84fc8a6989120e00d1824","1a2b6b6a598941259e97506f0dde70c6","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84"]},
+    {n:1,type:"Fullbody",url:SKOOL+"3b380f1704f4461a946d963f6277a2d3",exs:["573e4c0f38d147f593ab1f52f036eb16","bc8448939d6b4de4bbaf1f868898f220","785b16d8e44744a49db0c2abd1322004","6c5732539ca24ce69ba99790fc39d519","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1"]},
+    {n:2,type:"Fullbody",url:SKOOL+"9335278ef0f14017b1f9d764b0084605",exs:["f77d97b6c2db4271af5496cb9d036bf5","ea1a793cfae948e2819054015ce6a5cd","2b1ab4ce18d84fc8a6989120e00d1824","1a2b6b6a598941259e97506f0dde70c6","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84"]},
   ]},
   {id:"prog2",name:"2: Feminin Styrke",days:[
-    {n:1,type:"Fullbody",exs:["4a63032c35fe402ab6416a127eac5ecd","5aeac24a3d354740b2314864e005386a","794c1c718af9464a9d8099973e00fdaa","1a2b6b6a598941259e97506f0dde70c6","07d4f5ea9a444a83901be6c2485164a5","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
-    {n:2,type:"Fullbody",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84","7aee8ec48aab422fb2df2b4a09452b55","171aaafa82e147439900695ac5eaec36","4c48a8783f3f4925b5ece9a0c3b2c767"]},
-    {n:3,type:"Fullbody",exs:["f77d97b6c2db4271af5496cb9d036bf5","ea1a793cfae948e2819054015ce6a5cd","2a85ddf941904c7b8793f91cbee7a963","785b16d8e44744a49db0c2abd1322004","573e4c0f38d147f593ab1f52f036eb16","fa7a7fc50aeb41688709858222bf800e"]},
+    {n:1,type:"Fullbody",url:SKOOL+"1522bcc0cd324b50933b2e2a63f97513",exs:["4a63032c35fe402ab6416a127eac5ecd","5aeac24a3d354740b2314864e005386a","794c1c718af9464a9d8099973e00fdaa","1a2b6b6a598941259e97506f0dde70c6","07d4f5ea9a444a83901be6c2485164a5","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
+    {n:2,type:"Fullbody",url:SKOOL+"0c5f5b93d5e04b85840bc178ce9b54f5",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84","7aee8ec48aab422fb2df2b4a09452b55","171aaafa82e147439900695ac5eaec36","4c48a8783f3f4925b5ece9a0c3b2c767"]},
+    {n:3,type:"Fullbody",url:null,exs:["f77d97b6c2db4271af5496cb9d036bf5","ea1a793cfae948e2819054015ce6a5cd","2a85ddf941904c7b8793f91cbee7a963","785b16d8e44744a49db0c2abd1322004","573e4c0f38d147f593ab1f52f036eb16","fa7a7fc50aeb41688709858222bf800e"]},
   ]},
   {id:"prog3",name:"3: Hverdagskrigeren",days:[
-    {n:1,type:"Ben & Biceps",exs:["f77d97b6c2db4271af5496cb9d036bf5","1e407305f56e4c178e5f67fea9ca5d84"]},
-    {n:2,type:"Ryg & Triceps",exs:["1a2b6b6a598941259e97506f0dde70c6","07d4f5ea9a444a83901be6c2485164a5"]},
-    {n:3,type:"Bryst & Skuldre",exs:["573e4c0f38d147f593ab1f52f036eb16","785b16d8e44744a49db0c2abd1322004"]},
-    {n:4,type:"Ben & Biceps",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","3be46dbb6f4d45b08d0570c100b2e835"]},
-    {n:5,type:"Mave & Skuldre",exs:["03b4a420e2b04921a89813fd2dfddbe7","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
+    {n:1,type:"Ben & Biceps",url:SKOOL+"29a7dfda954648f58a8663c760345922",exs:["f77d97b6c2db4271af5496cb9d036bf5","1e407305f56e4c178e5f67fea9ca5d84"]},
+    {n:2,type:"Ryg & Triceps",url:SKOOL+"77065a2462704643b686f693f6f66f68",exs:["1a2b6b6a598941259e97506f0dde70c6","07d4f5ea9a444a83901be6c2485164a5"]},
+    {n:3,type:"Bryst & Skuldre",url:SKOOL+"886de3f077484aec8cd50c6dd8cd49bf",exs:["573e4c0f38d147f593ab1f52f036eb16","785b16d8e44744a49db0c2abd1322004"]},
+    {n:4,type:"Ben & Biceps",url:SKOOL+"6eb10fa62217470aa0b9ee5c23243db8",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","3be46dbb6f4d45b08d0570c100b2e835"]},
+    {n:5,type:"Mave & Skuldre",url:SKOOL+"5675205a268441429be5798f0a0fb248",exs:["03b4a420e2b04921a89813fd2dfddbe7","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
   ]},
   {id:"prog4",name:"4: Fundamental Styrke",days:[
-    {n:1,type:"Lower 1",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","4a63032c35fe402ab6416a127eac5ecd","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
-    {n:2,type:"Upper 1",exs:["2b1ab4ce18d84fc8a6989120e00d1824","1a2b6b6a598941259e97506f0dde70c6","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84","39e9e9e70fd441b0978840bcb99fbcf0"]},
-    {n:3,type:"Lower 2",exs:["f77d97b6c2db4271af5496cb9d036bf5","8461e0d9e9dd4c35872734d03092b8ea","5aeac24a3d354740b2314864e005386a","794c1c718af9464a9d8099973e00fdaa","4c48a8783f3f4925b5ece9a0c3b2c767"]},
-    {n:4,type:"Upper 2",exs:["1f7932321cb340d38ccead6c6bf3d28b","2a85ddf941904c7b8793f91cbee7a963","6c5732539ca24ce69ba99790fc39d519","6f01796cb46f4d798d2ec24e017edff9","785b16d8e44744a49db0c2abd1322004"]},
+    {n:1,type:"Lower 1",url:SKOOL+"0c173478a05f444ab74a1ab2cfe1ea1f",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","4a63032c35fe402ab6416a127eac5ecd","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1","3c405fd6ecf94a53b5d10e6f2c7e48b3"]},
+    {n:2,type:"Upper 1",url:SKOOL+"85a2c876134a4b58ae411a71189c1a6d",exs:["2b1ab4ce18d84fc8a6989120e00d1824","1a2b6b6a598941259e97506f0dde70c6","03b4a420e2b04921a89813fd2dfddbe7","1e407305f56e4c178e5f67fea9ca5d84","39e9e9e70fd441b0978840bcb99fbcf0"]},
+    {n:3,type:"Lower 2",url:SKOOL+"2033ff9f2f1742ebb4e4f01ce45eafeb",exs:["f77d97b6c2db4271af5496cb9d036bf5","8461e0d9e9dd4c35872734d03092b8ea","5aeac24a3d354740b2314864e005386a","794c1c718af9464a9d8099973e00fdaa","4c48a8783f3f4925b5ece9a0c3b2c767"]},
+    {n:4,type:"Upper 2",url:SKOOL+"65919af222b8480fa6710dc2bf78f309",exs:["1f7932321cb340d38ccead6c6bf3d28b","2a85ddf941904c7b8793f91cbee7a963","6c5732539ca24ce69ba99790fc39d519","6f01796cb46f4d798d2ec24e017edff9","785b16d8e44744a49db0c2abd1322004"]},
   ]},
   {id:"prog5",name:"5: Maksimal Styrke",days:[
-    {n:1,type:"Push 1",exs:["7a19ac3633ea47688ad8de5859c93f03","2b1ab4ce18d84fc8a6989120e00d1824","07d4f5ea9a444a83901be6c2485164a5","785b16d8e44744a49db0c2abd1322004"]},
-    {n:2,type:"Pull 1",exs:["a4612851822b47518aa797ab0c28fc72","21c670a4f5d84c01a8a0e3a84280d087","1e407305f56e4c178e5f67fea9ca5d84","55b79aab39ad4e1f9ac8323abe15f3ac"]},
-    {n:3,type:"Legs 1",exs:["23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1","ce15f8fe0c9d47ec8f2278f534b96b20","f77d97b6c2db4271af5496cb9d036bf5"]},
-    {n:4,type:"Push 2",exs:["03b4a420e2b04921a89813fd2dfddbe7","2b1ab4ce18d84fc8a6989120e00d1824","1f7932321cb340d38ccead6c6bf3d28b","3d282b1b76424a8a88850cae89c55ff2"]},
-    {n:5,type:"Pull 2",exs:["2a85ddf941904c7b8793f91cbee7a963","12d5fec659a34a0aaae05ae43a8e2de3","3e7115bbf11a4b3186734902c07c59a1","3be46dbb6f4d45b08d0570c100b2e835"]},
-    {n:6,type:"Legs 2",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","f77d97b6c2db4271af5496cb9d036bf5","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1"]},
+    {n:1,type:"Push 1",url:SKOOL+"896cfe89d06f48918177176379e054d4",exs:["7a19ac3633ea47688ad8de5859c93f03","2b1ab4ce18d84fc8a6989120e00d1824","07d4f5ea9a444a83901be6c2485164a5","785b16d8e44744a49db0c2abd1322004"]},
+    {n:2,type:"Pull 1",url:SKOOL+"0fb8dc4e5b5241f6a8e0d58c3f9c43e7",exs:["a4612851822b47518aa797ab0c28fc72","21c670a4f5d84c01a8a0e3a84280d087","1e407305f56e4c178e5f67fea9ca5d84","55b79aab39ad4e1f9ac8323abe15f3ac"]},
+    {n:3,type:"Legs 1",url:SKOOL+"0143b3c1a92d4776bbd5f4976a3b93cf",exs:["23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1","ce15f8fe0c9d47ec8f2278f534b96b20","f77d97b6c2db4271af5496cb9d036bf5"]},
+    {n:4,type:"Push 2",url:SKOOL+"61bde77102f5475dbae8762209989140",exs:["03b4a420e2b04921a89813fd2dfddbe7","2b1ab4ce18d84fc8a6989120e00d1824","1f7932321cb340d38ccead6c6bf3d28b","3d282b1b76424a8a88850cae89c55ff2"]},
+    {n:5,type:"Pull 2",url:SKOOL+"fa7498822b704ebebaff3f31c7910792",exs:["2a85ddf941904c7b8793f91cbee7a963","12d5fec659a34a0aaae05ae43a8e2de3","3e7115bbf11a4b3186734902c07c59a1","3be46dbb6f4d45b08d0570c100b2e835"]},
+    {n:6,type:"Legs 2",url:SKOOL+"2f127ccffad7405f8e4391f1e42b2350",exs:["ce15f8fe0c9d47ec8f2278f534b96b20","f77d97b6c2db4271af5496cb9d036bf5","23cda7c5540d4549996cf51ecd23479a","ff6526db998140368cee351fa2184ed1"]},
   ]},
 ];
 
@@ -733,6 +802,7 @@ function renderPage(name) {
   else if (name==='muscles') renderMuscles();
   else if (name==='program') renderProgramPage();
   else if (name==='mydata') renderMyData();
+  else if (name==='myprograms') renderMyPrograms();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -779,19 +849,51 @@ function renderDashboard() {
   renderFreqChart();
 }
 
+const WARMUP_EQ_LABELS = {elastik:'Elastik',bar:'Bar',haandtag:'Håndtag',ankelstropper:'Ankelstropper',PowerPress:'PowerPress',kropsvagt:'Kropsvægt'};
+
+function warmupHtml(day, compact) {
+  const desc = day.warmup || '';
+  const eqs = day.warmupEq || [];
+  if (compact) {
+    const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
+    return `<span class="tag warmup-pill">Opvarmning${eqNote}</span>`;
+  }
+  const eqRow = eqs.length
+    ? `<div class="next-eq-summary" style="margin-left:28px;margin-bottom:8px">`
+      + `<span class="next-eq-label">Udstyr opvarmning:</span>`
+      + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')
+      + `</div>`
+    : '';
+  return `<div class="next-ex-row warmup-row">
+      <span class="next-ex-num" style="color:#f39c12">0.</span>
+      <span class="next-ex-name warmup-name">Opvarmning</span>
+    </div>
+    <div class="warmup-desc${desc?' has-desc':''}">${desc||'Se video for opvarmningsbeskrivelse'}</div>
+    ${eqRow}`;
+}
+
 function renderNextWorkoutCard(targetId) {
   const prog = getCurrentProgram();
-  const workouts = getWorkouts();
   if (!prog) { document.getElementById(targetId).innerHTML='<div class="empty">Intet program valgt</div>'; return; }
 
   const lastDay = getLastTrainedDay(prog.id);
   const nextDayIdx = lastDay === null ? 0 : (lastDay + 1) % prog.days.length;
   const nextDay = prog.days[nextDayIdx];
+  const BASE_URL = 'https://www.skool.com/jaafit/classroom/1b2baa38?md=';
+  const EQ_LABELS = {elastik:'Elastik',bar:'Bar',haandtag:'Håndtag',ankelstropper:'Ankelstropper',PowerPress:'PowerPress',kropsvagt:'Kropsvægt'};
 
+  const dayLink = nextDay.url
+    ? `<a href="${nextDay.url}" target="_blank" rel="noopener" style="color:#e94560;font-weight:600;font-size:1rem;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Dag ${nextDay.n}: ${nextDay.type}</a>`
+    : `<span style="color:#e94560;font-weight:600;font-size:1rem">Dag ${nextDay.n}: ${nextDay.type}</span>`;
   let html = `<div style="margin-bottom:10px">
-    <span style="color:#e94560;font-weight:600;font-size:1rem">Dag ${nextDay.n}: ${nextDay.type}</span>
+    ${dayLink}
     <span style="color:#555;font-size:0.78rem;margin-left:8px">${prog.name}</span>
   </div>`;
+  html += warmupHtml(nextDay, false);
+
+  const eqSet = new Set();
+  let needsAnchor = false;
+  const elastikExs = [];
 
   nextDay.exs.forEach((eid,i) => {
     const ex = EX[eid];
@@ -799,11 +901,31 @@ function renderNextWorkoutCard(targetId) {
     const mgColor = ex ? MG_COLORS[ex.mg] : '#555';
     html += `<div class="next-ex-row">
       <span class="next-ex-num">${i+1}.</span>
-      <span class="next-ex-name">${ex?ex.t:eid}</span>
+      <a class="next-ex-name" href="${BASE_URL}${eid}" target="_blank" rel="noopener">${ex?ex.t:eid}</a>
       ${lastWeight?`<span class="next-ex-weight">${lastWeight} kg</span>`:'<span class="next-ex-weight" style="color:#444">– kg</span>'}
       <span class="next-ex-mg" style="color:${mgColor}">${ex?MG_DISPLAY[ex.mg]||ex.mg:''}</span>
     </div>`;
+    if (ex) {
+      (ex.eq||[]).forEach(e => eqSet.add(e));
+      if (ex.anchor) needsAnchor = true;
+      if ((ex.eq||[]).includes('elastik')) elastikExs.push({t:ex.t, kg:lastWeight});
+    }
   });
+
+  // Equipment summary
+  const eqTags = [...eqSet].map(e => `<span class="next-eq-tag">${EQ_LABELS[e]||e}</span>`).join('');
+  const anchorTag = needsAnchor ? `<span class="next-eq-tag" style="border-color:#e9456066;color:#e94560">Dør-anker</span>` : '';
+  if (eqSet.size > 0 || needsAnchor) {
+    html += `<div class="next-eq-summary"><span class="next-eq-label">Udstyr:</span>${eqTags}${anchorTag}</div>`;
+  }
+
+  // Elastik (rubber band) weights per exercise
+  if (elastikExs.length > 0) {
+    const rows = elastikExs.map(({t,kg}) =>
+      `<span class="next-elastik-row">${t}: <strong>${kg!=null?kg+' kg':'–'}</strong></span>`
+    ).join('');
+    html += `<div class="next-elastik-summary"><span class="next-eq-label">Elastik-vægte:</span>${rows}</div>`;
+  }
 
   document.getElementById(targetId).innerHTML = html;
 }
@@ -1302,6 +1424,7 @@ function renderProgramDays() {
         ${isNext&&!isDone?`<span style="color:#e94560;font-size:0.75rem;margin-left:auto">← Næste</span>`:''}
       </div>
       <div class="prog-day-exercises">
+        ${warmupHtml(day, true)}
         ${day.exs.map(eid=>{
           const ex=EX[eid];
           const w=getLastWeight(eid);
@@ -1318,6 +1441,7 @@ function renderProgramDays() {
   // Next workout detail
   const nextDay = prog.days[nextDayIdx];
   let detailHtml = `<div style="color:#e94560;font-weight:600;margin-bottom:10px">Dag ${nextDay.n}: ${nextDay.type}</div>`;
+  detailHtml += warmupHtml(nextDay, false);
   nextDay.exs.forEach((eid,i)=>{
     const ex=EX[eid];
     const lw=getLastWeight(eid);
@@ -1338,11 +1462,141 @@ function renderAllPrograms() {
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         ${prog.days.map(d=>`<div style="background:#1a1a2e;border:1px solid #2a2a4a;border-radius:6px;padding:6px 10px;font-size:0.78rem">
           <div style="color:#e94560;font-weight:600">Dag ${d.n}: ${d.type}</div>
-          <div style="color:#666;margin-top:3px">${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
+          <div style="color:#666;margin-top:3px"><span style="color:#f39c12">Opvarmning</span> · ${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
         </div>`).join('')}
       </div>
     </div>`).join('');
   document.getElementById('all-programs-list').innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════════════════
+// MINE TRÆNINGSPROGRAMMER
+// ═══════════════════════════════════════════════════════════
+function getMyPrograms() {
+  const ud = getUserData();
+  if (ud.myPrograms === undefined)
+    return [{id: ud.program_id || 'prog1', printSelected: true}];
+  return ud.myPrograms;
+}
+
+function saveMyPrograms(list) {
+  const data = loadData();
+  if (!data.users[currentUser]) data.users[currentUser] = {program_id:'prog1', workouts:[]};
+  data.users[currentUser].myPrograms = list;
+  saveData(data);
+}
+
+function addMyProgram(progId) {
+  if (!progId) return;
+  const list = getMyPrograms();
+  if (list.find(p => p.id === progId)) return;
+  list.push({id: progId, printSelected: true});
+  saveMyPrograms(list);
+  renderMyPrograms();
+}
+
+function removeMyProgram(progId) {
+  saveMyPrograms(getMyPrograms().filter(p => p.id !== progId));
+  renderMyPrograms();
+}
+
+function toggleMyProgramPrint(progId) {
+  const list = getMyPrograms();
+  const item = list.find(p => p.id === progId);
+  if (item) { item.printSelected = !item.printSelected; saveMyPrograms(list); }
+  const card = document.getElementById('myprog-card-' + progId);
+  if (card) card.classList.toggle('print-selected', !!item?.printSelected);
+  // Re-assign first-print class
+  document.querySelectorAll('.myprog-card.print-selected').forEach((el, i) => {
+    el.classList.toggle('first-print', i === 0);
+  });
+}
+
+function renderMyPrograms() {
+  const myList = getMyPrograms();
+  const myIds = new Set(myList.map(p => p.id));
+  const available = PROGRAMS.filter(p => !myIds.has(p.id));
+
+  let html = `<div class="myprog-print-header">
+    <h1>JAAFIT – Mine træningsprogrammer – ${currentUser}</h1>
+    <p>${formatDate(today())}</p>
+  </div>`;
+
+  html += `<div class="myprog-screen-header no-print">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <span style="color:#e94560;font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px">Mine træningsprogrammer</span>
+      <span style="color:#555;font-size:0.78rem">${currentUser}</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      ${available.length
+        ? `<select id="myprog-add-select" style="padding:7px 10px;background:#1e1e3a;border:1px solid #3a3a5a;border-radius:6px;color:#e0e0e0;font-size:0.82rem">
+             ${available.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}
+           </select>
+           <button class="btn-primary" onclick="addMyProgram(document.getElementById('myprog-add-select').value)">+ Tilføj program</button>`
+        : `<span style="color:#555;font-size:0.82rem">Alle programmer er tilføjet</span>`}
+      <button class="btn-secondary" onclick="window.print()">🖨 Udskriv markerede</button>
+    </div>
+  </div>`;
+
+  if (!myList.length) {
+    html += '<div class="empty"><b>Ingen programmer tilføjet</b><br>Brug dropdown ovenfor for at tilføje et program</div>';
+    document.getElementById('myprograms-body').innerHTML = html;
+    return;
+  }
+
+  let firstPrint = true;
+  myList.forEach(item => {
+    const prog = getProgram(item.id);
+    if (!prog) return;
+    const isActive = item.id === getProgramId();
+    const printSel = item.printSelected;
+    const firstPrintClass = (printSel && firstPrint) ? 'first-print' : '';
+    if (printSel) firstPrint = false;
+
+    html += `<div class="myprog-card ${printSel ? 'print-selected' : ''} ${firstPrintClass}" id="myprog-card-${item.id}">
+      <div class="myprog-card-header">
+        <label class="myprog-print-check no-print">
+          <input type="checkbox" ${printSel ? 'checked' : ''} onchange="toggleMyProgramPrint('${item.id}')">
+          Udskriv
+        </label>
+        <div class="myprog-title">${prog.name}</div>
+        ${isActive ? '<span class="myprog-badge">Aktivt program</span>' : ''}
+        <button class="btn-danger no-print" onclick="removeMyProgram('${item.id}')">✕ Fjern</button>
+      </div>`;
+
+    prog.days.forEach(day => {
+      const wDesc = day.warmup || '';
+      const wEqs = day.warmupEq || [];
+      const wEqTags = wEqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+      html += `<div class="myprog-day">
+        <div class="myprog-day-title">Dag ${day.n}: ${day.type}</div>
+        <table class="myprog-ex-table"><tbody>
+        <tr class="warmup-tr">
+          <td colspan="3">
+            <span style="color:#f39c12;font-weight:600">0. Opvarmning</span>
+            <span style="color:#888;font-style:${wDesc?'normal':'italic'};margin-left:6px">${wDesc||'Se video for opvarmningsbeskrivelse'}</span>
+            ${wEqTags?`<span style="margin-left:6px">${wEqTags}</span>`:''}
+          </td>
+        </tr>`;
+      day.exs.forEach(eid => {
+        const ex = EX[eid];
+        const mg = ex ? ex.mg : '';
+        const mgDisplay = ex ? (MG_DISPLAY[mg] || mg) : '';
+        const mgColor = ex ? (MG_COLORS[mg] || '#555') : '#555';
+        const weight = getLastWeight(eid);
+        html += `<tr>
+          <td class="myprog-ex-name">${ex ? ex.t : eid}</td>
+          <td class="myprog-ex-mg" style="color:${mgColor}">${mgDisplay}</td>
+          <td class="myprog-ex-weight">${weight ? weight + ' kg' : '–'}</td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    });
+
+    html += `</div>`; // myprog-card
+  });
+
+  document.getElementById('myprograms-body').innerHTML = html;
 }
 
 // ═══════════════════════════════════════════════════════════
