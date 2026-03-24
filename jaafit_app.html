@@ -221,6 +221,10 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
 .myprog-ex-mg{padding:5px 8px;font-size:0.72rem;white-space:nowrap;min-width:90px}
 .myprog-ex-weight{padding:5px 8px;font-size:0.82rem;color:#4fc3f7;
   white-space:nowrap;text-align:right;min-width:60px}
+.myprog-ex-eq{padding:5px 8px;font-size:0.72rem;white-space:nowrap}
+.myprog-eq-tag{display:inline-block;padding:1px 6px;border-radius:8px;
+  background:#1e1e3a;border:1px solid #3a3a5a;color:#aaa;margin-right:3px;font-size:0.68rem}
+.myprog-eq-tag.anchor{border-color:#e9456055;color:#e94560}
 
 /* ── PRINT ───────────────────────────────────────────────── */
 @media print {
@@ -281,6 +285,11 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
   .myprog-ex-name{padding:1pt 2pt;color:#000}
   .myprog-ex-mg{padding:1pt 2pt;font-size:7pt}
   .myprog-ex-weight{padding:1pt 2pt;color:#333}
+  .myprog-ex-eq{padding:1pt 2pt;font-size:6.5pt;color:#444}
+  .myprog-eq-tag{background:none;border:none;padding:0;margin-right:0;font-size:6.5pt;color:#444}
+  .myprog-eq-tag::after{content:", "}
+  .myprog-eq-tag:last-child::after{content:""}
+  .myprog-eq-tag.anchor{color:#333}
 }
 </style>
 </head>
@@ -1587,6 +1596,7 @@ function renderMyPrograms() {
         html += `<tr>
           <td class="myprog-ex-name">${ex ? ex.t : eid}</td>
           <td class="myprog-ex-mg" style="color:${mgColor}">${mgDisplay}</td>
+          <td class="myprog-ex-eq">${(ex ? (ex.eq||[]) : []).map(e=>`<span class="myprog-eq-tag">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')}${ex&&ex.anchor?'<span class="myprog-eq-tag anchor">Dør-anker</span>':''}</td>
           <td class="myprog-ex-weight">${weight ? weight + ' kg' : '–'}</td>
         </tr>`;
       });
