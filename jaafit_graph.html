@@ -629,31 +629,27 @@ const programs = [
    ]},
 ];
 
-// ── PERSONAL DATA (localStorage) ──────────────────────────────────────────────
-function loadPersonal() {
-  try { return JSON.parse(localStorage.getItem('jaafit_personal_exercises') || '[]'); } catch(e) { return []; }
-}
-function savePersonalExercises(arr) {
-  localStorage.setItem('jaafit_personal_exercises', JSON.stringify(arr));
-}
-function loadPersonalPrograms() {
-  try { return JSON.parse(localStorage.getItem('jaafit_personal_programs') || '[]'); } catch(e) { return []; }
-}
-function savePersonalPrograms(arr) {
-  localStorage.setItem('jaafit_personal_programs', JSON.stringify(arr));
+// ── PERSONAL DATA (server file: jaafit_personaldata.json) ─────────────────────
+let personalExercises = [];
+let personalPrograms  = [];
+let exDescriptions    = {};
+
+function savePersonalData() {
+  return fetch('/api/personaldata', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      personal_exercises:   personalExercises,
+      personal_programs:    personalPrograms,
+      exercise_descriptions: exDescriptions
+    })
+  }).catch(() => {});
 }
 
-let personalExercises = loadPersonal();
-let personalPrograms  = loadPersonalPrograms();
-
-// User-authored descriptions for built-in JAAFIT exercises
-function loadExDescriptions() {
-  try { return JSON.parse(localStorage.getItem('jaafit_exercise_descriptions') || '{}'); } catch(e) { return {}; }
-}
-function saveExDescriptions(obj) {
-  localStorage.setItem('jaafit_exercise_descriptions', JSON.stringify(obj));
-}
-let exDescriptions = loadExDescriptions();
+// Aliases used throughout the code
+function savePersonalExercises(arr) { personalExercises = arr; savePersonalData(); }
+function savePersonalPrograms(arr)  { personalPrograms  = arr; savePersonalData(); }
+function saveExDescriptions(obj)    { exDescriptions    = obj; savePersonalData(); }
 
 // Combined lookups used throughout
 function allExercises() { return [...exercises, ...personalExercises]; }
@@ -1450,8 +1446,41 @@ function renderExerciseList() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-buildButtons();
-buildGraph();
+async function initGraph() {
+  // Load personal data from server
+  try {
+    const res = await fetch('/api/personaldata');
+    if (res.ok) {
+      const d = await res.json();
+      personalExercises = d.personal_exercises   || [];
+      personalPrograms  = d.personal_programs    || [];
+      exDescriptions    = d.exercise_descriptions || {};
+    }
+  } catch(e) {}
+
+  // One-time migration: if server file is empty but localStorage has data, migrate it
+  if (!personalExercises.length && !personalPrograms.length && !Object.keys(exDescriptions).length) {
+    try {
+      const lsEx   = JSON.parse(localStorage.getItem('jaafit_personal_exercises')   || '[]');
+      const lsPr   = JSON.parse(localStorage.getItem('jaafit_personal_programs')    || '[]');
+      const lsDesc = JSON.parse(localStorage.getItem('jaafit_exercise_descriptions') || '{}');
+      if (lsEx.length || lsPr.length || Object.keys(lsDesc).length) {
+        personalExercises = lsEx;
+        personalPrograms  = lsPr;
+        exDescriptions    = lsDesc;
+        await savePersonalData();
+        localStorage.removeItem('jaafit_personal_exercises');
+        localStorage.removeItem('jaafit_personal_programs');
+        localStorage.removeItem('jaafit_exercise_descriptions');
+        console.log('Migreret personlig data fra localStorage til server.');
+      }
+    } catch(e) {}
+  }
+
+  buildButtons();
+  buildGraph();
+}
+initGraph();
 </script>
 </body>
 </html>

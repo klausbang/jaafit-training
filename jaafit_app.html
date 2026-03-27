@@ -736,34 +736,24 @@ const PROGRAMS=[
 ];
 
 // ═══════════════════════════════════════════════════════════
-// PERSONAL DATA  (shared localStorage with jaafit_graph.html)
+// PERSONAL DATA  (loaded from jaafit_personaldata.json via /api/personaldata)
 // ═══════════════════════════════════════════════════════════
-(function loadPersonalData() {
-  function fromLS(key) {
-    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; }
-  }
-  function fromLSObj(key) {
-    try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) { return {}; }
-  }
-
+function applyPersonalData(pd) {
   // Merge user-authored descriptions into built-in EX entries
-  const exDescs = fromLSObj('jaafit_exercise_descriptions');
+  const exDescs = pd.exercise_descriptions || {};
   Object.entries(exDescs).forEach(([id, desc]) => {
     if (EX[id]) EX[id].desc = desc;
   });
-
   // Merge personal exercises into EX so all EX[id] lookups work automatically
-  fromLS('jaafit_personal_exercises').forEach(pe => {
+  (pd.personal_exercises || []).forEach(pe => {
     EX[pe.id] = {
       t: pe.name, mg: pe.mg, eq: pe.eq || [],
       anchor: pe.door || false, personal: true,
       warmup: pe.warmup || false, desc: pe.desc || ''
     };
   });
-
-  // Expose personal programs
-  window._personalPrograms = fromLS('jaafit_personal_programs');
-})();
+  window._personalPrograms = pd.personal_programs || [];
+}
 
 function allPrograms() { return [...PROGRAMS, ...(window._personalPrograms || [])]; }
 
@@ -1816,11 +1806,21 @@ function showToast(msg) {
 // INIT
 // ═══════════════════════════════════════════════════════════
 async function initApp() {
-  try {
-    const res = await fetch('/api/userdata');
-    if (res.ok) DB = await res.json();
-  } catch(e) {}
+  // Fetch user workout data and personal data in parallel
+  const [udRes, pdRes] = await Promise.allSettled([
+    fetch('/api/userdata'),
+    fetch('/api/personaldata')
+  ]);
+
+  if (udRes.status === 'fulfilled' && udRes.value.ok) {
+    DB = await udRes.value.json();
+  }
   if (!DB) DB = {users:{Klaus:{program_id:'prog4',workouts:[]},Dorte:{program_id:'prog2',workouts:[]}}};
+
+  if (pdRes.status === 'fulfilled' && pdRes.value.ok) {
+    applyPersonalData(await pdRes.value.json());
+  }
+
   renderDashboard();
 }
 initApp();
