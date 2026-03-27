@@ -225,6 +225,7 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
 .myprog-eq-tag{display:inline-block;padding:1px 6px;border-radius:8px;
   background:#1e1e3a;border:1px solid #3a3a5a;color:#aaa;margin-right:3px;font-size:0.68rem}
 .myprog-eq-tag.anchor{border-color:#e9456055;color:#e94560}
+.myprog-ex-desc{padding:2px 8px 6px 8px;font-size:0.75rem;color:#666;font-style:italic;line-height:1.4}
 
 /* ── PRINT ───────────────────────────────────────────────── */
 @media print {
@@ -290,6 +291,7 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
   .myprog-eq-tag::after{content:", "}
   .myprog-eq-tag:last-child::after{content:""}
   .myprog-eq-tag.anchor{color:#333}
+  .myprog-ex-desc{padding:0 2pt 3pt 8pt;font-size:6.5pt;color:#555;font-style:italic}
 }
 </style>
 </head>
@@ -740,12 +742,22 @@ const PROGRAMS=[
   function fromLS(key) {
     try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; }
   }
+  function fromLSObj(key) {
+    try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) { return {}; }
+  }
+
+  // Merge user-authored descriptions into built-in EX entries
+  const exDescs = fromLSObj('jaafit_exercise_descriptions');
+  Object.entries(exDescs).forEach(([id, desc]) => {
+    if (EX[id]) EX[id].desc = desc;
+  });
 
   // Merge personal exercises into EX so all EX[id] lookups work automatically
   fromLS('jaafit_personal_exercises').forEach(pe => {
     EX[pe.id] = {
       t: pe.name, mg: pe.mg, eq: pe.eq || [],
-      anchor: pe.door || false, personal: true, desc: pe.desc || ''
+      anchor: pe.door || false, personal: true,
+      warmup: pe.warmup || false, desc: pe.desc || ''
     };
   });
 
@@ -883,6 +895,29 @@ function renderDashboard() {
 const WARMUP_EQ_LABELS = {elastik:'Elastik',bar:'Bar',haandtag:'Håndtag',ankelstropper:'Ankelstropper',PowerPress:'PowerPress',kropsvagt:'Kropsvægt'};
 
 function warmupHtml(day, compact) {
+  // Named warmup exercise referenced by ID
+  const wex = (day.warmupId && EX[day.warmupId]) ? EX[day.warmupId] : null;
+  if (wex) {
+    const eqs = wex.eq || [];
+    if (compact) {
+      const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
+      return `<span class="tag warmup-pill">${wex.t}${eqNote}</span>`;
+    }
+    const eqRow = eqs.length
+      ? `<div class="next-eq-summary" style="margin-left:28px;margin-bottom:8px">`
+        + `<span class="next-eq-label">Udstyr opvarmning:</span>`
+        + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')
+        + `</div>`
+      : '';
+    return `<div class="next-ex-row warmup-row">
+        <span class="next-ex-num" style="color:#f39c12">0.</span>
+        <span class="next-ex-name warmup-name">${wex.t}</span>
+      </div>
+      <div class="warmup-desc${wex.desc?' has-desc':''}">${wex.desc||''}</div>
+      ${eqRow}`;
+  }
+
+  // Fall back to text warmup (built-in programs)
   const desc = day.warmup || '';
   const eqs = day.warmupEq || [];
   if (compact) {
@@ -930,12 +965,18 @@ function renderNextWorkoutCard(targetId) {
     const ex = EX[eid];
     const lastWeight = getLastWeight(eid);
     const mgColor = ex ? MG_COLORS[ex.mg] : '#555';
+    const exLink = ex && ex.personal
+      ? `<span class="next-ex-name">${ex.t}</span>`
+      : `<a class="next-ex-name" href="${BASE_URL}${eid}" target="_blank" rel="noopener">${ex?ex.t:eid}</a>`;
     html += `<div class="next-ex-row">
       <span class="next-ex-num">${i+1}.</span>
-      <a class="next-ex-name" href="${BASE_URL}${eid}" target="_blank" rel="noopener">${ex?ex.t:eid}</a>
+      ${exLink}
       ${lastWeight?`<span class="next-ex-weight">${lastWeight} kg</span>`:'<span class="next-ex-weight" style="color:#444">– kg</span>'}
       <span class="next-ex-mg" style="color:${mgColor}">${ex?MG_DISPLAY[ex.mg]||ex.mg:''}</span>
     </div>`;
+    if (ex && ex.desc) {
+      html += `<div style="font-size:0.73rem;color:#777;margin:-2px 0 6px 28px;line-height:1.45;font-style:italic">${ex.desc}</div>`;
+    }
     if (ex) {
       (ex.eq||[]).forEach(e => eqSet.add(e));
       if (ex.anchor) needsAnchor = true;
@@ -1482,6 +1523,9 @@ function renderProgramDays() {
       ${lw?`<span class="next-ex-weight">${lw} kg</span>`:'<span style="color:#444;font-size:0.75rem">Første gang</span>'}
       <span class="next-ex-mg" style="color:${ex?MG_COLORS[ex.mg]:'#555'}">${ex?MG_DISPLAY[ex.mg]||ex.mg:''}</span>
     </div>`;
+    if (ex && ex.desc) {
+      detailHtml+=`<div style="font-size:0.73rem;color:#777;margin:-2px 0 6px 28px;line-height:1.45;font-style:italic">${ex.desc}</div>`;
+    }
   });
   document.getElementById('prog-next-detail').innerHTML = detailHtml;
 }
@@ -1496,7 +1540,7 @@ function renderAllPrograms() {
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         ${prog.days.map(d=>`<div style="background:#1a1a2e;border:1px solid ${prog.personal?'#f0a50033':'#2a2a4a'};border-radius:6px;padding:6px 10px;font-size:0.78rem">
           <div style="color:#e94560;font-weight:600">Dag ${d.n}: ${d.type}</div>
-          <div style="color:#666;margin-top:3px">${prog.personal?'':'<span style="color:#f39c12">Opvarmning</span> · '}${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
+          <div style="color:#666;margin-top:3px">${(()=>{const wu=d.warmupId&&EX[d.warmupId]?EX[d.warmupId]:null;const wuStr=wu?`<span style="color:#f39c12">${wu.t}</span> · `:(!prog.personal?'<span style="color:#f39c12">Opvarmning</span> · ':'');return wuStr;})()}${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
         </div>`).join('')}
       </div>
     </div>`).join('');
@@ -1599,19 +1643,34 @@ function renderMyPrograms() {
       </div>`;
 
     prog.days.forEach(day => {
-      const wDesc = day.warmup || '';
-      const wEqs = day.warmupEq || [];
-      const wEqTags = wEqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+      // Determine warmup display
+      const wex = (day.warmupId && EX[day.warmupId]) ? EX[day.warmupId] : null;
+      let warmupRow;
+      if (wex) {
+        const wEqs = (wex.eq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+        warmupRow = `<tr class="warmup-tr">
+          <td colspan="4">
+            <span style="color:#f39c12;font-weight:600">0. ${wex.t}</span>
+            ${wEqs?`<span style="margin-left:6px">${wEqs}</span>`:''}
+            ${wex.desc?`<div style="color:#888;font-size:0.75rem;margin-top:2px;font-style:italic">${wex.desc}</div>`:''}
+          </td>
+        </tr>`;
+      } else {
+        const wDesc = day.warmup || '';
+        const wEqs = (day.warmupEq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+        warmupRow = `<tr class="warmup-tr">
+          <td colspan="4">
+            <span style="color:#f39c12;font-weight:600">0. Opvarmning</span>
+            <span style="color:#888;font-style:${wDesc?'normal':'italic'};margin-left:6px">${wDesc||'Se video for opvarmningsbeskrivelse'}</span>
+            ${wEqs?`<span style="margin-left:6px">${wEqs}</span>`:''}
+          </td>
+        </tr>`;
+      }
+
       html += `<div class="myprog-day">
         <div class="myprog-day-title">Dag ${day.n}: ${day.type}</div>
         <table class="myprog-ex-table"><tbody>
-        <tr class="warmup-tr">
-          <td colspan="3">
-            <span style="color:#f39c12;font-weight:600">0. Opvarmning</span>
-            <span style="color:#888;font-style:${wDesc?'normal':'italic'};margin-left:6px">${wDesc||'Se video for opvarmningsbeskrivelse'}</span>
-            ${wEqTags?`<span style="margin-left:6px">${wEqTags}</span>`:''}
-          </td>
-        </tr>`;
+        ${warmupRow}`;
       day.exs.forEach(eid => {
         const ex = EX[eid];
         const mg = ex ? ex.mg : '';
@@ -1624,6 +1683,9 @@ function renderMyPrograms() {
           <td class="myprog-ex-eq">${(ex ? (ex.eq||[]) : []).map(e=>`<span class="myprog-eq-tag">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')}${ex&&ex.anchor?'<span class="myprog-eq-tag anchor">Dør-anker</span>':''}</td>
           <td class="myprog-ex-weight">${weight ? weight + ' kg' : '–'}</td>
         </tr>`;
+        if (ex && ex.desc) {
+          html += `<tr><td colspan="4" class="myprog-ex-desc">${ex.desc}</td></tr>`;
+        }
       });
       html += `</tbody></table></div>`;
     });

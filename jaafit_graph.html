@@ -387,26 +387,40 @@
 <div class="modal-overlay" id="exModal" onclick="closeExerciseModal()">
   <div class="modal" onclick="event.stopPropagation()">
     <h3 id="exModalTitle">Tilføj øvelse</h3>
-    <div class="form-row">
-      <label class="form-label">Navn</label>
-      <input class="form-input" id="exName" type="text" placeholder="Øvelsens navn">
+    <!-- Shown only when editing description of a built-in JAAFIT exercise -->
+    <div id="exBuiltinNote" style="display:none;margin-bottom:12px;padding:8px 10px;background:#1a180a;border-radius:5px;border-left:3px solid #f39c12">
+      <span style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.5px">JAAFIT-øvelse</span>
+      <div id="exBuiltinName" style="color:#e0e0e0;font-weight:600;margin-top:2px;font-size:0.88rem"></div>
     </div>
-    <div class="form-row">
-      <label class="form-label">Muskelgruppe</label>
-      <select class="form-select" id="exMg"></select>
+    <!-- Fields only for personal exercises -->
+    <div id="exPersonalFields">
+      <div class="form-row">
+        <label class="form-label">Navn</label>
+        <input class="form-input" id="exName" type="text" placeholder="Øvelsens navn">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Muskelgruppe</label>
+        <select class="form-select" id="exMg"></select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Udstyr (hold Ctrl for flere)</label>
+        <select class="form-select" id="exEq" multiple size="4"></select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">
+          <input type="checkbox" id="exDoor"> Kræver døranker
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="form-label">
+          <input type="checkbox" id="exIsWarmup"> Opvarmningsøvelse (kan vælges som opvarmning i programmer)
+        </label>
+      </div>
     </div>
+    <!-- Description available for all exercises -->
     <div class="form-row">
-      <label class="form-label">Udstyr (hold Ctrl for flere)</label>
-      <select class="form-select" id="exEq" multiple size="4"></select>
-    </div>
-    <div class="form-row">
-      <label class="form-label">
-        <input type="checkbox" id="exDoor"> Kræver døranker
-      </label>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Beskrivelse (valgfri)</label>
-      <textarea class="form-input" id="exDesc" rows="3" placeholder="Beskriv øvelsen, udførelse, tips…" style="resize:vertical"></textarea>
+      <label class="form-label">Beskrivelse / udførelse</label>
+      <textarea class="form-input" id="exDesc" rows="4" placeholder="Beskriv øvelsen, udførelse, tips, sæt/reps…" style="resize:vertical"></textarea>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeExerciseModal()">Annuller</button>
@@ -632,6 +646,15 @@ function savePersonalPrograms(arr) {
 let personalExercises = loadPersonal();
 let personalPrograms  = loadPersonalPrograms();
 
+// User-authored descriptions for built-in JAAFIT exercises
+function loadExDescriptions() {
+  try { return JSON.parse(localStorage.getItem('jaafit_exercise_descriptions') || '{}'); } catch(e) { return {}; }
+}
+function saveExDescriptions(obj) {
+  localStorage.setItem('jaafit_exercise_descriptions', JSON.stringify(obj));
+}
+let exDescriptions = loadExDescriptions();
+
 // Combined lookups used throughout
 function allExercises() { return [...exercises, ...personalExercises]; }
 function allPrograms()  { return [...programs, ...personalPrograms]; }
@@ -639,6 +662,14 @@ function exDisplay(id) {
   const pe = personalExercises.find(e => e.id === id);
   return pe ? pe.name : (EX_DISPLAY[id] || id);
 }
+// Get any exercise's description (personal desc or user-added desc for built-in)
+function getExDesc(id) {
+  const pe = personalExercises.find(e => e.id === id);
+  if (pe) return pe.desc || '';
+  return exDescriptions[id] || '';
+}
+// Get warmup exercises (personal exercises flagged as warmup)
+function warmupExercises() { return personalExercises.filter(e => e.warmup); }
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let currentView = 'muskelgrupper';
@@ -951,12 +982,20 @@ function onNodeClick(params) {
       `;
     } else {
       const url = `https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}`;
+      const builtinDesc = exDescriptions[ex.id] || '';
+      const builtinDescHtml = builtinDesc
+        ? `<p style="margin-top:8px;color:#ccc;font-size:0.8rem;line-height:1.5">${builtinDesc}</p>`
+        : '';
       body.innerHTML = `
         <p><span class="info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
            ${ex.eq.map(e=>`<span class="info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
            ${ex.door ? '<span class="info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>' : '<span class="info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
         </p>
-        <p style="margin-top:8px"><a href="${url}" target="_blank">🔗 Se øvelse på JAAFIT (kræver login)</a></p>
+        ${builtinDescHtml}
+        <p style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn-cancel" style="font-size:0.75rem;border-color:#f39c12;color:#f39c12" onclick="openExerciseModal('${ex.id}', true)">✏️ ${builtinDesc?'Rediger':'Tilføj'} beskrivelse</button>
+          <a href="${url}" target="_blank" style="font-size:0.78rem;color:#4fc3f7">🔗 JAAFIT video</a>
+        </p>
       `;
     }
   } else if (node.nodeType === 'muscle_group') {
@@ -983,15 +1022,21 @@ function onNodeClick(params) {
          </p>`
       : `<p style="margin-top:8px"><a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">🔗 Se program på JAAFIT (kræver login)</a></p>`;
     body.innerHTML = `<p style="color:#888;margin-bottom:8px">${prog.days.length} dage · ${totalEx} unikke øvelser</p>` +
-      prog.days.map(d => `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: ` +
-        (prog.personal ? '' : `<span style="color:#f39c12">Opvarmning</span>, `) +
-        d.exs.map(eid => exDisplay(eid)).join(', ') + '</p>').join('') +
+      prog.days.map(d => {
+        const wu = d.warmupId ? personalExercises.find(e=>e.id===d.warmupId) : null;
+        const wuStr = wu ? `<span style="color:#f39c12">${wu.name}</span>, ` : (!prog.personal ? `<span style="color:#f39c12">Opvarmning</span>, ` : '');
+        return `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: ` +
+          wuStr + d.exs.map(eid => exDisplay(eid)).join(', ') + '</p>';
+      }).join('') +
       editBtn;
   } else if (node.nodeType === 'day') {
     const day = node.dayData;
     title.textContent = `${node.progName} – Dag ${day.n}: ${day.type}`;
-    body.innerHTML = `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>` +
-      day.exs.map((eid,i) => `<p>${i+1}. ${exDisplay(eid)}</p>`).join('');
+    const wu = day.warmupId ? personalExercises.find(e=>e.id===day.warmupId) : null;
+    const wuHtml = wu
+      ? `<p style="color:#f39c12;font-weight:600">0. ${wu.name}</p>${wu.desc?`<p style="color:#888;font-size:0.78rem;margin:-4px 0 6px 12px">${wu.desc}</p>`:''}`
+      : `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>`;
+    body.innerHTML = wuHtml + day.exs.map((eid,i) => `<p>${i+1}. ${exDisplay(eid)}</p>`).join('');
   } else {
     closeInfo(); return;
   }
@@ -1019,32 +1064,47 @@ function renderPersonalExList() {
 
 // ── EXERCISE MODAL ────────────────────────────────────────────────────────────
 let _editingExId = null;
+let _editingExBuiltin = false; // true when editing description of a built-in JAAFIT exercise
 
-function openExerciseModal(id) {
+function openExerciseModal(id, builtinOnly) {
   _editingExId = id || null;
-  document.getElementById('exModalTitle').textContent = id ? 'Rediger øvelse' : 'Tilføj øvelse';
+  _editingExBuiltin = !!builtinOnly;
 
-  const mgSel = document.getElementById('exMg');
-  mgSel.innerHTML = Object.keys(MG_DISPLAY).map(k =>
-    `<option value="${k}">${MG_DISPLAY[k]}</option>`).join('');
+  document.getElementById('exPersonalFields').style.display = builtinOnly ? 'none' : '';
+  document.getElementById('exBuiltinNote').style.display   = builtinOnly ? '' : 'none';
 
-  const eqSel = document.getElementById('exEq');
-  eqSel.innerHTML = Object.keys(EQ_DISPLAY).map(k =>
-    `<option value="${k}">${EQ_DISPLAY[k]}</option>`).join('');
-
-  if (id) {
-    const ex = personalExercises.find(e => e.id === id);
-    if (ex) {
-      document.getElementById('exName').value = ex.name;
-      mgSel.value = ex.mg;
-      Array.from(eqSel.options).forEach(o => { o.selected = ex.eq.includes(o.value); });
-      document.getElementById('exDoor').checked = ex.door;
-      document.getElementById('exDesc').value = ex.desc || '';
-    }
+  if (builtinOnly) {
+    document.getElementById('exModalTitle').textContent = 'Rediger beskrivelse';
+    document.getElementById('exBuiltinName').textContent = EX_DISPLAY[id] || id;
+    document.getElementById('exDesc').value = exDescriptions[id] || '';
+    document.getElementById('exDesc').placeholder = 'Beskriv udførelse, tips, sæt/reps…';
   } else {
-    document.getElementById('exName').value = '';
-    document.getElementById('exDoor').checked = false;
-    document.getElementById('exDesc').value = '';
+    document.getElementById('exModalTitle').textContent = id ? 'Rediger øvelse' : 'Tilføj øvelse';
+
+    const mgSel = document.getElementById('exMg');
+    mgSel.innerHTML = Object.keys(MG_DISPLAY).map(k =>
+      `<option value="${k}">${MG_DISPLAY[k]}</option>`).join('');
+
+    const eqSel = document.getElementById('exEq');
+    eqSel.innerHTML = Object.keys(EQ_DISPLAY).map(k =>
+      `<option value="${k}">${EQ_DISPLAY[k]}</option>`).join('');
+
+    if (id) {
+      const ex = personalExercises.find(e => e.id === id);
+      if (ex) {
+        document.getElementById('exName').value = ex.name;
+        mgSel.value = ex.mg;
+        Array.from(eqSel.options).forEach(o => { o.selected = ex.eq.includes(o.value); });
+        document.getElementById('exDoor').checked = !!ex.door;
+        document.getElementById('exIsWarmup').checked = !!ex.warmup;
+        document.getElementById('exDesc').value = ex.desc || '';
+      }
+    } else {
+      document.getElementById('exName').value = '';
+      document.getElementById('exDoor').checked = false;
+      document.getElementById('exIsWarmup').checked = false;
+      document.getElementById('exDesc').value = '';
+    }
   }
 
   document.getElementById('exModal').classList.add('show');
@@ -1055,18 +1115,32 @@ function closeExerciseModal() {
 }
 
 function saveExercise() {
+  const desc = document.getElementById('exDesc').value.trim();
+
+  // Built-in exercise: only save description
+  if (_editingExBuiltin) {
+    if (desc) exDescriptions[_editingExId] = desc;
+    else delete exDescriptions[_editingExId];
+    saveExDescriptions(exDescriptions);
+    closeExerciseModal();
+    if (currentView === 'oevelser') renderExerciseList();
+    // Rebuild graph so info panel reflects new desc
+    buildGraph();
+    return;
+  }
+
   const name = document.getElementById('exName').value.trim();
   if (!name) { alert('Angiv et navn'); return; }
   const mg = document.getElementById('exMg').value;
   const eq = Array.from(document.getElementById('exEq').selectedOptions).map(o => o.value);
   const door = document.getElementById('exDoor').checked;
-  const desc = document.getElementById('exDesc').value.trim();
+  const warmup = document.getElementById('exIsWarmup').checked;
 
   if (_editingExId) {
     const ex = personalExercises.find(e => e.id === _editingExId);
-    if (ex) { ex.name = name; ex.mg = mg; ex.eq = eq.length ? eq : ['kropsvagt']; ex.door = door; ex.desc = desc; }
+    if (ex) { ex.name = name; ex.mg = mg; ex.eq = eq.length ? eq : ['kropsvagt']; ex.door = door; ex.desc = desc; ex.warmup = warmup; }
   } else {
-    personalExercises.push({ id: 'pe_' + Date.now(), name, mg, eq: eq.length ? eq : ['kropsvagt'], door, desc, personal: true });
+    personalExercises.push({ id: 'pe_' + Date.now(), name, mg, eq: eq.length ? eq : ['kropsvagt'], door, desc, warmup, personal: true });
   }
   savePersonalExercises(personalExercises);
   closeExerciseModal();
@@ -1096,7 +1170,7 @@ function openProgramModal(id) {
     if (prog) {
       document.getElementById('progName').value = prog.name;
       document.getElementById('progColor').value = prog.color || '#4a4a8a';
-      _builderDays = prog.days.map(d => ({ ...d, exs: [...d.exs] }));
+      _builderDays = prog.days.map(d => ({ ...d, exs: [...d.exs], warmupId: d.warmupId || null }));
     }
   } else {
     document.getElementById('progName').value = '';
@@ -1113,7 +1187,7 @@ function closeProgramModal() {
 
 function addBuilderDay() {
   const n = _builderDays.length + 1;
-  _builderDays.push({ id: 'bd_' + Date.now() + '_' + n, n, type: 'Fullbody', exs: [] });
+  _builderDays.push({ id: 'bd_' + Date.now() + '_' + n, n, type: 'Fullbody', exs: [], warmupId: null });
   renderBuilderDays();
 }
 
@@ -1136,6 +1210,10 @@ function renderBuilderDays() {
           oninput="_builderDays[${idx}].type=this.value">
         <button class="icon-btn" onclick="removeBuilderDay(${idx})">✕</button>
       </div>
+      <div style="margin-bottom:8px">
+        <span style="color:#f39c12;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Opvarmning</span>
+        <div style="margin-top:4px" id="dayWarmup_${idx}"></div>
+      </div>
       <div class="day-exs" id="dayExs_${idx}"></div>
       <button class="ex-picker-toggle" id="exPickerToggle_${idx}"
               onclick="toggleExPicker(${idx})">▼ Vælg øvelser</button>
@@ -1145,8 +1223,29 @@ function renderBuilderDays() {
         <div class="ex-picker-list" id="exPickerList_${idx}"></div>
       </div>`;
     container.appendChild(div);
+    renderDayWarmup(idx);
     renderDayChips(idx);
   });
+}
+
+function renderDayWarmup(idx) {
+  const area = document.getElementById('dayWarmup_' + idx);
+  if (!area) return;
+  const wExs = warmupExercises();
+  const curId = _builderDays[idx].warmupId || '';
+
+  if (wExs.length === 0) {
+    area.innerHTML = `<span style="font-size:0.75rem;color:#555;font-style:italic">Ingen opvarmningsøvelser. Opret en øvelse og marker "Opvarmningsøvelse".</span>`;
+    return;
+  }
+  const opts = [`<option value="">– Ingen opvarmning –</option>`]
+    .concat(wExs.map(e => `<option value="${e.id}" ${e.id===curId?'selected':''}>${e.name}${e.eq&&e.eq.length?' ('+e.eq.map(q=>EQ_DISPLAY[q]||q).join(', ')+')':''}</option>`))
+    .join('');
+  area.innerHTML = `<select style="padding:5px 8px;background:#1a180a;border:1px solid #f39c1244;border-radius:5px;color:#f39c12;font-size:0.78rem;width:100%" onchange="setDayWarmup(${idx},this.value)">${opts}</select>`;
+}
+
+function setDayWarmup(idx, val) {
+  _builderDays[idx].warmupId = val || null;
 }
 
 function renderDayChips(idx) {
@@ -1246,7 +1345,8 @@ function saveProgram() {
 
   const days = _builderDays.map((d, i) => ({
     id: d.id || ('pd_' + Date.now() + '_' + i),
-    n: i + 1, type: d.type || 'Dag ' + (i+1), exs: d.exs
+    n: i + 1, type: d.type || 'Dag ' + (i+1), exs: d.exs,
+    warmupId: d.warmupId || null
   }));
 
   if (_editingProgId) {
@@ -1322,12 +1422,12 @@ function renderExerciseList() {
            <button class="icon-btn" title="Slet" onclick="deletePersonalExercise('${ex.id}')">🗑️</button>
          </div>`
       : `<div class="ex-card-actions">
+           <button class="icon-btn" title="Rediger beskrivelse" onclick="openExerciseModal('${ex.id}', true)" style="color:#f39c12">✏️</button>
            <a class="ex-card-link" href="https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}" target="_blank" title="Se på SKOOL">↗</a>
          </div>`;
 
-    const descHtml = (isPersonal && ex.desc)
-      ? `<div class="ex-card-desc">${ex.desc}</div>`
-      : '';
+    const desc = getExDesc(ex.id);
+    const descHtml = desc ? `<div class="ex-card-desc">${desc}</div>` : '';
 
     const doorHtml = ex.door
       ? `<span class="ex-card-tag" style="border-color:#e9456066;color:#e94560">Døranker</span>`
