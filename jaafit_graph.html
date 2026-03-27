@@ -111,6 +111,49 @@
   .search-box:focus { outline: none; border-color: #e94560; }
   .search-box::placeholder { color: #555; }
 
+  /* ── Exercise list view ──────────────────────────────────────── */
+  #ex-list-panel {
+    display: none; height: 100%; overflow-y: auto; padding: 20px;
+  }
+  .ex-list-toolbar {
+    display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center;
+  }
+  .ex-list-toolbar input, .ex-list-toolbar select {
+    padding: 7px 10px; background: #1e1e3a; border: 1px solid #3a3a5a;
+    border-radius: 5px; color: #e0e0e0; font-size: 0.82rem; flex: 1; min-width: 140px;
+  }
+  .ex-list-toolbar input:focus, .ex-list-toolbar select:focus { outline: none; border-color: #e94560; }
+  .ex-list-toolbar select option { background: #1e1e3a; }
+  .ex-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .ex-card {
+    background: #12122a; border: 1px solid #2a2a4a; border-radius: 8px;
+    padding: 12px 14px; position: relative; transition: border-color 0.15s;
+  }
+  .ex-card:hover { border-color: #3a3a6a; }
+  .ex-card.personal { border-color: #f0a50044; }
+  .ex-card.personal:hover { border-color: #f0a500; }
+  .ex-card-name {
+    font-weight: 600; font-size: 0.88rem; color: #e0e0e0; margin-bottom: 6px;
+    padding-right: 50px; line-height: 1.3;
+  }
+  .ex-card-name .star { color: #f0a500; margin-right: 4px; }
+  .ex-card-desc { font-size: 0.78rem; color: #888; margin-bottom: 8px; line-height: 1.4; }
+  .ex-card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+  .ex-card-tag {
+    display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 0.7rem;
+    border: 1px solid #3a3a5a; color: #a0a0b0; background: #1a1a2e;
+  }
+  .ex-card-tag.mg { border-color: transparent; color: #fff; }
+  .ex-card-actions {
+    position: absolute; top: 8px; right: 8px; display: flex; gap: 4px;
+  }
+  .ex-card-link { font-size: 0.72rem; color: #4fc3f7; text-decoration: none; }
+  .ex-card-link:hover { text-decoration: underline; }
+
   /* ── Personal exercises & programs ──────────────────────────── */
   .personal-section {
     margin-top: 15px; padding-top: 12px;
@@ -230,6 +273,7 @@
       <div class="tab active" onclick="setView('muskelgrupper')">Muskler</div>
       <div class="tab" onclick="setView('programmer')">Prog.</div>
       <div class="tab" onclick="setView('udstyr')">Udstyr</div>
+      <div class="tab" onclick="setView('oevelser')">Øvelser</div>
       <div class="tab" onclick="setView('alle')">Alle</div>
     </div>
 
@@ -280,6 +324,21 @@
   <div class="graph-area">
     <div id="network"></div>
 
+    <div id="ex-list-panel">
+      <div class="ex-list-toolbar">
+        <input type="text" id="exListSearch" placeholder="Søg øvelse..." oninput="renderExerciseList()">
+        <select id="exListMg" onchange="renderExerciseList()">
+          <option value="">Alle muskelgrupper</option>
+        </select>
+        <select id="exListType" onchange="renderExerciseList()">
+          <option value="">JAAFIT + Mine</option>
+          <option value="jaafit">Kun JAAFIT</option>
+          <option value="personal">Kun mine</option>
+        </select>
+      </div>
+      <div class="ex-cards" id="exCards"></div>
+    </div>
+
     <div class="info-panel" id="infoPanel">
       <span class="close-btn" onclick="closeInfo()">✕</span>
       <h3 id="infoTitle"></h3>
@@ -314,6 +373,10 @@
       <label class="form-label">
         <input type="checkbox" id="exDoor"> Kræver døranker
       </label>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Beskrivelse (valgfri)</label>
+      <textarea class="form-input" id="exDesc" rows="3" placeholder="Beskriv øvelsen, udførelse, tips…" style="resize:vertical"></textarea>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeExerciseModal()">Annuller</button>
@@ -628,9 +691,15 @@ function setView(view) {
   document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
   activeFilter = null;
 
+  const isListView = view === 'oevelser';
+  document.getElementById('network').style.display = isListView ? 'none' : 'block';
+  document.getElementById('ex-list-panel').style.display = isListView ? 'block' : 'none';
+  document.getElementById('searchBox').style.display = isListView ? 'none' : 'block';
+
   if (view === 'muskelgrupper') document.getElementById('mg-filters').style.display = 'block';
   else if (view === 'programmer') document.getElementById('prog-filters').style.display = 'block';
   else if (view === 'udstyr') document.getElementById('eq-filters').style.display = 'block';
+  else if (view === 'oevelser') { populateExListFilters(); renderExerciseList(); return; }
 
   buildGraph();
 }
@@ -757,15 +826,15 @@ function buildGraph() {
   allExercises().filter(e => visibleSet.has(e.id)).forEach(ex => {
     const isPersonal = !!ex.personal;
     const color = isPersonal ? '#f0a500' : (MG_COLORS[ex.mg] || '#555');
-    const label = exDisplay(ex.id).replace(/ m\. /g,' m.\n');
+    const rawLabel = exDisplay(ex.id).replace(/ m\. /g,' m.\n');
+    const label = isPersonal ? '★ ' + rawLabel : rawLabel;
     nodes.add({
       id: ex.id, label: label,
-      shape: isPersonal ? 'star' : 'roundRect',
+      shape: 'roundRect',
       color: isPersonal
-        ? {background:'#f0a500cc', border:'#f0a500', highlight:{background:'#fff',border:'#f0a500'}}
+        ? {background:'#2a2000', border:'#f0a500', highlight:{background:'#f0a50033',border:'#f0a500'}}
         : {background: color+'cc', border: color, highlight:{background:'#fff',border:color}},
-      font: {color: isPersonal ? '#1a1a00' : '#fff', size: 11, multi:false},
-      size: isPersonal ? 20 : undefined,
+      font: {color: isPersonal ? '#f0a500' : '#fff', size: 11, multi:false},
       margin: 6, shadow: true,
       nodeType: 'exercise', exData: ex
     });
@@ -834,11 +903,15 @@ function onNodeClick(params) {
     title.textContent = name;
     const mgColor = MG_COLORS[ex.mg] || '#555';
     if (ex.personal) {
+      const descHtml = ex.desc
+        ? `<p style="margin-top:8px;color:#aaa;font-size:0.8rem;line-height:1.5">${ex.desc}</p>`
+        : '';
       body.innerHTML = `
         <p><span class="info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
            ${ex.eq.map(e=>`<span class="info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
            ${ex.door ? '<span class="info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>' : '<span class="info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
         </p>
+        ${descHtml}
         <p style="margin-top:8px;color:#f0a500">★ Personlig øvelse</p>
         <p style="margin-top:8px">
           <button class="btn-cancel" style="font-size:0.75rem" onclick="openExerciseModal('${ex.id}')">✏️ Rediger</button>
@@ -936,10 +1009,12 @@ function openExerciseModal(id) {
       mgSel.value = ex.mg;
       Array.from(eqSel.options).forEach(o => { o.selected = ex.eq.includes(o.value); });
       document.getElementById('exDoor').checked = ex.door;
+      document.getElementById('exDesc').value = ex.desc || '';
     }
   } else {
     document.getElementById('exName').value = '';
     document.getElementById('exDoor').checked = false;
+    document.getElementById('exDesc').value = '';
   }
 
   document.getElementById('exModal').classList.add('show');
@@ -955,12 +1030,13 @@ function saveExercise() {
   const mg = document.getElementById('exMg').value;
   const eq = Array.from(document.getElementById('exEq').selectedOptions).map(o => o.value);
   const door = document.getElementById('exDoor').checked;
+  const desc = document.getElementById('exDesc').value.trim();
 
   if (_editingExId) {
     const ex = personalExercises.find(e => e.id === _editingExId);
-    if (ex) { ex.name = name; ex.mg = mg; ex.eq = eq.length ? eq : ['kropsvagt']; ex.door = door; }
+    if (ex) { ex.name = name; ex.mg = mg; ex.eq = eq.length ? eq : ['kropsvagt']; ex.door = door; ex.desc = desc; }
   } else {
-    personalExercises.push({ id: 'pe_' + Date.now(), name, mg, eq: eq.length ? eq : ['kropsvagt'], door, personal: true });
+    personalExercises.push({ id: 'pe_' + Date.now(), name, mg, eq: eq.length ? eq : ['kropsvagt'], door, desc, personal: true });
   }
   savePersonalExercises(personalExercises);
   closeExerciseModal();
@@ -1100,6 +1176,86 @@ function deletePersonalProgram(id) {
   savePersonalPrograms(personalPrograms);
   buildButtons();
   buildGraph();
+}
+
+// ── EXERCISE LIST VIEW ────────────────────────────────────────────────────────
+
+function populateExListFilters() {
+  const sel = document.getElementById('exListMg');
+  if (sel.options.length > 1) return; // already populated
+  Object.keys(MG_DISPLAY).forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k; opt.textContent = MG_DISPLAY[k];
+    sel.appendChild(opt);
+  });
+}
+
+function renderExerciseList() {
+  const q    = (document.getElementById('exListSearch').value || '').toLowerCase();
+  const mgF  = document.getElementById('exListMg').value;
+  const typeF = document.getElementById('exListType').value;
+
+  let pool = allExercises();
+  if (typeF === 'jaafit')   pool = pool.filter(e => !e.personal);
+  if (typeF === 'personal') pool = pool.filter(e =>  e.personal);
+  if (mgF)  pool = pool.filter(e => e.mg === mgF);
+  if (q)    pool = pool.filter(e => exDisplay(e.id).toLowerCase().includes(q));
+
+  // Sort: personal first, then alpha
+  pool.sort((a, b) => {
+    if (!!a.personal !== !!b.personal) return a.personal ? -1 : 1;
+    return exDisplay(a.id).localeCompare(exDisplay(b.id), 'da');
+  });
+
+  const grid = document.getElementById('exCards');
+  grid.innerHTML = '';
+
+  if (!pool.length) {
+    grid.innerHTML = '<p style="color:#555;padding:20px">Ingen øvelser matcher filtret.</p>';
+    return;
+  }
+
+  pool.forEach(ex => {
+    const name  = exDisplay(ex.id);
+    const color = MG_COLORS[ex.mg] || '#555';
+    const mgLabel = MG_DISPLAY[ex.mg] || ex.mg;
+    const eqLabels = ex.eq.map(e => EQ_DISPLAY[e] || e);
+    const isPersonal = !!ex.personal;
+
+    const card = document.createElement('div');
+    card.className = 'ex-card' + (isPersonal ? ' personal' : '');
+
+    const actionsHtml = isPersonal
+      ? `<div class="ex-card-actions">
+           <button class="icon-btn" title="Rediger" onclick="openExerciseModal('${ex.id}')">✏️</button>
+           <button class="icon-btn" title="Slet" onclick="deletePersonalExercise('${ex.id}')">🗑️</button>
+         </div>`
+      : `<div class="ex-card-actions">
+           <a class="ex-card-link" href="https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}" target="_blank" title="Se på SKOOL">↗</a>
+         </div>`;
+
+    const descHtml = (isPersonal && ex.desc)
+      ? `<div class="ex-card-desc">${ex.desc}</div>`
+      : '';
+
+    const doorHtml = ex.door
+      ? `<span class="ex-card-tag" style="border-color:#e9456066;color:#e94560">Døranker</span>`
+      : '';
+
+    card.innerHTML = `
+      ${actionsHtml}
+      <div class="ex-card-name">
+        ${isPersonal ? '<span class="star">★</span>' : ''}${name}
+      </div>
+      ${descHtml}
+      <div class="ex-card-tags">
+        <span class="ex-card-tag mg" style="background:${color}">${mgLabel}</span>
+        ${eqLabels.map(l => `<span class="ex-card-tag">${l}</span>`).join('')}
+        ${doorHtml}
+      </div>`;
+
+    grid.appendChild(card);
+  });
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
