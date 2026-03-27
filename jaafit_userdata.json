@@ -1,7 +1,7 @@
 {
   "users": {
     "Klaus": {
-      "program_id": "prog1",
+      "program_id": "prog3",
       "workouts": [
         {
           "id": "mn0rwb7vsv8d3jlakzg",
@@ -176,6 +176,152 @@
             }
           ],
           "note": ""
+        },
+        {
+          "id": "mn1hq002rvnk3rks9nq",
+          "date": "2026-03-22",
+          "program_id": "prog1",
+          "day_number": 2,
+          "day_type": "Fullbody",
+          "exercises": [
+            {
+              "exercise_id": "f77d97b6c2db4271af5496cb9d036bf5",
+              "exercise_title": "Dødløft m. bar",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "ea1a793cfae948e2819054015ce6a5cd",
+              "exercise_title": "Begyndervenlig Squat m. bar",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "2b1ab4ce18d84fc8a6989120e00d1824",
+              "exercise_title": "Brystfly m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1a2b6b6a598941259e97506f0dde70c6",
+              "exercise_title": "Træk til Hofte m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "03b4a420e2b04921a89813fd2dfddbe7",
+              "exercise_title": "Overhead Press m. bar",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1e407305f56e4c178e5f67fea9ca5d84",
+              "exercise_title": "Biceps Curl m. bar",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mn54bohc4fgnw1w3fwn",
+          "date": "2026-03-24",
+          "program_id": "prog3",
+          "day_number": 1,
+          "day_type": "Ben & Biceps",
+          "exercises": [
+            {
+              "exercise_id": "f77d97b6c2db4271af5496cb9d036bf5",
+              "exercise_title": "Dødløft m. bar",
+              "weight_kg": 10,
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1e407305f56e4c178e5f67fea9ca5d84",
+              "exercise_title": "Biceps Curl m. bar",
+              "weight_kg": 10,
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mn6ig07c6hkj7otnf5f",
+          "date": "2026-03-25",
+          "program_id": "prog3",
+          "day_number": 2,
+          "day_type": "Ryg & Triceps",
+          "exercises": [
+            {
+              "exercise_id": "1a2b6b6a598941259e97506f0dde70c6",
+              "exercise_title": "Træk til Hofte m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "07d4f5ea9a444a83901be6c2485164a5",
+              "exercise_title": "Triceps Pushdown m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mn6ijb6n9z4dztvjpc6",
+          "date": "2026-03-25",
+          "program_id": "prog3",
+          "day_number": 2,
+          "day_type": "Ryg & Triceps",
+          "exercises": [
+            {
+              "exercise_id": "1a2b6b6a598941259e97506f0dde70c6",
+              "exercise_title": "Træk til Hofte m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "07d4f5ea9a444a83901be6c2485164a5",
+              "exercise_title": "Triceps Pushdown m. håndtag",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "myPrograms": [
+        {
+          "id": "prog1",
+          "printSelected": true
+        },
+        {
+          "id": "prog3",
+          "printSelected": true
         }
       ]
     },
@@ -297,6 +443,74 @@
             }
           ],
           "note": ""
+        },
+        {
+          "id": "mn1hqd2gi6ax7ug28q",
+          "date": "2026-03-22",
+          "program_id": "prog1",
+          "day_number": 2,
+          "day_type": "Fullbody",
+          "exercises": [
+            {
+              "exercise_id": "f77d97b6c2db4271af5496cb9d036bf5",
+              "exercise_title": "Dødløft m. bar",
+              "weight_kg": 2.5,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "ea1a793cfae948e2819054015ce6a5cd",
+              "exercise_title": "Begyndervenlig Squat m. bar",
+              "weight_kg": 2.5,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "2b1ab4ce18d84fc8a6989120e00d1824",
+              "exercise_title": "Brystfly m. håndtag",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1a2b6b6a598941259e97506f0dde70c6",
+              "exercise_title": "Træk til Hofte m. håndtag",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "03b4a420e2b04921a89813fd2dfddbe7",
+              "exercise_title": "Overhead Press m. bar",
+              "weight_kg": 2.5,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1e407305f56e4c178e5f67fea9ca5d84",
+              "exercise_title": "Biceps Curl m. bar",
+              "weight_kg": 2.5,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "myPrograms": [
+        {
+          "id": "prog1",
+          "printSelected": true
+        },
+        {
+          "id": "prog2",
+          "printSelected": true
         }
       ]
     }

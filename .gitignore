@@ -6,3 +6,11 @@ Træningsprogrammer · JAAFIT Community_files/
 
 # Claude Code settings
 .claude/
+
+# Credentials — never commit
+skool_login.txt
+
+# Debug / crawl output
+skool_debug.html
+skool_debug.png
+skool_debug_links.txt
