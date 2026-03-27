@@ -1,5 +1,191 @@
 {
-  "personal_exercises": [],
-  "personal_programs": [],
-  "exercise_descriptions": {}
+  "personal_exercises": [
+    {
+      "id": "pe_1774606725391",
+      "name": "Speedwalking",
+      "mg": "Baglaar og baller",
+      "eq": [
+        "elastik",
+        "bar",
+        "kropsvagt"
+      ],
+      "door": false,
+      "personal": true,
+      "desc": "Gå hurtigt i en time."
+    },
+    {
+      "id": "pe_1774640343407",
+      "name": "Bensving",
+      "mg": "Baglaar og baller",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "desc": "Støt dig til et bord eller en stol. Sving først det ene ben højt frem og tilbage 10 gange. Skift ben og sving det andet ben højt frem og tilbage 10 gange.",
+      "warmup": true,
+      "personal": true
+    },
+    {
+      "id": "pe_import_01",
+      "name": "Ankelbøjning",
+      "mg": "Laeg",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Denne øvelser træner dine ankler og underkrop. Du skal lave 3 sæt af 10 ankelbøjninger.\n\nDu får brug for:\n- en træningsmåtte",
+      "personal": true
+    },
+    {
+      "id": "pe_import_02",
+      "name": "Hoftebøjning",
+      "mg": "Forlaar",
+      "eq": [
+        "elastik"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Her træner du dine hofter og din underkrop. Du skal lave 3 sæt af 10 hoftebøjninger.\n\nDu får brug for:\n- en træningselastik\n- en stol, du kan støtte dig til",
+      "personal": true
+    },
+    {
+      "id": "pe_import_03",
+      "name": "Ankelstrækning",
+      "mg": "Laeg",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Træn din underkrop og dine ankler med denne øvelse. Du skal lave 3 sæt af 10 ankelstrækninger.\n\nDu får brug for:\n- en træningsmåtte",
+      "personal": true
+    },
+    {
+      "id": "pe_import_04",
+      "name": "Knæstrækning",
+      "mg": "Forlaar",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Denne øvelse træner din underkrop og dine knæ. Du skal lave 3 sæt af 10 knæstrækninger (squats).\n\nDu får brug for:\n- en stol",
+      "personal": true
+    },
+    {
+      "id": "pe_import_05",
+      "name": "Bækkenløft",
+      "mg": "Baglaar og baller",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Denne øvelse træner din mave, ryg og underkrop. Du skal lave 3 sæt af 10 bækkenløft.\n\nDu får brug for:\n- en træningsmåtte",
+      "personal": true
+    },
+    {
+      "id": "pe_import_06",
+      "name": "Hofteløft",
+      "mg": "Mave",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Denne øvelse træner dine hofter og din overkrop. Du skal lave forskellige variationer af planken. Der laves 3 sæt.\n\nDu får brug for:\n- en træningsmåtte",
+      "personal": true
+    },
+    {
+      "id": "pe_import_07",
+      "name": "Armstrækning",
+      "mg": "Triceps",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Øvelsen træner dine arme og din overkrop. Du skal lave 3 sæt af 10 armstrækninger (dips).\n\nDu får brug for:\n- en stol, der står op ad en væg",
+      "personal": true
+    },
+    {
+      "id": "pe_import_08",
+      "name": "Brystpres",
+      "mg": "Bryst",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Denne øvelse træner dit bryst og din overkrop. Du skal lave 3 sæt af 10 brystpres.\n\nDu får brug for:\n- en fri væg\n- eventuelt et stabilt bord",
+      "personal": true
+    },
+    {
+      "id": "pe_import_09",
+      "name": "Mavebøjning",
+      "mg": "Mave",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Træn din mave og overkrop med denne øvelse. Du skal lave 3 sæt af 10 mavebøjninger.\n\nDu skal bruge:\n- en træningsmåtte",
+      "personal": true
+    },
+    {
+      "id": "pe_import_10",
+      "name": "Rygbøjning",
+      "mg": "Ryg",
+      "eq": [
+        "kropsvagt"
+      ],
+      "door": false,
+      "warmup": false,
+      "desc": "Med denne øvelse træner du din ryg og overkrop. Du skal lave 3 sæt af 10 rygbøjninger.\n\nDu skal bruge:\n- en træningsmåtte",
+      "personal": true
+    }
+  ],
+  "personal_programs": [
+    {
+      "id": "mp_1774610194635",
+      "name": "Klaus ugeprogram",
+      "color": "#f0ea2d",
+      "days": [
+        {
+          "id": "bd_1774609997828_1",
+          "n": 1,
+          "type": "Kondition og styrke",
+          "exs": [
+            "pe_1774606725391",
+            "1e407305f56e4c178e5f67fea9ca5d84"
+          ],
+          "warmupId": "pe_1774640343407"
+        },
+        {
+          "id": "bd_1774614937588_2",
+          "n": 2,
+          "type": "Fullbody",
+          "exs": [
+            "2b1ab4ce18d84fc8a6989120e00d1824",
+            "2a85ddf941904c7b8793f91cbee7a963",
+            "ce15f8fe0c9d47ec8f2278f534b96b20",
+            "f77d97b6c2db4271af5496cb9d036bf5"
+          ],
+          "warmupId": "pe_1774640343407"
+        },
+        {
+          "id": "bd_1774639663856_3",
+          "n": 3,
+          "type": "Fullbody",
+          "exs": [],
+          "warmupId": "pe_1774640343407"
+        }
+      ],
+      "personal": true
+    }
+  ],
+  "exercise_descriptions": {
+    "573e4c0f38d147f593ab1f52f036eb16": "Stående på træningsmåtte"
+  }
 }
