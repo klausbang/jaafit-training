@@ -734,6 +734,28 @@ const PROGRAMS=[
 ];
 
 // ═══════════════════════════════════════════════════════════
+// PERSONAL DATA  (shared localStorage with jaafit_graph.html)
+// ═══════════════════════════════════════════════════════════
+(function loadPersonalData() {
+  function fromLS(key) {
+    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; }
+  }
+
+  // Merge personal exercises into EX so all EX[id] lookups work automatically
+  fromLS('jaafit_personal_exercises').forEach(pe => {
+    EX[pe.id] = {
+      t: pe.name, mg: pe.mg, eq: pe.eq || [],
+      anchor: pe.door || false, personal: true, desc: pe.desc || ''
+    };
+  });
+
+  // Expose personal programs
+  window._personalPrograms = fromLS('jaafit_personal_programs');
+})();
+
+function allPrograms() { return [...PROGRAMS, ...(window._personalPrograms || [])]; }
+
+// ═══════════════════════════════════════════════════════════
 // STATE & STORAGE
 // ═══════════════════════════════════════════════════════════
 let currentUser = 'Klaus';
@@ -760,7 +782,7 @@ function getUserData() {
 function getUser() { return getUserData(); }
 function getWorkouts() { return getUserData().workouts || []; }
 function getProgramId() { return getUserData().program_id || 'prog1'; }
-function getProgram(id) { return PROGRAMS.find(p=>p.id===id); }
+function getProgram(id) { return allPrograms().find(p=>p.id===id); }
 function getCurrentProgram() { return getProgram(getProgramId()); }
 
 function genId() {
@@ -1016,7 +1038,7 @@ function renderLogPage() {
 
   // Populate program dropdown
   const progSel = document.getElementById('log-program');
-  progSel.innerHTML = PROGRAMS.map(p=>`<option value="${p.id}" ${p.id===getProgramId()?'selected':''}>${p.name}</option>`).join('');
+  progSel.innerHTML = allPrograms().map(p=>`<option value="${p.id}" ${p.id===getProgramId()?'selected':''}>${p.personal?'★ ':''}${p.name}</option>`).join('');
 
   onLogProgramChange();
   renderWorkoutHistory();
@@ -1390,7 +1412,7 @@ function hexWithOpacity(hex, opacity) {
 function renderProgramPage() {
   document.getElementById('prog-user-label').textContent = currentUser;
   const progSel = document.getElementById('prog-select');
-  progSel.innerHTML = PROGRAMS.map(p=>`<option value="${p.id}" ${p.id===getProgramId()?'selected':''}>${p.name}</option>`).join('');
+  progSel.innerHTML = allPrograms().map(p=>`<option value="${p.id}" ${p.id===getProgramId()?'selected':''}>${p.personal?'★ ':''}${p.name}</option>`).join('');
   renderProgramDays();
   renderAllPrograms();
 }
@@ -1465,13 +1487,16 @@ function renderProgramDays() {
 }
 
 function renderAllPrograms() {
-  const html = PROGRAMS.map(prog=>`
+  const html = allPrograms().map(prog=>`
     <div style="margin-bottom:12px">
-      <div style="color:#e0e0e0;font-weight:600;margin-bottom:6px">${prog.name}</div>
+      <div style="color:#e0e0e0;font-weight:600;margin-bottom:6px">
+        ${prog.personal?'<span style="color:#f0a500;margin-right:4px">★</span>':''}${prog.name}
+        ${prog.personal?'<span style="font-size:0.72rem;color:#888;font-weight:400;margin-left:6px">Personligt program</span>':''}
+      </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
-        ${prog.days.map(d=>`<div style="background:#1a1a2e;border:1px solid #2a2a4a;border-radius:6px;padding:6px 10px;font-size:0.78rem">
+        ${prog.days.map(d=>`<div style="background:#1a1a2e;border:1px solid ${prog.personal?'#f0a50033':'#2a2a4a'};border-radius:6px;padding:6px 10px;font-size:0.78rem">
           <div style="color:#e94560;font-weight:600">Dag ${d.n}: ${d.type}</div>
-          <div style="color:#666;margin-top:3px"><span style="color:#f39c12">Opvarmning</span> · ${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
+          <div style="color:#666;margin-top:3px">${prog.personal?'':'<span style="color:#f39c12">Opvarmning</span> · '}${d.exs.map(eid=>EX[eid]?EX[eid].t:eid).join(' · ')}</div>
         </div>`).join('')}
       </div>
     </div>`).join('');
@@ -1524,7 +1549,7 @@ function toggleMyProgramPrint(progId) {
 function renderMyPrograms() {
   const myList = getMyPrograms();
   const myIds = new Set(myList.map(p => p.id));
-  const available = PROGRAMS.filter(p => !myIds.has(p.id));
+  const available = allPrograms().filter(p => !myIds.has(p.id));
 
   let html = `<div class="myprog-print-header">
     <h1>JAAFIT – Mine træningsprogrammer – ${currentUser}</h1>
@@ -1539,7 +1564,7 @@ function renderMyPrograms() {
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       ${available.length
         ? `<select id="myprog-add-select" style="padding:7px 10px;background:#1e1e3a;border:1px solid #3a3a5a;border-radius:6px;color:#e0e0e0;font-size:0.82rem">
-             ${available.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}
+             ${available.map(p=>`<option value="${p.id}">${p.personal?'★ ':''}${p.name}</option>`).join('')}
            </select>
            <button class="btn-primary" onclick="addMyProgram(document.getElementById('myprog-add-select').value)">+ Tilføj program</button>`
         : `<span style="color:#555;font-size:0.82rem">Alle programmer er tilføjet</span>`}
