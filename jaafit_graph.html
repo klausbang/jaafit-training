@@ -277,6 +277,35 @@
     font-size: 0.68rem; color: #e94560; background: #2a0010;
     border-radius: 10px; padding: 1px 6px; flex-shrink: 0;
   }
+
+  /* ── Import modal ────────────────────────────────────────── */
+  .import-section { margin-bottom: 14px; }
+  .import-section-title {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom: 1px solid #2a2a4a;
+  }
+  .import-section-title.ok    { color: #27ae60; border-color: #27ae6044; }
+  .import-section-title.warn  { color: #f39c12; border-color: #f39c1244; }
+  .import-section-title.error { color: #e94560; border-color: #e9456044; }
+  .import-item {
+    font-size: 0.78rem; padding: 4px 8px; border-radius: 4px;
+    margin-bottom: 3px; line-height: 1.4;
+  }
+  .import-item.ok    { background: #0a1a0a; color: #aaa; }
+  .import-item.warn  { background: #1a150a; color: #d4a843; }
+  .import-item.error { background: #1a0a0a; color: #e87070; }
+  .import-item.skip  { background: #14121e; color: #555; }
+  .import-summary {
+    font-size: 0.82rem; color: #b0b0c0; margin-bottom: 14px;
+    padding: 8px 10px; background: #1a1a30; border-radius: 6px;
+    line-height: 1.6;
+  }
+  .import-new-tag {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 0.72rem; border: 1px solid #f39c1255;
+    background: #1a140a; color: #f39c12; margin: 2px;
+  }
 </style>
 </head>
 <body>
@@ -286,13 +315,18 @@
     <h1>JAAFIT <span>Øvelsesdatabase</span></h1>
     <p>Graph-visualisering af øvelser, muskelgrupper og træningsprogrammer</p>
   </div>
-  <div style="text-align:right">
-    <a href="jaafit_app.html">💪 Træningsapp</a>
-    &nbsp;|&nbsp;
-    <a href="https://www.skool.com/jaafit/classroom/1b2baa38" target="_blank">🏋️ Øvelsesbibliotek</a>
-    &nbsp;|&nbsp;
-    <a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">📋 Træningsprogrammer</a>
-    <p style="color:#555;font-size:0.75rem;margin-top:3px">Kræver JAAFIT-login på skool.com</p>
+  <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+      <a href="jaafit_app.html">💪 Træningsapp</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.skool.com/jaafit/classroom/1b2baa38" target="_blank">🏋️ Øvelsesbibliotek</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">📋 Træningsprogrammer</a>
+      &nbsp;|&nbsp;
+      <button onclick="triggerImport()" style="padding:5px 14px;background:none;border:1px solid #4fc3f7;border-radius:14px;color:#4fc3f7;font-size:0.82rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='#4fc3f722'" onmouseout="this.style.background='none'">⬆ Importer øvelser</button>
+      <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleImportFile(this)">
+    </div>
+    <p style="color:#555;font-size:0.75rem;margin:0">Kræver JAAFIT-login på skool.com</p>
   </div>
 </header>
 
@@ -446,6 +480,17 @@
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeProgramModal()">Annuller</button>
       <button class="btn-primary" onclick="saveProgram()">Gem program</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import modal -->
+<div class="modal-overlay" id="importModal" onclick="closeImportModal()">
+  <div class="modal" style="width:580px" onclick="event.stopPropagation()">
+    <h3>Importer øvelser</h3>
+    <div id="importModalBody"></div>
+    <div class="modal-footer" id="importModalFooter">
+      <button class="btn-cancel" onclick="closeImportModal()">Luk</button>
     </div>
   </div>
 </div>
@@ -1443,6 +1488,206 @@ function renderExerciseList() {
 
     grid.appendChild(card);
   });
+}
+
+// ── IMPORT ────────────────────────────────────────────────────────────────────
+function triggerImport() {
+  document.getElementById('importFileInput').value = '';
+  document.getElementById('importFileInput').click();
+}
+
+function handleImportFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => parseAndPreviewImport(file.name, e.target.result);
+  reader.readAsText(file, 'utf-8');
+}
+
+function parseAndPreviewImport(filename, text) {
+  // ── 1. Parse JSON ─────────────────────────────────────────
+  let raw;
+  try {
+    raw = JSON.parse(text);
+  } catch(err) {
+    showImportError(`Filen "${filename}" er ikke gyldig JSON: ${err.message}`);
+    return;
+  }
+  if (!Array.isArray(raw)) {
+    showImportError(`Importfilen skal indeholde et JSON-array ([ ... ]).`);
+    return;
+  }
+  if (raw.length === 0) {
+    showImportError(`Importfilen er tom (tomt array).`);
+    return;
+  }
+
+  // ── 2. Validate each item ──────────────────────────────────
+  const knownMgs  = new Set(Object.keys(MG_DISPLAY));
+  const knownEqs  = new Set(Object.keys(EQ_DISPLAY));
+  const existingIds = new Set(personalExercises.map(e => e.id));
+
+  const valid   = [];   // will be imported
+  const skipped = [];   // duplicate ids
+  const errors  = [];   // validation failures
+  const newMgs  = new Set();
+  const newEqs  = new Set();
+
+  raw.forEach((item, i) => {
+    const label = item.name ? `"${item.name}"` : `#${i+1}`;
+
+    // Required fields
+    if (!item.name || typeof item.name !== 'string' || !item.name.trim()) {
+      errors.push({ label: `Øvelse #${i+1}`, msg: 'Mangler "name" (navn).' });
+      return;
+    }
+    if (!item.mg || typeof item.mg !== 'string' || !item.mg.trim()) {
+      errors.push({ label, msg: 'Mangler "mg" (muskelgruppe).' });
+      return;
+    }
+    if (item.eq !== undefined && !Array.isArray(item.eq)) {
+      errors.push({ label, msg: '"eq" (udstyr) skal være et array, fx ["kropsvagt"].' });
+      return;
+    }
+
+    // Duplicate check
+    if (item.id && existingIds.has(item.id)) {
+      skipped.push({ label, msg: `ID "${item.id}" er allerede importeret.` });
+      return;
+    }
+
+    // Collect new mg/eq values
+    if (!knownMgs.has(item.mg)) newMgs.add(item.mg);
+    (item.eq || []).forEach(e => { if (!knownEqs.has(e)) newEqs.add(e); });
+
+    // Build normalised exercise object
+    valid.push({
+      id:       item.id || ('pe_import_' + Date.now() + '_' + i),
+      name:     item.name.trim(),
+      mg:       item.mg.trim(),
+      eq:       Array.isArray(item.eq) ? item.eq : [],
+      door:     !!item.door,
+      warmup:   !!item.warmup,
+      desc:     (item.desc || '').trim(),
+      personal: true
+    });
+  });
+
+  showImportPreview(filename, valid, skipped, errors, newMgs, newEqs);
+}
+
+function showImportError(msg) {
+  document.getElementById('importModalBody').innerHTML =
+    `<div class="import-item error" style="margin-bottom:0">${msg}</div>`;
+  document.getElementById('importModalFooter').innerHTML =
+    `<button class="btn-cancel" onclick="closeImportModal()">Luk</button>`;
+  document.getElementById('importModal').classList.add('show');
+}
+
+function showImportPreview(filename, valid, skipped, errors, newMgs, newEqs) {
+  let html = `<div class="import-summary">
+    <b style="color:#e0e0e0">Fil:</b> ${filename}<br>
+    <b style="color:#27ae60">${valid.length}</b> klar til import &nbsp;·&nbsp;
+    <b style="color:#555">${skipped.length}</b> springer over (duplikater) &nbsp;·&nbsp;
+    <b style="color:#e94560">${errors.length}</b> fejl
+  </div>`;
+
+  // New muscle groups
+  if (newMgs.size > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title warn">Nye muskelgrupper (ikke i databasen)</div>
+      <div style="margin-bottom:6px">
+        ${[...newMgs].map(m => `<span class="import-new-tag">${m}</span>`).join('')}
+      </div>
+      <div style="font-size:0.75rem;color:#888">Disse øvelser importeres med de nye muskelgruppe-værdier. De vil ikke have farve eller filterknap, da de ikke er defineret i databasen.</div>
+    </div>`;
+  }
+
+  // New equipment
+  if (newEqs.size > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title warn">Nyt udstyr (ikke i databasen)</div>
+      <div style="margin-bottom:6px">
+        ${[...newEqs].map(e => `<span class="import-new-tag">${e}</span>`).join('')}
+      </div>
+      <div style="font-size:0.75rem;color:#888">Disse udstyrtyper gemmes som de er. De vises med råtekst i stedet for visningsnavn.</div>
+    </div>`;
+  }
+
+  // Validation errors
+  if (errors.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title error">${errors.length} øvelse(r) med fejl — springes over</div>
+      ${errors.map(e => `<div class="import-item error">❌ ${e.label}: ${e.msg}</div>`).join('')}
+    </div>`;
+  }
+
+  // Skipped duplicates
+  if (skipped.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title" style="color:#555;border-color:#2a2a4a">${skipped.length} duplikat(er) — springes over</div>
+      ${skipped.map(s => `<div class="import-item skip">⏭ ${s.label}: ${s.msg}</div>`).join('')}
+    </div>`;
+  }
+
+  // Valid exercises preview
+  if (valid.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title ok">${valid.length} øvelse(r) klar til import</div>
+      ${valid.map(ex => {
+        const mgColor = MG_COLORS[ex.mg] || '#555';
+        const warmupBadge = ex.warmup ? ' <span style="color:#f39c12;font-size:0.7rem">(opvarmning)</span>' : '';
+        return `<div class="import-item ok">
+          <b style="color:#e0e0e0">${ex.name}</b>${warmupBadge}
+          <span class="import-new-tag" style="border-color:${mgColor}55;background:${mgColor}18;color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+          ${ex.eq.map(e=>`<span class="import-new-tag" style="border-color:#3a3a5a">${EQ_DISPLAY[e]||e}</span>`).join('')}
+          ${ex.desc ? `<div style="color:#666;font-size:0.73rem;margin-top:2px;font-style:italic">${ex.desc.slice(0,80)}${ex.desc.length>80?'…':''}</div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>`;
+  } else {
+    html += `<div style="color:#555;font-size:0.82rem;margin-top:8px">Ingen øvelser at importere.</div>`;
+  }
+
+  document.getElementById('importModalBody').innerHTML = html;
+
+  const footer = document.getElementById('importModalFooter');
+  if (valid.length > 0) {
+    // Store valid list for the confirm handler
+    window._pendingImport = valid;
+    footer.innerHTML = `
+      <button class="btn-cancel" onclick="closeImportModal()">Annuller</button>
+      <button class="btn-primary" onclick="confirmImport()">⬆ Importer ${valid.length} øvelse${valid.length===1?'':'r'}</button>`;
+  } else {
+    footer.innerHTML = `<button class="btn-cancel" onclick="closeImportModal()">Luk</button>`;
+  }
+
+  document.getElementById('importModal').classList.add('show');
+}
+
+async function confirmImport() {
+  const toAdd = window._pendingImport || [];
+  if (!toAdd.length) { closeImportModal(); return; }
+
+  personalExercises = [...personalExercises, ...toAdd];
+  await savePersonalData();
+  closeImportModal();
+  renderPersonalExList();
+  if (currentView === 'oevelser') renderExerciseList();
+  buildButtons();
+  buildGraph();
+
+  // Brief toast
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#27ae60;color:#fff;padding:10px 20px;border-radius:8px;font-size:0.85rem;z-index:999';
+  t.textContent = `✓ ${toAdd.length} øvelse${toAdd.length===1?'':'r'} importeret`;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('show');
+  window._pendingImport = null;
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
