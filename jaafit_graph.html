@@ -110,6 +110,202 @@
   }
   .search-box:focus { outline: none; border-color: #e94560; }
   .search-box::placeholder { color: #555; }
+
+  /* ── Exercise list view ──────────────────────────────────────── */
+  #ex-list-panel {
+    display: none; height: 100%; overflow-y: auto; padding: 20px;
+  }
+  .ex-list-toolbar {
+    display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center;
+  }
+  .ex-list-toolbar input, .ex-list-toolbar select {
+    padding: 7px 10px; background: #1e1e3a; border: 1px solid #3a3a5a;
+    border-radius: 5px; color: #e0e0e0; font-size: 0.82rem; flex: 1; min-width: 140px;
+  }
+  .ex-list-toolbar input:focus, .ex-list-toolbar select:focus { outline: none; border-color: #e94560; }
+  .ex-list-toolbar select option { background: #1e1e3a; }
+  .ex-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .ex-card {
+    background: #12122a; border: 1px solid #2a2a4a; border-radius: 8px;
+    padding: 12px 14px; position: relative; transition: border-color 0.15s;
+  }
+  .ex-card:hover { border-color: #3a3a6a; }
+  .ex-card.personal { border-color: #f0a50044; }
+  .ex-card.personal:hover { border-color: #f0a500; }
+  .ex-card-name {
+    font-weight: 600; font-size: 0.88rem; color: #e0e0e0; margin-bottom: 6px;
+    padding-right: 50px; line-height: 1.3;
+  }
+  .ex-card-name .star { color: #f0a500; margin-right: 4px; }
+  .ex-card-desc { font-size: 0.78rem; color: #888; margin-bottom: 8px; line-height: 1.4; }
+  .ex-card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+  .ex-card-tag {
+    display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 0.7rem;
+    border: 1px solid #3a3a5a; color: #a0a0b0; background: #1a1a2e;
+  }
+  .ex-card-tag.mg { border-color: transparent; color: #fff; }
+  .ex-card-actions {
+    position: absolute; top: 8px; right: 8px; display: flex; gap: 4px;
+  }
+  .ex-card-link { font-size: 0.72rem; color: #4fc3f7; text-decoration: none; }
+  .ex-card-link:hover { text-decoration: underline; }
+
+  /* ── Personal exercises & programs ──────────────────────────── */
+  .personal-section {
+    margin-top: 15px; padding-top: 12px;
+    border-top: 1px solid #2a2a4a;
+  }
+  .personal-list { list-style: none; margin-bottom: 8px; }
+  .personal-item {
+    display: flex; align-items: center; gap: 4px;
+    padding: 4px 0; border-bottom: 1px solid #1e1e3a;
+  }
+  .personal-item-name { flex: 1; font-size: 0.78rem; color: #e0e0e0; }
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.85rem; padding: 2px 4px; color: #888;
+    border-radius: 3px; transition: background 0.15s;
+  }
+  .icon-btn:hover { background: #2a2a4a; color: #e0e0e0; }
+  .add-btn {
+    width: 100%; padding: 6px; background: none;
+    border: 1px dashed #3a3a5a; border-radius: 5px;
+    color: #888; font-size: 0.78rem; cursor: pointer;
+    transition: all 0.2s; margin-top: 4px;
+  }
+  .add-btn:hover { border-color: #e94560; color: #e94560; }
+
+  /* ── Modals ──────────────────────────────────────────────────── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7); z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #12122a; border: 1px solid #2a2a4a; border-radius: 10px;
+    padding: 24px; width: 500px; max-width: 95vw;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { color: #e94560; margin-bottom: 16px; font-size: 1rem; }
+  .form-row { margin-bottom: 12px; }
+  .form-label { display: block; font-size: 0.78rem; color: #888; margin-bottom: 4px; }
+  .form-input, .form-select {
+    width: 100%; padding: 8px 10px; background: #1e1e3a;
+    border: 1px solid #3a3a5a; border-radius: 5px;
+    color: #e0e0e0; font-size: 0.82rem;
+  }
+  .form-input:focus, .form-select:focus { outline: none; border-color: #e94560; }
+  .form-select option { background: #1e1e3a; }
+  .modal-footer {
+    display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;
+  }
+  .btn-primary {
+    padding: 8px 20px; background: #e94560; border: none;
+    border-radius: 5px; color: #fff; font-size: 0.85rem; cursor: pointer;
+  }
+  .btn-primary:hover { background: #c73652; }
+  .btn-cancel {
+    padding: 8px 16px; background: none; border: 1px solid #3a3a5a;
+    border-radius: 5px; color: #888; font-size: 0.85rem; cursor: pointer;
+  }
+  .btn-cancel:hover { border-color: #e94560; color: #e94560; }
+
+  /* ── Program day builder ─────────────────────────────────────── */
+  .day-block {
+    background: #1a1a30; border: 1px solid #2a2a4a; border-radius: 6px;
+    padding: 10px; margin-bottom: 10px;
+  }
+  .day-block-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .day-exs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+  .ex-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #2a2a4a; border: 1px solid #3a3a5a; border-radius: 12px;
+    padding: 2px 8px; font-size: 0.72rem; color: #c0c0d0;
+  }
+  .ex-chip .rm {
+    cursor: pointer; color: #e94560; font-size: 0.65rem; font-weight: bold;
+  }
+  .ex-chip .rm:hover { color: #fff; }
+  /* ── Exercise picker (program builder) ──────────────────────── */
+  .ex-picker-toggle {
+    width: 100%; padding: 5px 10px; margin-top: 8px;
+    background: transparent; border: 1px dashed #3a3a5a; border-radius: 5px;
+    color: #888; font-size: 0.78rem; cursor: pointer; text-align: left;
+    transition: all 0.15s;
+  }
+  .ex-picker-toggle:hover, .ex-picker-toggle.open { border-color: #e94560; color: #e94560; }
+  .ex-picker {
+    margin-top: 4px; background: #0a0a18; border: 1px solid #2a2a4a;
+    border-radius: 6px; overflow: hidden;
+  }
+  .ex-picker-search {
+    width: 100%; padding: 7px 10px; background: #12122a;
+    border: none; border-bottom: 1px solid #2a2a4a;
+    color: #e0e0e0; font-size: 0.8rem; display: block;
+  }
+  .ex-picker-search:focus { outline: none; border-bottom-color: #e94560; }
+  .ex-picker-list { max-height: 240px; overflow-y: auto; }
+  .ex-picker-group-hdr {
+    padding: 4px 10px 4px 8px; font-size: 0.68rem; font-weight: 700;
+    color: #888; text-transform: uppercase; letter-spacing: 0.6px;
+    background: #080814; border-bottom: 1px solid #1a1a2a;
+    border-left: 3px solid transparent; position: sticky; top: 0; z-index: 1;
+  }
+  .ex-picker-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 10px 5px 8px; cursor: pointer; transition: background 0.1s;
+    border-bottom: 1px solid #12121e;
+  }
+  .ex-picker-item:hover { background: #1a1a30; }
+  .ex-picker-item.checked { background: #0f1f10; }
+  .ex-picker-item input[type=checkbox] {
+    accent-color: #e94560; width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+  }
+  .ex-picker-item label {
+    flex: 1; font-size: 0.78rem; color: #c0c0d0; cursor: pointer; line-height: 1.3;
+  }
+  .ex-picker-item.checked label { color: #e0e0e0; }
+  .ex-picker-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .picker-count {
+    font-size: 0.68rem; color: #e94560; background: #2a0010;
+    border-radius: 10px; padding: 1px 6px; flex-shrink: 0;
+  }
+
+  /* ── Import modal ────────────────────────────────────────── */
+  .import-section { margin-bottom: 14px; }
+  .import-section-title {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom: 1px solid #2a2a4a;
+  }
+  .import-section-title.ok    { color: #27ae60; border-color: #27ae6044; }
+  .import-section-title.warn  { color: #f39c12; border-color: #f39c1244; }
+  .import-section-title.error { color: #e94560; border-color: #e9456044; }
+  .import-item {
+    font-size: 0.78rem; padding: 4px 8px; border-radius: 4px;
+    margin-bottom: 3px; line-height: 1.4;
+  }
+  .import-item.ok    { background: #0a1a0a; color: #aaa; }
+  .import-item.warn  { background: #1a150a; color: #d4a843; }
+  .import-item.error { background: #1a0a0a; color: #e87070; }
+  .import-item.skip  { background: #14121e; color: #555; }
+  .import-summary {
+    font-size: 0.82rem; color: #b0b0c0; margin-bottom: 14px;
+    padding: 8px 10px; background: #1a1a30; border-radius: 6px;
+    line-height: 1.6;
+  }
+  .import-new-tag {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 0.72rem; border: 1px solid #f39c1255;
+    background: #1a140a; color: #f39c12; margin: 2px;
+  }
 </style>
 </head>
 <body>
@@ -119,13 +315,18 @@
     <h1>JAAFIT <span>Øvelsesdatabase</span></h1>
     <p>Graph-visualisering af øvelser, muskelgrupper og træningsprogrammer</p>
   </div>
-  <div style="text-align:right">
-    <a href="jaafit_app.html">💪 Træningsapp</a>
-    &nbsp;|&nbsp;
-    <a href="https://www.skool.com/jaafit/classroom/1b2baa38" target="_blank">🏋️ Øvelsesbibliotek</a>
-    &nbsp;|&nbsp;
-    <a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">📋 Træningsprogrammer</a>
-    <p style="color:#555;font-size:0.75rem;margin-top:3px">Kræver JAAFIT-login på skool.com</p>
+  <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+      <a href="jaafit_app.html">💪 Træningsapp</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.skool.com/jaafit/classroom/1b2baa38" target="_blank">🏋️ Øvelsesbibliotek</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">📋 Træningsprogrammer</a>
+      &nbsp;|&nbsp;
+      <button onclick="triggerImport()" style="padding:5px 14px;background:none;border:1px solid #4fc3f7;border-radius:14px;color:#4fc3f7;font-size:0.82rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='#4fc3f722'" onmouseout="this.style.background='none'">⬆ Importer øvelser</button>
+      <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleImportFile(this)">
+    </div>
+    <p style="color:#555;font-size:0.75rem;margin:0">Kræver JAAFIT-login på skool.com</p>
   </div>
 </header>
 
@@ -136,6 +337,7 @@
       <div class="tab active" onclick="setView('muskelgrupper')">Muskler</div>
       <div class="tab" onclick="setView('programmer')">Prog.</div>
       <div class="tab" onclick="setView('udstyr')">Udstyr</div>
+      <div class="tab" onclick="setView('oevelser')">Øvelser</div>
       <div class="tab" onclick="setView('alle')">Alle</div>
     </div>
 
@@ -149,11 +351,22 @@
     <div class="filter-group" id="prog-filters" style="display:none">
       <span class="filter-label">TRÆNINGSPROGRAMMER</span>
       <div class="btn-group" id="progBtns"></div>
+      <div style="margin-top:12px">
+        <span class="filter-label">MINE PROGRAMMER</span>
+        <div class="btn-group" id="myProgBtns"></div>
+        <button class="add-btn" onclick="openProgramModal(null)">+ Nyt program</button>
+      </div>
     </div>
 
     <div class="filter-group" id="eq-filters" style="display:none">
       <span class="filter-label">UDSTYR</span>
       <div class="btn-group" id="eqBtns"></div>
+    </div>
+
+    <div class="personal-section">
+      <h2>Mine øvelser</h2>
+      <ul class="personal-list" id="personalExList"></ul>
+      <button class="add-btn" onclick="openExerciseModal(null)">+ Tilføj øvelse</button>
     </div>
 
     <div class="legend">
@@ -175,6 +388,21 @@
   <div class="graph-area">
     <div id="network"></div>
 
+    <div id="ex-list-panel">
+      <div class="ex-list-toolbar">
+        <input type="text" id="exListSearch" placeholder="Søg øvelse..." oninput="renderExerciseList()">
+        <select id="exListMg" onchange="renderExerciseList()">
+          <option value="">Alle muskelgrupper</option>
+        </select>
+        <select id="exListType" onchange="renderExerciseList()">
+          <option value="">JAAFIT + Mine</option>
+          <option value="jaafit">Kun JAAFIT</option>
+          <option value="personal">Kun mine</option>
+        </select>
+      </div>
+      <div class="ex-cards" id="exCards"></div>
+    </div>
+
     <div class="info-panel" id="infoPanel">
       <span class="close-btn" onclick="closeInfo()">✕</span>
       <h3 id="infoTitle"></h3>
@@ -185,6 +413,84 @@
       <span>Viser: <b id="statNodes">0</b> noder</span>
       <span>Kanter: <b id="statEdges">0</b></span>
       <span style="color:#444">Klik på en node for detaljer</span>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise modal -->
+<div class="modal-overlay" id="exModal" onclick="closeExerciseModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3 id="exModalTitle">Tilføj øvelse</h3>
+    <!-- Shown only when editing description of a built-in JAAFIT exercise -->
+    <div id="exBuiltinNote" style="display:none;margin-bottom:12px;padding:8px 10px;background:#1a180a;border-radius:5px;border-left:3px solid #f39c12">
+      <span style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.5px">JAAFIT-øvelse</span>
+      <div id="exBuiltinName" style="color:#e0e0e0;font-weight:600;margin-top:2px;font-size:0.88rem"></div>
+    </div>
+    <!-- Fields only for personal exercises -->
+    <div id="exPersonalFields">
+      <div class="form-row">
+        <label class="form-label">Navn</label>
+        <input class="form-input" id="exName" type="text" placeholder="Øvelsens navn">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Muskelgruppe</label>
+        <select class="form-select" id="exMg"></select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Udstyr (hold Ctrl for flere)</label>
+        <select class="form-select" id="exEq" multiple size="4"></select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">
+          <input type="checkbox" id="exDoor"> Kræver døranker
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="form-label">
+          <input type="checkbox" id="exIsWarmup"> Opvarmningsøvelse (kan vælges som opvarmning i programmer)
+        </label>
+      </div>
+    </div>
+    <!-- Description available for all exercises -->
+    <div class="form-row">
+      <label class="form-label">Beskrivelse / udførelse</label>
+      <textarea class="form-input" id="exDesc" rows="4" placeholder="Beskriv øvelsen, udførelse, tips, sæt/reps…" style="resize:vertical"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeExerciseModal()">Annuller</button>
+      <button class="btn-primary" onclick="saveExercise()">Gem</button>
+    </div>
+  </div>
+</div>
+
+<!-- Program builder modal -->
+<div class="modal-overlay" id="progModal" onclick="closeProgramModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3 id="progModalTitle">Nyt program</h3>
+    <div class="form-row">
+      <label class="form-label">Programnavn</label>
+      <input class="form-input" id="progName" type="text" placeholder="Mit program">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Farve</label>
+      <input class="form-input" id="progColor" type="color" value="#4a4a8a" style="height:36px;padding:2px">
+    </div>
+    <div id="builderDays"></div>
+    <button class="add-btn" onclick="addBuilderDay()">+ Tilføj dag</button>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeProgramModal()">Annuller</button>
+      <button class="btn-primary" onclick="saveProgram()">Gem program</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import modal -->
+<div class="modal-overlay" id="importModal" onclick="closeImportModal()">
+  <div class="modal" style="width:580px" onclick="event.stopPropagation()">
+    <h3>Importer øvelser</h3>
+    <div id="importModalBody"></div>
+    <div class="modal-footer" id="importModalFooter">
+      <button class="btn-cancel" onclick="closeImportModal()">Luk</button>
     </div>
   </div>
 </div>
@@ -368,6 +674,44 @@ const programs = [
    ]},
 ];
 
+// ── PERSONAL DATA (server file: jaafit_personaldata.json) ─────────────────────
+let personalExercises = [];
+let personalPrograms  = [];
+let exDescriptions    = {};
+
+function savePersonalData() {
+  return fetch('/api/personaldata', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      personal_exercises:   personalExercises,
+      personal_programs:    personalPrograms,
+      exercise_descriptions: exDescriptions
+    })
+  }).catch(() => {});
+}
+
+// Aliases used throughout the code
+function savePersonalExercises(arr) { personalExercises = arr; savePersonalData(); }
+function savePersonalPrograms(arr)  { personalPrograms  = arr; savePersonalData(); }
+function saveExDescriptions(obj)    { exDescriptions    = obj; savePersonalData(); }
+
+// Combined lookups used throughout
+function allExercises() { return [...exercises, ...personalExercises]; }
+function allPrograms()  { return [...programs, ...personalPrograms]; }
+function exDisplay(id) {
+  const pe = personalExercises.find(e => e.id === id);
+  return pe ? pe.name : (EX_DISPLAY[id] || id);
+}
+// Get any exercise's description (personal desc or user-added desc for built-in)
+function getExDesc(id) {
+  const pe = personalExercises.find(e => e.id === id);
+  if (pe) return pe.desc || '';
+  return exDescriptions[id] || '';
+}
+// Get warmup exercises (personal exercises flagged as warmup)
+function warmupExercises() { return personalExercises.filter(e => e.warmup); }
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let currentView = 'muskelgrupper';
 let activeFilter = null;
@@ -377,6 +721,7 @@ let searchTerm = '';
 // ── BUILD BUTTONS ─────────────────────────────────────────────────────────────
 function buildButtons() {
   const mgBtns = document.getElementById('mgBtns');
+  mgBtns.innerHTML = '';
   const allMgs = [...new Set(exercises.map(e=>e.mg))];
   allMgs.forEach(mg => {
     const btn = document.createElement('button');
@@ -388,6 +733,7 @@ function buildButtons() {
   });
 
   const progBtns = document.getElementById('progBtns');
+  progBtns.innerHTML = '';
   programs.forEach(p => {
     const btn = document.createElement('button');
     btn.className = 'btn';
@@ -397,7 +743,19 @@ function buildButtons() {
     progBtns.appendChild(btn);
   });
 
+  const myProgBtns = document.getElementById('myProgBtns');
+  myProgBtns.innerHTML = '';
+  personalPrograms.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = p.name;
+    btn.dataset.prog = p.id;
+    btn.onclick = () => toggleFilter('prog', p.id, btn);
+    myProgBtns.appendChild(btn);
+  });
+
   const eqBtns = document.getElementById('eqBtns');
+  eqBtns.innerHTML = '';
   const allEqs = [...new Set(exercises.flatMap(e=>e.eq))];
   allEqs.forEach(eq => {
     const btn = document.createElement('button');
@@ -407,6 +765,8 @@ function buildButtons() {
     btn.onclick = () => toggleFilter('eq', eq, btn);
     eqBtns.appendChild(btn);
   });
+
+  renderPersonalExList();
 }
 
 function toggleFilter(type, value, btn) {
@@ -433,9 +793,15 @@ function setView(view) {
   document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
   activeFilter = null;
 
+  const isListView = view === 'oevelser';
+  document.getElementById('network').style.display = isListView ? 'none' : 'block';
+  document.getElementById('ex-list-panel').style.display = isListView ? 'block' : 'none';
+  document.getElementById('searchBox').style.display = isListView ? 'none' : 'block';
+
   if (view === 'muskelgrupper') document.getElementById('mg-filters').style.display = 'block';
   else if (view === 'programmer') document.getElementById('prog-filters').style.display = 'block';
   else if (view === 'udstyr') document.getElementById('eq-filters').style.display = 'block';
+  else if (view === 'oevelser') { populateExListFilters(); renderExerciseList(); return; }
 
   buildGraph();
 }
@@ -451,11 +817,11 @@ function buildGraph() {
   const edges = new vis.DataSet();
 
   // Determine which exercises to show
-  let visibleExIds = exercises.map(e => e.id);
+  let visibleExIds = allExercises().map(e => e.id);
 
   if (searchTerm) {
-    visibleExIds = exercises.filter(e => {
-      const disp = (EX_DISPLAY[e.id] || '').toLowerCase();
+    visibleExIds = allExercises().filter(e => {
+      const disp = exDisplay(e.id).toLowerCase();
       return disp.includes(searchTerm);
     }).map(e => e.id);
   }
@@ -463,16 +829,16 @@ function buildGraph() {
   if (activeFilter) {
     if (activeFilter.type === 'mg') {
       visibleExIds = visibleExIds.filter(id => {
-        const ex = exercises.find(e => e.id === id);
+        const ex = allExercises().find(e => e.id === id);
         return ex && ex.mg === activeFilter.value;
       });
     } else if (activeFilter.type === 'eq') {
       visibleExIds = visibleExIds.filter(id => {
-        const ex = exercises.find(e => e.id === id);
+        const ex = allExercises().find(e => e.id === id);
         return ex && ex.eq.includes(activeFilter.value);
       });
     } else if (activeFilter.type === 'prog') {
-      const prog = programs.find(p => p.id === activeFilter.value);
+      const prog = allPrograms().find(p => p.id === activeFilter.value);
       if (prog) {
         const progExIds = new Set(prog.days.flatMap(d => d.exs));
         visibleExIds = visibleExIds.filter(id => progExIds.has(id));
@@ -485,7 +851,7 @@ function buildGraph() {
   if (currentView === 'muskelgrupper' || currentView === 'alle') {
     // Add muscle group nodes
     const shownMgs = new Set();
-    exercises.filter(e => visibleSet.has(e.id)).forEach(e => shownMgs.add(e.mg));
+    allExercises().filter(e => visibleSet.has(e.id)).forEach(e => shownMgs.add(e.mg));
     shownMgs.forEach(mg => {
       nodes.add({
         id: `mg_${mg}`, label: MG_DISPLAY[mg] || mg,
@@ -499,7 +865,7 @@ function buildGraph() {
 
   if (currentView === 'udstyr' || currentView === 'alle') {
     const shownEqs = new Set();
-    exercises.filter(e => visibleSet.has(e.id)).forEach(e => e.eq.forEach(eq => shownEqs.add(eq)));
+    allExercises().filter(e => visibleSet.has(e.id)).forEach(e => e.eq.forEach(eq => shownEqs.add(eq)));
     shownEqs.forEach(eq => {
       nodes.add({
         id: `eq_${eq}`, label: EQ_DISPLAY[eq] || eq,
@@ -512,20 +878,21 @@ function buildGraph() {
   }
 
   if (currentView === 'programmer' || currentView === 'alle') {
-    let shownProgs = programs;
+    let shownProgs = allPrograms();
     if (activeFilter && activeFilter.type === 'prog') {
-      shownProgs = programs.filter(p => p.id === activeFilter.value);
+      shownProgs = allPrograms().filter(p => p.id === activeFilter.value);
     }
     shownProgs.forEach(prog => {
       const hasSomeEx = prog.days.some(d => d.exs.some(eid => visibleSet.has(eid)));
       if (!hasSomeEx && visibleExIds.length > 0 && activeFilter) return;
 
       nodes.add({
-        id: prog.id, label: prog.name,
+        id: prog.id, label: prog.personal ? '★ ' + prog.name : prog.name,
         shape: 'box',
-        color: {background: prog.color, border:'#e94560', highlight:{background:'#e94560',border:'#fff'}},
+        color: {background: prog.color, border: prog.personal ? '#f0a500' : '#e94560', highlight:{background:'#e94560',border:'#fff'}},
         font: {color:'#fff', size:13, bold:true},
         margin: 8, shadow: true,
+        borderDashes: prog.personal ? [5,3] : false,
         nodeType: 'program', progData: prog
       });
 
@@ -558,14 +925,18 @@ function buildGraph() {
   }
 
   // Add exercise nodes
-  exercises.filter(e => visibleSet.has(e.id)).forEach(ex => {
-    const color = MG_COLORS[ex.mg] || '#555';
-    const label = (EX_DISPLAY[ex.id] || ex.id).replace(/ m\. /g,' m.\n');
+  allExercises().filter(e => visibleSet.has(e.id)).forEach(ex => {
+    const isPersonal = !!ex.personal;
+    const color = isPersonal ? '#f0a500' : (MG_COLORS[ex.mg] || '#555');
+    const rawLabel = exDisplay(ex.id).replace(/ m\. /g,' m.\n');
+    const label = isPersonal ? '★ ' + rawLabel : rawLabel;
     nodes.add({
       id: ex.id, label: label,
       shape: 'roundRect',
-      color: {background: color+'cc', border: color, highlight:{background:'#fff',border:color}},
-      font: {color:'#fff', size: 11, multi:false},
+      color: isPersonal
+        ? {background:'#2a2000', border:'#f0a500', highlight:{background:'#f0a50033',border:'#f0a500'}}
+        : {background: color+'cc', border: color, highlight:{background:'#fff',border:color}},
+      font: {color: isPersonal ? '#f0a500' : '#fff', size: 11, multi:false},
       margin: 6, shadow: true,
       nodeType: 'exercise', exData: ex
     });
@@ -630,42 +1001,83 @@ function onNodeClick(params) {
 
   if (node.nodeType === 'exercise') {
     const ex = node.exData;
-    const name = EX_DISPLAY[ex.id] || ex.id;
-    const url = `https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}`;
+    const name = exDisplay(ex.id);
     title.textContent = name;
-    body.innerHTML = `
-      <p><span class="info-tag" style="background:${MG_COLORS[ex.mg]}22;border-color:${MG_COLORS[ex.mg]}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
-         ${ex.eq.map(e=>`<span class="info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
-         ${ex.door ? '<span class="info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>' : '<span class="info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
-      </p>
-      <p style="margin-top:8px"><a href="${url}" target="_blank">🔗 Se øvelse på JAAFIT (kræver login)</a></p>
-    `;
+    const mgColor = MG_COLORS[ex.mg] || '#555';
+    if (ex.personal) {
+      const descHtml = ex.desc
+        ? `<p style="margin-top:8px;color:#aaa;font-size:0.8rem;line-height:1.5">${ex.desc}</p>`
+        : '';
+      body.innerHTML = `
+        <p><span class="info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+           ${ex.eq.map(e=>`<span class="info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
+           ${ex.door ? '<span class="info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>' : '<span class="info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
+        </p>
+        ${descHtml}
+        <p style="margin-top:8px;color:#f0a500">★ Personlig øvelse</p>
+        <p style="margin-top:8px">
+          <button class="btn-cancel" style="font-size:0.75rem" onclick="openExerciseModal('${ex.id}')">✏️ Rediger</button>
+          &nbsp;
+          <button class="btn-cancel" style="font-size:0.75rem;border-color:#e94560;color:#e94560" onclick="deletePersonalExercise('${ex.id}')">🗑️ Slet</button>
+        </p>
+      `;
+    } else {
+      const url = `https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}`;
+      const builtinDesc = exDescriptions[ex.id] || '';
+      const builtinDescHtml = builtinDesc
+        ? `<p style="margin-top:8px;color:#ccc;font-size:0.8rem;line-height:1.5">${builtinDesc}</p>`
+        : '';
+      body.innerHTML = `
+        <p><span class="info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+           ${ex.eq.map(e=>`<span class="info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
+           ${ex.door ? '<span class="info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>' : '<span class="info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
+        </p>
+        ${builtinDescHtml}
+        <p style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn-cancel" style="font-size:0.75rem;border-color:#f39c12;color:#f39c12" onclick="openExerciseModal('${ex.id}', true)">✏️ ${builtinDesc?'Rediger':'Tilføj'} beskrivelse</button>
+          <a href="${url}" target="_blank" style="font-size:0.78rem;color:#4fc3f7">🔗 JAAFIT video</a>
+        </p>
+      `;
+    }
   } else if (node.nodeType === 'muscle_group') {
     const mg = node.mgKey;
-    const exsInMg = exercises.filter(e => e.mg === mg);
+    const exsInMg = allExercises().filter(e => e.mg === mg);
     title.textContent = MG_DISPLAY[mg] || mg;
     body.innerHTML = `<p style="color:#888;margin-bottom:8px">${exsInMg.length} øvelser</p>` +
-      exsInMg.map(e => `<span class="info-tag">${EX_DISPLAY[e.id]||e.id}</span>`).join('');
+      exsInMg.map(e => `<span class="info-tag">${exDisplay(e.id)}</span>`).join('');
   } else if (node.nodeType === 'equipment') {
     const eq = node.eqKey;
-    const exsWithEq = exercises.filter(e => e.eq.includes(eq));
+    const exsWithEq = allExercises().filter(e => e.eq.includes(eq));
     title.textContent = EQ_DISPLAY[eq] || eq;
     body.innerHTML = `<p style="color:#888;margin-bottom:8px">${exsWithEq.length} øvelser bruger dette udstyr</p>` +
-      exsWithEq.map(e => `<span class="info-tag">${EX_DISPLAY[e.id]||e.id}</span>`).join('');
+      exsWithEq.map(e => `<span class="info-tag">${exDisplay(e.id)}</span>`).join('');
   } else if (node.nodeType === 'program') {
     const prog = node.progData;
     title.textContent = 'Program ' + prog.name;
     const totalEx = new Set(prog.days.flatMap(d=>d.exs)).size;
+    const editBtn = prog.personal
+      ? `<p style="margin-top:8px">
+           <button class="btn-cancel" style="font-size:0.75rem" onclick="openProgramModal('${prog.id}')">✏️ Rediger</button>
+           &nbsp;
+           <button class="btn-cancel" style="font-size:0.75rem;border-color:#e94560;color:#e94560" onclick="deletePersonalProgram('${prog.id}')">🗑️ Slet</button>
+         </p>`
+      : `<p style="margin-top:8px"><a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">🔗 Se program på JAAFIT (kræver login)</a></p>`;
     body.innerHTML = `<p style="color:#888;margin-bottom:8px">${prog.days.length} dage · ${totalEx} unikke øvelser</p>` +
-      prog.days.map(d => `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: ` +
-        `<span style="color:#f39c12">Opvarmning</span>, ` +
-        d.exs.map(eid => EX_DISPLAY[eid]||eid).join(', ') + '</p>').join('') +
-      `<p style="margin-top:8px"><a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">🔗 Se program på JAAFIT (kræver login)</a></p>`;
+      prog.days.map(d => {
+        const wu = d.warmupId ? personalExercises.find(e=>e.id===d.warmupId) : null;
+        const wuStr = wu ? `<span style="color:#f39c12">${wu.name}</span>, ` : (!prog.personal ? `<span style="color:#f39c12">Opvarmning</span>, ` : '');
+        return `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: ` +
+          wuStr + d.exs.map(eid => exDisplay(eid)).join(', ') + '</p>';
+      }).join('') +
+      editBtn;
   } else if (node.nodeType === 'day') {
     const day = node.dayData;
     title.textContent = `${node.progName} – Dag ${day.n}: ${day.type}`;
-    body.innerHTML = `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>` +
-      day.exs.map((eid,i) => `<p>${i+1}. ${EX_DISPLAY[eid]||eid}</p>`).join('');
+    const wu = day.warmupId ? personalExercises.find(e=>e.id===day.warmupId) : null;
+    const wuHtml = wu
+      ? `<p style="color:#f39c12;font-weight:600">0. ${wu.name}</p>${wu.desc?`<p style="color:#888;font-size:0.78rem;margin:-4px 0 6px 12px">${wu.desc}</p>`:''}`
+      : `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>`;
+    body.innerHTML = wuHtml + day.exs.map((eid,i) => `<p>${i+1}. ${exDisplay(eid)}</p>`).join('');
   } else {
     closeInfo(); return;
   }
@@ -677,9 +1089,643 @@ function closeInfo() {
   document.getElementById('infoPanel').classList.remove('show');
 }
 
+// ── PERSONAL EXERCISE LIST ────────────────────────────────────────────────────
+function renderPersonalExList() {
+  const ul = document.getElementById('personalExList');
+  ul.innerHTML = '';
+  personalExercises.forEach(ex => {
+    const li = document.createElement('li');
+    li.className = 'personal-item';
+    li.innerHTML = `<span class="personal-item-name">${ex.name}</span>
+      <button class="icon-btn" title="Rediger" onclick="openExerciseModal('${ex.id}')">✏️</button>
+      <button class="icon-btn" title="Slet" onclick="deletePersonalExercise('${ex.id}')">🗑️</button>`;
+    ul.appendChild(li);
+  });
+}
+
+// ── EXERCISE MODAL ────────────────────────────────────────────────────────────
+let _editingExId = null;
+let _editingExBuiltin = false; // true when editing description of a built-in JAAFIT exercise
+
+function openExerciseModal(id, builtinOnly) {
+  _editingExId = id || null;
+  _editingExBuiltin = !!builtinOnly;
+
+  document.getElementById('exPersonalFields').style.display = builtinOnly ? 'none' : '';
+  document.getElementById('exBuiltinNote').style.display   = builtinOnly ? '' : 'none';
+
+  if (builtinOnly) {
+    document.getElementById('exModalTitle').textContent = 'Rediger beskrivelse';
+    document.getElementById('exBuiltinName').textContent = EX_DISPLAY[id] || id;
+    document.getElementById('exDesc').value = exDescriptions[id] || '';
+    document.getElementById('exDesc').placeholder = 'Beskriv udførelse, tips, sæt/reps…';
+  } else {
+    document.getElementById('exModalTitle').textContent = id ? 'Rediger øvelse' : 'Tilføj øvelse';
+
+    const mgSel = document.getElementById('exMg');
+    mgSel.innerHTML = Object.keys(MG_DISPLAY).map(k =>
+      `<option value="${k}">${MG_DISPLAY[k]}</option>`).join('');
+
+    const eqSel = document.getElementById('exEq');
+    eqSel.innerHTML = Object.keys(EQ_DISPLAY).map(k =>
+      `<option value="${k}">${EQ_DISPLAY[k]}</option>`).join('');
+
+    if (id) {
+      const ex = personalExercises.find(e => e.id === id);
+      if (ex) {
+        document.getElementById('exName').value = ex.name;
+        mgSel.value = ex.mg;
+        Array.from(eqSel.options).forEach(o => { o.selected = ex.eq.includes(o.value); });
+        document.getElementById('exDoor').checked = !!ex.door;
+        document.getElementById('exIsWarmup').checked = !!ex.warmup;
+        document.getElementById('exDesc').value = ex.desc || '';
+      }
+    } else {
+      document.getElementById('exName').value = '';
+      document.getElementById('exDoor').checked = false;
+      document.getElementById('exIsWarmup').checked = false;
+      document.getElementById('exDesc').value = '';
+    }
+  }
+
+  document.getElementById('exModal').classList.add('show');
+}
+
+function closeExerciseModal() {
+  document.getElementById('exModal').classList.remove('show');
+}
+
+function saveExercise() {
+  const desc = document.getElementById('exDesc').value.trim();
+
+  // Built-in exercise: only save description
+  if (_editingExBuiltin) {
+    if (desc) exDescriptions[_editingExId] = desc;
+    else delete exDescriptions[_editingExId];
+    saveExDescriptions(exDescriptions);
+    closeExerciseModal();
+    if (currentView === 'oevelser') renderExerciseList();
+    // Rebuild graph so info panel reflects new desc
+    buildGraph();
+    return;
+  }
+
+  const name = document.getElementById('exName').value.trim();
+  if (!name) { alert('Angiv et navn'); return; }
+  const mg = document.getElementById('exMg').value;
+  const eq = Array.from(document.getElementById('exEq').selectedOptions).map(o => o.value);
+  const door = document.getElementById('exDoor').checked;
+  const warmup = document.getElementById('exIsWarmup').checked;
+
+  if (_editingExId) {
+    const ex = personalExercises.find(e => e.id === _editingExId);
+    if (ex) { ex.name = name; ex.mg = mg; ex.eq = eq.length ? eq : ['kropsvagt']; ex.door = door; ex.desc = desc; ex.warmup = warmup; }
+  } else {
+    personalExercises.push({ id: 'pe_' + Date.now(), name, mg, eq: eq.length ? eq : ['kropsvagt'], door, desc, warmup, personal: true });
+  }
+  savePersonalExercises(personalExercises);
+  closeExerciseModal();
+  renderPersonalExList();
+  buildGraph();
+}
+
+function deletePersonalExercise(id) {
+  if (!confirm('Slet denne øvelse?')) return;
+  personalExercises = personalExercises.filter(e => e.id !== id);
+  savePersonalExercises(personalExercises);
+  renderPersonalExList();
+  buildGraph();
+}
+
+// ── PROGRAM MODAL ─────────────────────────────────────────────────────────────
+let _editingProgId = null;
+let _builderDays = [];
+
+function openProgramModal(id) {
+  _editingProgId = id || null;
+  _builderDays = [];
+  document.getElementById('progModalTitle').textContent = id ? 'Rediger program' : 'Nyt program';
+
+  if (id) {
+    const prog = personalPrograms.find(p => p.id === id);
+    if (prog) {
+      document.getElementById('progName').value = prog.name;
+      document.getElementById('progColor').value = prog.color || '#4a4a8a';
+      _builderDays = prog.days.map(d => ({ ...d, exs: [...d.exs], warmupId: d.warmupId || null }));
+    }
+  } else {
+    document.getElementById('progName').value = '';
+    document.getElementById('progColor').value = '#4a4a8a';
+    _builderDays = [];
+  }
+  renderBuilderDays();
+  document.getElementById('progModal').classList.add('show');
+}
+
+function closeProgramModal() {
+  document.getElementById('progModal').classList.remove('show');
+}
+
+function addBuilderDay() {
+  const n = _builderDays.length + 1;
+  _builderDays.push({ id: 'bd_' + Date.now() + '_' + n, n, type: 'Fullbody', exs: [], warmupId: null });
+  renderBuilderDays();
+}
+
+function removeBuilderDay(idx) {
+  _builderDays.splice(idx, 1);
+  _builderDays.forEach((d, i) => { d.n = i + 1; });
+  renderBuilderDays();
+}
+
+function renderBuilderDays() {
+  const container = document.getElementById('builderDays');
+  container.innerHTML = '';
+  _builderDays.forEach((day, idx) => {
+    const div = document.createElement('div');
+    div.className = 'day-block';
+    div.innerHTML = `
+      <div class="day-block-header">
+        <b style="color:#e94560;min-width:50px">Dag ${day.n}</b>
+        <input class="form-input" style="flex:1" placeholder="Type (fx Fullbody)" value="${day.type}"
+          oninput="_builderDays[${idx}].type=this.value">
+        <button class="icon-btn" onclick="removeBuilderDay(${idx})">✕</button>
+      </div>
+      <div style="margin-bottom:8px">
+        <span style="color:#f39c12;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Opvarmning</span>
+        <div style="margin-top:4px" id="dayWarmup_${idx}"></div>
+      </div>
+      <div class="day-exs" id="dayExs_${idx}"></div>
+      <button class="ex-picker-toggle" id="exPickerToggle_${idx}"
+              onclick="toggleExPicker(${idx})">▼ Vælg øvelser</button>
+      <div class="ex-picker" id="exPicker_${idx}" style="display:none">
+        <input class="ex-picker-search" placeholder="Søg øvelse eller muskelgruppe…"
+               oninput="renderPickerList(${idx}, this.value)">
+        <div class="ex-picker-list" id="exPickerList_${idx}"></div>
+      </div>`;
+    container.appendChild(div);
+    renderDayWarmup(idx);
+    renderDayChips(idx);
+  });
+}
+
+function renderDayWarmup(idx) {
+  const area = document.getElementById('dayWarmup_' + idx);
+  if (!area) return;
+  const wExs = warmupExercises();
+  const curId = _builderDays[idx].warmupId || '';
+
+  if (wExs.length === 0) {
+    area.innerHTML = `<span style="font-size:0.75rem;color:#555;font-style:italic">Ingen opvarmningsøvelser. Opret en øvelse og marker "Opvarmningsøvelse".</span>`;
+    return;
+  }
+  const opts = [`<option value="">– Ingen opvarmning –</option>`]
+    .concat(wExs.map(e => `<option value="${e.id}" ${e.id===curId?'selected':''}>${e.name}${e.eq&&e.eq.length?' ('+e.eq.map(q=>EQ_DISPLAY[q]||q).join(', ')+')':''}</option>`))
+    .join('');
+  area.innerHTML = `<select style="padding:5px 8px;background:#1a180a;border:1px solid #f39c1244;border-radius:5px;color:#f39c12;font-size:0.78rem;width:100%" onchange="setDayWarmup(${idx},this.value)">${opts}</select>`;
+}
+
+function setDayWarmup(idx, val) {
+  _builderDays[idx].warmupId = val || null;
+}
+
+function renderDayChips(idx) {
+  const day = _builderDays[idx];
+  const area = document.getElementById('dayExs_' + idx);
+  if (!area) return;
+  area.innerHTML = day.exs.map(eid =>
+    `<span class="ex-chip">${exDisplay(eid)}
+      <span class="rm" onclick="removeDayEx(${idx},'${eid}')">✕</span>
+    </span>`).join('');
+}
+
+function removeDayEx(idx, eid) {
+  _builderDays[idx].exs = _builderDays[idx].exs.filter(e => e !== eid);
+  renderDayChips(idx);
+}
+
+function toggleExPicker(idx) {
+  const panel  = document.getElementById('exPicker_' + idx);
+  const toggle = document.getElementById('exPickerToggle_' + idx);
+  const open   = panel.style.display === 'none';
+  panel.style.display = open ? 'block' : 'none';
+  toggle.textContent  = open ? '▲ Luk øvelsesvælger' : '▼ Vælg øvelser';
+  toggle.classList.toggle('open', open);
+  if (open) {
+    renderPickerList(idx, '');
+    panel.querySelector('.ex-picker-search').focus();
+  }
+}
+
+function renderPickerList(idx, q) {
+  const list = document.getElementById('exPickerList_' + idx);
+  if (!list) return;
+  const lower = (q || '').toLowerCase();
+  const day   = _builderDays[idx];
+
+  // Build groups: muscle-group → exercises[]
+  const groups = {};
+  allExercises().forEach(ex => {
+    const name  = exDisplay(ex.id);
+    const mgLbl = MG_DISPLAY[ex.mg] || ex.mg;
+    if (lower && !name.toLowerCase().includes(lower) && !mgLbl.toLowerCase().includes(lower)) return;
+    if (!groups[ex.mg]) groups[ex.mg] = [];
+    groups[ex.mg].push(ex);
+  });
+
+  list.innerHTML = '';
+  const mgOrder   = Object.keys(MG_DISPLAY);
+  const sortedMgs = [...new Set([...mgOrder, ...Object.keys(groups)])].filter(mg => groups[mg]);
+
+  sortedMgs.forEach(mg => {
+    const hdr = document.createElement('div');
+    hdr.className = 'ex-picker-group-hdr';
+    hdr.style.borderLeftColor = MG_COLORS[mg] || '#555';
+    hdr.textContent = MG_DISPLAY[mg] || mg;
+    list.appendChild(hdr);
+
+    groups[mg].forEach(ex => {
+      const checked = day.exs.includes(ex.id);
+      const uid = 'pick_' + idx + '_' + ex.id;
+      const row = document.createElement('div');
+      row.className = 'ex-picker-item' + (checked ? ' checked' : '');
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.id = uid; cb.checked = checked;
+      cb.addEventListener('change', function() { toggleDayEx(idx, ex.id, cb.checked, row); });
+
+      const dot = document.createElement('div');
+      dot.className = 'ex-picker-dot';
+      dot.style.background = MG_COLORS[ex.mg] || '#555';
+
+      const lbl = document.createElement('label');
+      lbl.htmlFor = uid;
+      lbl.textContent = (ex.personal ? '\u2605 ' : '') + exDisplay(ex.id);
+
+      row.appendChild(cb); row.appendChild(dot); row.appendChild(lbl);
+      row.addEventListener('click', function(e) {
+        if (e.target !== cb) { cb.checked = !cb.checked; toggleDayEx(idx, ex.id, cb.checked, row); }
+      });
+      list.appendChild(row);
+    });
+  });
+}
+
+function toggleDayEx(idx, eid, checked, row) {
+  const exs = _builderDays[idx].exs;
+  if (checked && !exs.includes(eid)) exs.push(eid);
+  else if (!checked) _builderDays[idx].exs = exs.filter(function(e) { return e !== eid; });
+  if (row) row.classList.toggle('checked', checked);
+  renderDayChips(idx);
+}
+
+function saveProgram() {
+  const name = document.getElementById('progName').value.trim();
+  if (!name) { alert('Angiv et programnavn'); return; }
+  const color = document.getElementById('progColor').value;
+
+  const days = _builderDays.map((d, i) => ({
+    id: d.id || ('pd_' + Date.now() + '_' + i),
+    n: i + 1, type: d.type || 'Dag ' + (i+1), exs: d.exs,
+    warmupId: d.warmupId || null
+  }));
+
+  if (_editingProgId) {
+    const prog = personalPrograms.find(p => p.id === _editingProgId);
+    if (prog) { prog.name = name; prog.color = color; prog.days = days; }
+  } else {
+    personalPrograms.push({ id: 'mp_' + Date.now(), name, color, days, personal: true });
+  }
+  savePersonalPrograms(personalPrograms);
+  closeProgramModal();
+  buildButtons();
+  buildGraph();
+}
+
+function deletePersonalProgram(id) {
+  if (!confirm('Slet dette program?')) return;
+  personalPrograms = personalPrograms.filter(p => p.id !== id);
+  savePersonalPrograms(personalPrograms);
+  buildButtons();
+  buildGraph();
+}
+
+// ── EXERCISE LIST VIEW ────────────────────────────────────────────────────────
+
+function populateExListFilters() {
+  const sel = document.getElementById('exListMg');
+  if (sel.options.length > 1) return; // already populated
+  Object.keys(MG_DISPLAY).forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k; opt.textContent = MG_DISPLAY[k];
+    sel.appendChild(opt);
+  });
+}
+
+function renderExerciseList() {
+  const q    = (document.getElementById('exListSearch').value || '').toLowerCase();
+  const mgF  = document.getElementById('exListMg').value;
+  const typeF = document.getElementById('exListType').value;
+
+  let pool = allExercises();
+  if (typeF === 'jaafit')   pool = pool.filter(e => !e.personal);
+  if (typeF === 'personal') pool = pool.filter(e =>  e.personal);
+  if (mgF)  pool = pool.filter(e => e.mg === mgF);
+  if (q)    pool = pool.filter(e => exDisplay(e.id).toLowerCase().includes(q));
+
+  // Sort: personal first, then alpha
+  pool.sort((a, b) => {
+    if (!!a.personal !== !!b.personal) return a.personal ? -1 : 1;
+    return exDisplay(a.id).localeCompare(exDisplay(b.id), 'da');
+  });
+
+  const grid = document.getElementById('exCards');
+  grid.innerHTML = '';
+
+  if (!pool.length) {
+    grid.innerHTML = '<p style="color:#555;padding:20px">Ingen øvelser matcher filtret.</p>';
+    return;
+  }
+
+  pool.forEach(ex => {
+    const name  = exDisplay(ex.id);
+    const color = MG_COLORS[ex.mg] || '#555';
+    const mgLabel = MG_DISPLAY[ex.mg] || ex.mg;
+    const eqLabels = ex.eq.map(e => EQ_DISPLAY[e] || e);
+    const isPersonal = !!ex.personal;
+
+    const card = document.createElement('div');
+    card.className = 'ex-card' + (isPersonal ? ' personal' : '');
+
+    const actionsHtml = isPersonal
+      ? `<div class="ex-card-actions">
+           <button class="icon-btn" title="Rediger" onclick="openExerciseModal('${ex.id}')">✏️</button>
+           <button class="icon-btn" title="Slet" onclick="deletePersonalExercise('${ex.id}')">🗑️</button>
+         </div>`
+      : `<div class="ex-card-actions">
+           <button class="icon-btn" title="Rediger beskrivelse" onclick="openExerciseModal('${ex.id}', true)" style="color:#f39c12">✏️</button>
+           <a class="ex-card-link" href="https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}" target="_blank" title="Se på SKOOL">↗</a>
+         </div>`;
+
+    const desc = getExDesc(ex.id);
+    const descHtml = desc ? `<div class="ex-card-desc">${desc}</div>` : '';
+
+    const doorHtml = ex.door
+      ? `<span class="ex-card-tag" style="border-color:#e9456066;color:#e94560">Døranker</span>`
+      : '';
+
+    card.innerHTML = `
+      ${actionsHtml}
+      <div class="ex-card-name">
+        ${isPersonal ? '<span class="star">★</span>' : ''}${name}
+      </div>
+      ${descHtml}
+      <div class="ex-card-tags">
+        <span class="ex-card-tag mg" style="background:${color}">${mgLabel}</span>
+        ${eqLabels.map(l => `<span class="ex-card-tag">${l}</span>`).join('')}
+        ${doorHtml}
+      </div>`;
+
+    grid.appendChild(card);
+  });
+}
+
+// ── IMPORT ────────────────────────────────────────────────────────────────────
+function triggerImport() {
+  document.getElementById('importFileInput').value = '';
+  document.getElementById('importFileInput').click();
+}
+
+function handleImportFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => parseAndPreviewImport(file.name, e.target.result);
+  reader.readAsText(file, 'utf-8');
+}
+
+function parseAndPreviewImport(filename, text) {
+  // ── 1. Parse JSON ─────────────────────────────────────────
+  let raw;
+  try {
+    raw = JSON.parse(text);
+  } catch(err) {
+    showImportError(`Filen "${filename}" er ikke gyldig JSON: ${err.message}`);
+    return;
+  }
+  if (!Array.isArray(raw)) {
+    showImportError(`Importfilen skal indeholde et JSON-array ([ ... ]).`);
+    return;
+  }
+  if (raw.length === 0) {
+    showImportError(`Importfilen er tom (tomt array).`);
+    return;
+  }
+
+  // ── 2. Validate each item ──────────────────────────────────
+  const knownMgs  = new Set(Object.keys(MG_DISPLAY));
+  const knownEqs  = new Set(Object.keys(EQ_DISPLAY));
+  const existingIds = new Set(personalExercises.map(e => e.id));
+
+  const valid   = [];   // will be imported
+  const skipped = [];   // duplicate ids
+  const errors  = [];   // validation failures
+  const newMgs  = new Set();
+  const newEqs  = new Set();
+
+  raw.forEach((item, i) => {
+    const label = item.name ? `"${item.name}"` : `#${i+1}`;
+
+    // Required fields
+    if (!item.name || typeof item.name !== 'string' || !item.name.trim()) {
+      errors.push({ label: `Øvelse #${i+1}`, msg: 'Mangler "name" (navn).' });
+      return;
+    }
+    if (!item.mg || typeof item.mg !== 'string' || !item.mg.trim()) {
+      errors.push({ label, msg: 'Mangler "mg" (muskelgruppe).' });
+      return;
+    }
+    if (item.eq !== undefined && !Array.isArray(item.eq)) {
+      errors.push({ label, msg: '"eq" (udstyr) skal være et array, fx ["kropsvagt"].' });
+      return;
+    }
+
+    // Duplicate check
+    if (item.id && existingIds.has(item.id)) {
+      skipped.push({ label, msg: `ID "${item.id}" er allerede importeret.` });
+      return;
+    }
+
+    // Collect new mg/eq values
+    if (!knownMgs.has(item.mg)) newMgs.add(item.mg);
+    (item.eq || []).forEach(e => { if (!knownEqs.has(e)) newEqs.add(e); });
+
+    // Build normalised exercise object
+    valid.push({
+      id:       item.id || ('pe_import_' + Date.now() + '_' + i),
+      name:     item.name.trim(),
+      mg:       item.mg.trim(),
+      eq:       Array.isArray(item.eq) ? item.eq : [],
+      door:     !!item.door,
+      warmup:   !!item.warmup,
+      desc:     (item.desc || '').trim(),
+      personal: true
+    });
+  });
+
+  showImportPreview(filename, valid, skipped, errors, newMgs, newEqs);
+}
+
+function showImportError(msg) {
+  document.getElementById('importModalBody').innerHTML =
+    `<div class="import-item error" style="margin-bottom:0">${msg}</div>`;
+  document.getElementById('importModalFooter').innerHTML =
+    `<button class="btn-cancel" onclick="closeImportModal()">Luk</button>`;
+  document.getElementById('importModal').classList.add('show');
+}
+
+function showImportPreview(filename, valid, skipped, errors, newMgs, newEqs) {
+  let html = `<div class="import-summary">
+    <b style="color:#e0e0e0">Fil:</b> ${filename}<br>
+    <b style="color:#27ae60">${valid.length}</b> klar til import &nbsp;·&nbsp;
+    <b style="color:#555">${skipped.length}</b> springer over (duplikater) &nbsp;·&nbsp;
+    <b style="color:#e94560">${errors.length}</b> fejl
+  </div>`;
+
+  // New muscle groups
+  if (newMgs.size > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title warn">Nye muskelgrupper (ikke i databasen)</div>
+      <div style="margin-bottom:6px">
+        ${[...newMgs].map(m => `<span class="import-new-tag">${m}</span>`).join('')}
+      </div>
+      <div style="font-size:0.75rem;color:#888">Disse øvelser importeres med de nye muskelgruppe-værdier. De vil ikke have farve eller filterknap, da de ikke er defineret i databasen.</div>
+    </div>`;
+  }
+
+  // New equipment
+  if (newEqs.size > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title warn">Nyt udstyr (ikke i databasen)</div>
+      <div style="margin-bottom:6px">
+        ${[...newEqs].map(e => `<span class="import-new-tag">${e}</span>`).join('')}
+      </div>
+      <div style="font-size:0.75rem;color:#888">Disse udstyrtyper gemmes som de er. De vises med råtekst i stedet for visningsnavn.</div>
+    </div>`;
+  }
+
+  // Validation errors
+  if (errors.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title error">${errors.length} øvelse(r) med fejl — springes over</div>
+      ${errors.map(e => `<div class="import-item error">❌ ${e.label}: ${e.msg}</div>`).join('')}
+    </div>`;
+  }
+
+  // Skipped duplicates
+  if (skipped.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title" style="color:#555;border-color:#2a2a4a">${skipped.length} duplikat(er) — springes over</div>
+      ${skipped.map(s => `<div class="import-item skip">⏭ ${s.label}: ${s.msg}</div>`).join('')}
+    </div>`;
+  }
+
+  // Valid exercises preview
+  if (valid.length > 0) {
+    html += `<div class="import-section">
+      <div class="import-section-title ok">${valid.length} øvelse(r) klar til import</div>
+      ${valid.map(ex => {
+        const mgColor = MG_COLORS[ex.mg] || '#555';
+        const warmupBadge = ex.warmup ? ' <span style="color:#f39c12;font-size:0.7rem">(opvarmning)</span>' : '';
+        return `<div class="import-item ok">
+          <b style="color:#e0e0e0">${ex.name}</b>${warmupBadge}
+          <span class="import-new-tag" style="border-color:${mgColor}55;background:${mgColor}18;color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+          ${ex.eq.map(e=>`<span class="import-new-tag" style="border-color:#3a3a5a">${EQ_DISPLAY[e]||e}</span>`).join('')}
+          ${ex.desc ? `<div style="color:#666;font-size:0.73rem;margin-top:2px;font-style:italic">${ex.desc.slice(0,80)}${ex.desc.length>80?'…':''}</div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>`;
+  } else {
+    html += `<div style="color:#555;font-size:0.82rem;margin-top:8px">Ingen øvelser at importere.</div>`;
+  }
+
+  document.getElementById('importModalBody').innerHTML = html;
+
+  const footer = document.getElementById('importModalFooter');
+  if (valid.length > 0) {
+    // Store valid list for the confirm handler
+    window._pendingImport = valid;
+    footer.innerHTML = `
+      <button class="btn-cancel" onclick="closeImportModal()">Annuller</button>
+      <button class="btn-primary" onclick="confirmImport()">⬆ Importer ${valid.length} øvelse${valid.length===1?'':'r'}</button>`;
+  } else {
+    footer.innerHTML = `<button class="btn-cancel" onclick="closeImportModal()">Luk</button>`;
+  }
+
+  document.getElementById('importModal').classList.add('show');
+}
+
+async function confirmImport() {
+  const toAdd = window._pendingImport || [];
+  if (!toAdd.length) { closeImportModal(); return; }
+
+  personalExercises = [...personalExercises, ...toAdd];
+  await savePersonalData();
+  closeImportModal();
+  renderPersonalExList();
+  if (currentView === 'oevelser') renderExerciseList();
+  buildButtons();
+  buildGraph();
+
+  // Brief toast
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#27ae60;color:#fff;padding:10px 20px;border-radius:8px;font-size:0.85rem;z-index:999';
+  t.textContent = `✓ ${toAdd.length} øvelse${toAdd.length===1?'':'r'} importeret`;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('show');
+  window._pendingImport = null;
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
-buildButtons();
-buildGraph();
+async function initGraph() {
+  // Load personal data from server
+  try {
+    const res = await fetch('/api/personaldata');
+    if (res.ok) {
+      const d = await res.json();
+      personalExercises = d.personal_exercises   || [];
+      personalPrograms  = d.personal_programs    || [];
+      exDescriptions    = d.exercise_descriptions || {};
+    }
+  } catch(e) {}
+
+  // One-time migration: if server file is empty but localStorage has data, migrate it
+  if (!personalExercises.length && !personalPrograms.length && !Object.keys(exDescriptions).length) {
+    try {
+      const lsEx   = JSON.parse(localStorage.getItem('jaafit_personal_exercises')   || '[]');
+      const lsPr   = JSON.parse(localStorage.getItem('jaafit_personal_programs')    || '[]');
+      const lsDesc = JSON.parse(localStorage.getItem('jaafit_exercise_descriptions') || '{}');
+      if (lsEx.length || lsPr.length || Object.keys(lsDesc).length) {
+        personalExercises = lsEx;
+        personalPrograms  = lsPr;
+        exDescriptions    = lsDesc;
+        await savePersonalData();
+        localStorage.removeItem('jaafit_personal_exercises');
+        localStorage.removeItem('jaafit_personal_programs');
+        localStorage.removeItem('jaafit_exercise_descriptions');
+        console.log('Migreret personlig data fra localStorage til server.');
+      }
+    } catch(e) {}
+  }
+
+  buildButtons();
+  buildGraph();
+}
+initGraph();
 </script>
 </body>
 </html>
