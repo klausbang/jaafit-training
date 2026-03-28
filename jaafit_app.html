@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAAFIT Træningsapp</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <style>
 /* ── RESET & BASE ─────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -227,6 +228,197 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
 .myprog-eq-tag.anchor{border-color:#e9456055;color:#e94560}
 .myprog-ex-desc{padding:2px 8px 6px 8px;font-size:0.75rem;color:#666;font-style:italic;line-height:1.4}
 
+/* ══════════════════════════════════════════════════════════
+   ØVELSESDATABASE TAB  (vis-network graph)
+   ══════════════════════════════════════════════════════════ */
+#page-database { display:none; padding:0 !important; max-width:none !important; margin:0 !important; }
+#page-database.active { display:block !important; }
+.db-layout { display:flex; height:calc(100vh - 94px); }
+.db-sidebar {
+  width:300px; min-width:220px; background:#12122a;
+  border-right:1px solid #2a2a4a; overflow-y:auto; padding:15px; flex-shrink:0;
+}
+.db-graph-area { flex:1; position:relative; }
+#db-network { width:100%; height:100%; }
+.db-sidebar h2 { color:#e94560; font-size:0.95rem; text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:10px; padding-bottom:5px;
+  border-bottom:1px solid #2a2a4a; }
+.db-filter-group { margin-bottom:18px; }
+.db-filter-label { font-size:0.78rem; color:#888; margin-bottom:6px; display:block; }
+.db-btn-group { display:flex; flex-wrap:wrap; gap:5px; }
+.db-btn {
+  padding:5px 10px; border-radius:15px; font-size:0.75rem; cursor:pointer;
+  border:1px solid transparent; transition:all 0.2s;
+  background:#1e1e3a; color:#c0c0d0; border-color:#3a3a5a;
+}
+.db-btn:hover { background:#2a2a4a; }
+.db-btn.active { color:#fff; border-color:transparent; }
+.db-btn[data-mg="Bryst"].active        { background:#c0392b; }
+.db-btn[data-mg="Ryg"].active          { background:#1a6a9a; }
+.db-btn[data-mg="Forlaar"].active      { background:#27ae60; }
+.db-btn[data-mg="Baglaar og baller"].active { background:#8e44ad; }
+.db-btn[data-mg="Inder og ydersiden af laarene"].active { background:#d35400; }
+.db-btn[data-mg="Biceps"].active       { background:#c0392b; }
+.db-btn[data-mg="Triceps"].active      { background:#2980b9; }
+.db-btn[data-mg="Skulder"].active      { background:#16a085; }
+.db-btn[data-mg="Mave"].active         { background:#e67e22; }
+.db-btn[data-mg="Laeg"].active         { background:#7f8c8d; }
+.db-btn[data-prog].active  { background:#e94560; }
+.db-btn[data-eq].active    { background:#0f3460; border-color:#4fc3f7; }
+.db-view-tabs { display:flex; gap:0; margin-bottom:15px; }
+.db-tab {
+  flex:1; padding:8px 5px; text-align:center; cursor:pointer; font-size:0.78rem;
+  background:#1e1e3a; color:#888; border:1px solid #2a2a4a; transition:all 0.2s;
+}
+.db-tab:first-child { border-radius:5px 0 0 5px; }
+.db-tab:last-child  { border-radius:0 5px 5px 0; }
+.db-tab.active { background:#e94560; color:#fff; border-color:#e94560; }
+.db-legend { margin-top:15px; }
+.db-legend-item { display:flex; align-items:center; gap:8px; font-size:0.75rem;
+  margin-bottom:5px; color:#aaa; }
+.db-legend-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.db-info-panel {
+  position:absolute; top:10px; right:10px; width:280px;
+  background:rgba(18,18,42,0.95); border:1px solid #2a2a4a; border-radius:8px;
+  padding:15px; font-size:0.82rem; display:none; z-index:10;
+  backdrop-filter:blur(10px);
+}
+.db-info-panel.show { display:block; }
+.db-info-panel h3 { color:#e94560; margin-bottom:8px; font-size:0.92rem; }
+.db-info-panel p { color:#b0b0c0; line-height:1.5; margin-bottom:6px; }
+.db-info-panel a { color:#4fc3f7; word-break:break-all; }
+.db-info-panel .close-btn { position:absolute; top:8px; right:10px; cursor:pointer;
+  color:#666; font-size:1rem; }
+.db-info-panel .close-btn:hover { color:#e94560; }
+.db-info-tag {
+  display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.72rem;
+  margin:2px; background:#1e1e3a; border:1px solid #3a3a5a; color:#c0c0d0;
+}
+.db-stats-bar {
+  position:absolute; bottom:10px; left:10px; right:10px;
+  background:rgba(18,18,42,0.8); border-radius:5px; padding:6px 12px;
+  font-size:0.75rem; color:#666; display:flex; gap:20px; flex-wrap:wrap;
+}
+.db-stats-bar span { color:#888; }
+.db-stats-bar span b { color:#e94560; }
+.db-search-box {
+  width:100%; padding:7px 10px; background:#1e1e3a; border:1px solid #3a3a5a;
+  border-radius:5px; color:#e0e0e0; font-size:0.82rem; margin-bottom:12px;
+}
+.db-search-box:focus { outline:none; border-color:#e94560; }
+.db-search-box::placeholder { color:#555; }
+#db-ex-list-panel { display:none; height:100%; overflow-y:auto; padding:20px; }
+.db-ex-list-toolbar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
+.db-ex-list-toolbar input, .db-ex-list-toolbar select {
+  padding:7px 10px; background:#1e1e3a; border:1px solid #3a3a5a;
+  border-radius:5px; color:#e0e0e0; font-size:0.82rem; flex:1; min-width:140px;
+}
+.db-ex-list-toolbar input:focus, .db-ex-list-toolbar select:focus { outline:none; border-color:#e94560; }
+.db-ex-list-toolbar select option { background:#1e1e3a; }
+.db-ex-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.db-ex-card { background:#12122a; border:1px solid #2a2a4a; border-radius:8px;
+  padding:12px 14px; position:relative; transition:border-color 0.15s; }
+.db-ex-card:hover { border-color:#3a3a6a; }
+.db-ex-card.personal { border-color:#f0a50044; }
+.db-ex-card.personal:hover { border-color:#f0a500; }
+.db-ex-card-name { font-weight:600; font-size:0.88rem; color:#e0e0e0; margin-bottom:6px;
+  padding-right:50px; line-height:1.3; }
+.db-ex-card-name .star { color:#f0a500; margin-right:4px; }
+.db-ex-card-desc { font-size:0.78rem; color:#888; margin-bottom:8px; line-height:1.4; }
+.db-ex-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
+.db-ex-card-tag { display:inline-block; padding:2px 7px; border-radius:10px; font-size:0.7rem;
+  border:1px solid #3a3a5a; color:#a0a0b0; background:#1a1a2e; }
+.db-ex-card-tag.mg { border-color:transparent; color:#fff; }
+.db-ex-card-actions { position:absolute; top:8px; right:8px; display:flex; gap:4px; }
+.db-ex-card-link { font-size:0.72rem; color:#4fc3f7; text-decoration:none; }
+.db-ex-card-link:hover { text-decoration:underline; }
+.db-personal-section { margin-top:15px; padding-top:12px; border-top:1px solid #2a2a4a; }
+.db-personal-list { list-style:none; margin-bottom:8px; }
+.db-personal-item { display:flex; align-items:center; gap:4px;
+  padding:4px 0; border-bottom:1px solid #1e1e3a; }
+.db-personal-item-name { flex:1; font-size:0.78rem; color:#e0e0e0; }
+.db-icon-btn { background:none; border:none; cursor:pointer;
+  font-size:0.85rem; padding:2px 4px; color:#888;
+  border-radius:3px; transition:background 0.15s; }
+.db-icon-btn:hover { background:#2a2a4a; color:#e0e0e0; }
+.db-add-btn { width:100%; padding:6px; background:none;
+  border:1px dashed #3a3a5a; border-radius:5px;
+  color:#888; font-size:0.78rem; cursor:pointer;
+  transition:all 0.2s; margin-top:4px; }
+.db-add-btn:hover { border-color:#e94560; color:#e94560; }
+/* Database modals */
+.db-modal-overlay { display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.7); z-index:100; align-items:center; justify-content:center; }
+.db-modal-overlay.show { display:flex; }
+.db-modal { background:#12122a; border:1px solid #2a2a4a; border-radius:10px;
+  padding:24px; width:500px; max-width:95vw; max-height:90vh; overflow-y:auto; }
+.db-modal h3 { color:#e94560; margin-bottom:16px; font-size:1rem; }
+.db-form-row { margin-bottom:12px; }
+.db-form-label { display:block; font-size:0.78rem; color:#888; margin-bottom:4px; }
+.db-form-input, .db-form-select {
+  width:100%; padding:8px 10px; background:#1e1e3a;
+  border:1px solid #3a3a5a; border-radius:5px; color:#e0e0e0; font-size:0.82rem;
+}
+.db-form-input:focus, .db-form-select:focus { outline:none; border-color:#e94560; }
+.db-form-select option { background:#1e1e3a; }
+.db-modal-footer { display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+.db-btn-cancel { padding:8px 16px; background:none; border:1px solid #3a3a5a;
+  border-radius:5px; color:#888; font-size:0.85rem; cursor:pointer; }
+.db-btn-cancel:hover { border-color:#e94560; color:#e94560; }
+.db-btn-primary { padding:8px 20px; background:#e94560; border:none;
+  border-radius:5px; color:#fff; font-size:0.85rem; cursor:pointer; }
+.db-btn-primary:hover { background:#c73652; }
+/* Program day builder */
+.db-day-block { background:#1a1a30; border:1px solid #2a2a4a; border-radius:6px;
+  padding:10px; margin-bottom:10px; }
+.db-day-block-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.db-day-exs { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
+.db-ex-chip { display:inline-flex; align-items:center; gap:4px;
+  background:#2a2a4a; border:1px solid #3a3a5a; border-radius:12px;
+  padding:2px 8px; font-size:0.72rem; color:#c0c0d0; }
+.db-ex-chip .rm { cursor:pointer; color:#e94560; font-size:0.65rem; font-weight:bold; }
+.db-ex-chip .rm:hover { color:#fff; }
+.db-ex-picker-toggle { width:100%; padding:5px 10px; margin-top:8px;
+  background:transparent; border:1px dashed #3a3a5a; border-radius:5px;
+  color:#888; font-size:0.78rem; cursor:pointer; text-align:left; transition:all 0.15s; }
+.db-ex-picker-toggle:hover, .db-ex-picker-toggle.open { border-color:#e94560; color:#e94560; }
+.db-ex-picker { margin-top:4px; background:#0a0a18; border:1px solid #2a2a4a; border-radius:6px; overflow:hidden; }
+.db-ex-picker-search { width:100%; padding:7px 10px; background:#12122a;
+  border:none; border-bottom:1px solid #2a2a4a; color:#e0e0e0; font-size:0.8rem; display:block; }
+.db-ex-picker-search:focus { outline:none; border-bottom-color:#e94560; }
+.db-ex-picker-list { max-height:240px; overflow-y:auto; }
+.db-ex-picker-group-hdr { padding:4px 10px 4px 8px; font-size:0.68rem; font-weight:700;
+  color:#888; text-transform:uppercase; letter-spacing:0.6px;
+  background:#080814; border-bottom:1px solid #1a1a2a;
+  border-left:3px solid transparent; position:sticky; top:0; z-index:1; }
+.db-ex-picker-item { display:flex; align-items:center; gap:8px;
+  padding:5px 10px 5px 8px; cursor:pointer; transition:background 0.1s;
+  border-bottom:1px solid #12121e; }
+.db-ex-picker-item:hover { background:#1a1a30; }
+.db-ex-picker-item.checked { background:#0f1f10; }
+.db-ex-picker-item input[type=checkbox] { accent-color:#e94560; width:14px; height:14px; flex-shrink:0; cursor:pointer; }
+.db-ex-picker-item label { flex:1; font-size:0.78rem; color:#c0c0d0; cursor:pointer; line-height:1.3; }
+.db-ex-picker-item.checked label { color:#e0e0e0; }
+.db-ex-picker-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.db-picker-count { font-size:0.68rem; color:#e94560; background:#2a0010;
+  border-radius:10px; padding:1px 6px; flex-shrink:0; }
+/* Import modal */
+.db-import-section { margin-bottom:14px; }
+.db-import-section-title { font-size:0.72rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:0.5px; margin-bottom:6px; padding-bottom:4px; border-bottom:1px solid #2a2a4a; }
+.db-import-section-title.ok    { color:#27ae60; border-color:#27ae6044; }
+.db-import-section-title.warn  { color:#f39c12; border-color:#f39c1244; }
+.db-import-section-title.error { color:#e94560; border-color:#e9456044; }
+.db-import-item { font-size:0.78rem; padding:4px 8px; border-radius:4px; margin-bottom:3px; line-height:1.4; }
+.db-import-item.ok    { background:#0a1a0a; color:#aaa; }
+.db-import-item.warn  { background:#1a150a; color:#d4a843; }
+.db-import-item.error { background:#1a0a0a; color:#e87070; }
+.db-import-item.skip  { background:#14121e; color:#555; }
+.db-import-summary { font-size:0.82rem; color:#b0b0c0; margin-bottom:14px;
+  padding:8px 10px; background:#1a1a30; border-radius:6px; line-height:1.6; }
+.db-import-new-tag { display:inline-block; padding:1px 7px; border-radius:10px;
+  font-size:0.72rem; border:1px solid #f39c1255; background:#1a140a; color:#f39c12; margin:2px; }
+
 /* ── PRINT ───────────────────────────────────────────────── */
 @media print {
   @page{size:A4 portrait;margin:20mm 28mm}
@@ -305,7 +497,6 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
     <span style="color:#555;font-size:0.78rem">Bruger:</span>
     <button class="user-btn active" onclick="switchUser('Klaus')">Klaus</button>
     <button class="user-btn" onclick="switchUser('Dorte')">Dorte</button>
-    <a href="jaafit_graph.html" class="btn-secondary" style="padding:6px 14px;font-size:0.78rem;border-radius:6px;border:1px solid #3a3a5a;background:#1e1e3a;color:#aaa">🔗 Graf</a>
   </div>
 </header>
 
@@ -317,6 +508,7 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
   <button class="nav-tab" onclick="showPage('program')">📋 Program</button>
   <button class="nav-tab" onclick="showPage('mydata')">📄 Mine data</button>
   <button class="nav-tab" onclick="showPage('myprograms')">🗂 Mine programmer</button>
+  <button class="nav-tab" onclick="showPage('database')">🔗 Øvelsesdatabase</button>
 </nav>
 
 <!-- ════════════════════════════════════════════════════════ -->
@@ -628,6 +820,164 @@ a.next-ex-name:hover{color:#4fc3f7;text-decoration:underline}
   <div id="myprograms-body"></div>
 </div>
 
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  PAGE: ØVELSESDATABASE                                 -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="page" id="page-database">
+  <div class="db-layout">
+    <div class="db-sidebar">
+      <div class="db-view-tabs">
+        <div class="db-tab active" onclick="dbSetView('muskelgrupper',this)">Muskler</div>
+        <div class="db-tab" onclick="dbSetView('programmer',this)">Prog.</div>
+        <div class="db-tab" onclick="dbSetView('udstyr',this)">Udstyr</div>
+        <div class="db-tab" onclick="dbSetView('oevelser',this)">Øvelser</div>
+        <div class="db-tab" onclick="dbSetView('alle',this)">Alle</div>
+      </div>
+      <input class="db-search-box" type="text" id="db-searchBox" placeholder="Søg øvelse..." oninput="dbFilterSearch()">
+      <div class="db-filter-group" id="db-mg-filters">
+        <span class="db-filter-label">MUSKELGRUPPER</span>
+        <div class="db-btn-group" id="db-mgBtns"></div>
+      </div>
+      <div class="db-filter-group" id="db-prog-filters" style="display:none">
+        <span class="db-filter-label">TRÆNINGSPROGRAMMER</span>
+        <div class="db-btn-group" id="db-progBtns"></div>
+        <div style="margin-top:12px">
+          <span class="db-filter-label">MINE PROGRAMMER</span>
+          <div class="db-btn-group" id="db-myProgBtns"></div>
+          <button class="db-add-btn" onclick="dbOpenProgramModal(null)">+ Nyt program</button>
+        </div>
+      </div>
+      <div class="db-filter-group" id="db-eq-filters" style="display:none">
+        <span class="db-filter-label">UDSTYR</span>
+        <div class="db-btn-group" id="db-eqBtns"></div>
+      </div>
+      <div class="db-personal-section">
+        <h2>Mine øvelser</h2>
+        <ul class="db-personal-list" id="db-personalExList"></ul>
+        <button class="db-add-btn" onclick="dbOpenExerciseModal(null)">+ Tilføj øvelse</button>
+      </div>
+      <div style="margin-top:8px;margin-bottom:8px">
+        <button onclick="dbTriggerImport()" style="width:100%;padding:6px 14px;background:none;border:1px solid #4fc3f7;border-radius:14px;color:#4fc3f7;font-size:0.82rem;cursor:pointer">⬆ Importer øvelser</button>
+        <input type="file" id="db-importFileInput" accept=".json" style="display:none" onchange="dbHandleImportFile(this)">
+      </div>
+      <div class="db-legend">
+        <h2>Farveforklaring</h2>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#c0392b"></div> Bryst / Biceps</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#1a6a9a"></div> Ryg</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#27ae60"></div> Forlår</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#8e44ad"></div> Baglår og baller</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#d35400"></div> Inderlår / Yderlår</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#2980b9"></div> Triceps</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#16a085"></div> Skulder</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#e67e22"></div> Mave</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#7f8c8d"></div> Læg</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#e94560;border-radius:3px"></div> Træningsprogram</div>
+        <div class="db-legend-item"><div class="db-legend-dot" style="background:#0f3460;border:2px solid #4fc3f7;border-radius:3px"></div> Udstyr</div>
+      </div>
+    </div><!-- .db-sidebar -->
+
+    <div class="db-graph-area">
+      <div id="db-network"></div>
+
+      <div id="db-ex-list-panel">
+        <div class="db-ex-list-toolbar">
+          <input type="text" id="db-exListSearch" placeholder="Søg øvelse..." oninput="dbRenderExerciseList()">
+          <select id="db-exListMg" onchange="dbRenderExerciseList()">
+            <option value="">Alle muskelgrupper</option>
+          </select>
+          <select id="db-exListType" onchange="dbRenderExerciseList()">
+            <option value="">JAAFIT + Mine</option>
+            <option value="jaafit">Kun JAAFIT</option>
+            <option value="personal">Kun mine</option>
+          </select>
+        </div>
+        <div class="db-ex-cards" id="db-exCards"></div>
+      </div>
+
+      <div class="db-info-panel" id="db-infoPanel">
+        <span class="close-btn" onclick="dbCloseInfo()">✕</span>
+        <h3 id="db-infoTitle"></h3>
+        <div id="db-infoBody"></div>
+      </div>
+
+      <div class="db-stats-bar" id="db-statsBar">
+        <span>Viser: <b id="db-statNodes">0</b> noder</span>
+        <span>Kanter: <b id="db-statEdges">0</b></span>
+        <span style="color:#444">Klik på en node for detaljer</span>
+      </div>
+    </div><!-- .db-graph-area -->
+  </div><!-- .db-layout -->
+</div><!-- #page-database -->
+
+<!-- Database modals -->
+<div class="db-modal-overlay" id="db-exModal" onclick="dbCloseExerciseModal()">
+  <div class="db-modal" onclick="event.stopPropagation()">
+    <h3 id="db-exModalTitle">Tilføj øvelse</h3>
+    <div id="db-exBuiltinNote" style="display:none;margin-bottom:12px;padding:8px 10px;background:#1a180a;border-radius:5px;border-left:3px solid #f39c12">
+      <span style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.5px">JAAFIT-øvelse</span>
+      <div id="db-exBuiltinName" style="color:#e0e0e0;font-weight:600;margin-top:2px;font-size:0.88rem"></div>
+    </div>
+    <div id="db-exPersonalFields">
+      <div class="db-form-row">
+        <label class="db-form-label">Navn</label>
+        <input class="db-form-input" id="db-exName" type="text" placeholder="Øvelsens navn">
+      </div>
+      <div class="db-form-row">
+        <label class="db-form-label">Muskelgruppe</label>
+        <select class="db-form-select" id="db-exMg"></select>
+      </div>
+      <div class="db-form-row">
+        <label class="db-form-label">Udstyr (hold Ctrl for flere)</label>
+        <select class="db-form-select" id="db-exEq" multiple size="4"></select>
+      </div>
+      <div class="db-form-row">
+        <label class="db-form-label"><input type="checkbox" id="db-exDoor"> Kræver døranker</label>
+      </div>
+      <div class="db-form-row">
+        <label class="db-form-label"><input type="checkbox" id="db-exIsWarmup"> Opvarmningsøvelse (kan vælges som opvarmning i programmer)</label>
+      </div>
+    </div>
+    <div class="db-form-row">
+      <label class="db-form-label">Beskrivelse / udførelse</label>
+      <textarea class="db-form-input" id="db-exDesc" rows="4" placeholder="Beskriv øvelsen, udførelse, tips, sæt/reps…" style="resize:vertical"></textarea>
+    </div>
+    <div class="db-modal-footer">
+      <button class="db-btn-cancel" onclick="dbCloseExerciseModal()">Annuller</button>
+      <button class="db-btn-primary" onclick="dbSaveExercise()">Gem</button>
+    </div>
+  </div>
+</div>
+
+<div class="db-modal-overlay" id="db-progModal" onclick="dbCloseProgramModal()">
+  <div class="db-modal" onclick="event.stopPropagation()">
+    <h3 id="db-progModalTitle">Nyt program</h3>
+    <div class="db-form-row">
+      <label class="db-form-label">Programnavn</label>
+      <input class="db-form-input" id="db-progName" type="text" placeholder="Mit program">
+    </div>
+    <div class="db-form-row">
+      <label class="db-form-label">Farve</label>
+      <input class="db-form-input" id="db-progColor" type="color" value="#4a4a8a" style="height:36px;padding:2px">
+    </div>
+    <div id="db-builderDays"></div>
+    <button class="db-add-btn" onclick="dbAddBuilderDay()">+ Tilføj dag</button>
+    <div class="db-modal-footer">
+      <button class="db-btn-cancel" onclick="dbCloseProgramModal()">Annuller</button>
+      <button class="db-btn-primary" onclick="dbSaveProgram()">Gem program</button>
+    </div>
+  </div>
+</div>
+
+<div class="db-modal-overlay" id="db-importModal" onclick="dbCloseImportModal()">
+  <div class="db-modal" style="width:580px" onclick="event.stopPropagation()">
+    <h3>Importer øvelser</h3>
+    <div id="db-importModalBody"></div>
+    <div class="db-modal-footer" id="db-importModalFooter">
+      <button class="db-btn-cancel" onclick="dbCloseImportModal()">Luk</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
 
@@ -735,9 +1085,42 @@ const PROGRAMS=[
   ]},
 ];
 
+const EQ_DISPLAY = {
+  "elastik":"Elastik","bar":"Bar","haandtag":"Håndtag",
+  "ankelstropper":"Ankelstropper","PowerPress":"PowerPress","kropsvagt":"Kropsvægt"
+};
+
 // ═══════════════════════════════════════════════════════════
 // PERSONAL DATA  (loaded from jaafit_personaldata.json via /api/personaldata)
 // ═══════════════════════════════════════════════════════════
+// Mutable arrays kept in sync with EX dict via applyPersonalData / savePersonalData
+let personalExercises = [];
+let personalPrograms  = [];
+let exDescriptions    = {};
+
+function savePersonalData() {
+  // Keep EX dict in sync: remove old personal entries and re-apply
+  for (const id in EX) { if (EX[id].personal) delete EX[id]; }
+  for (const id in EX) { delete EX[id].desc; }
+  applyPersonalData({
+    personal_exercises: personalExercises,
+    personal_programs:  personalPrograms,
+    exercise_descriptions: exDescriptions
+  });
+  return fetch('/api/personaldata', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      personal_exercises: personalExercises,
+      personal_programs:  personalPrograms,
+      exercise_descriptions: exDescriptions
+    })
+  }).catch(() => {});
+}
+function savePersonalExercises(arr) { personalExercises = arr; savePersonalData(); }
+function savePersonalPrograms(arr)  { personalPrograms  = arr; savePersonalData(); }
+function saveExDescriptions(obj)    { exDescriptions    = obj; savePersonalData(); }
+
 function applyPersonalData(pd) {
   // Merge user-authored descriptions into built-in EX entries
   const exDescs = pd.exercise_descriptions || {};
@@ -836,6 +1219,7 @@ function renderPage(name) {
   else if (name==='program') renderProgramPage();
   else if (name==='mydata') renderMyData();
   else if (name==='myprograms') renderMyPrograms();
+  else if (name==='database') dbInitPage();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1803,6 +2187,855 @@ function showToast(msg) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// ØVELSESDATABASE TAB
+// ═══════════════════════════════════════════════════════════
+let _dbView = 'muskelgrupper';
+let _dbFilter = null;
+let _dbNet = null;
+let _dbSearch = '';
+let _dbInitialized = false;
+
+// Helpers: derive exercise list from EX dict
+function _dbAllExercises() {
+  return Object.entries(EX).map(([id, ex]) => ({
+    id, mg: ex.mg, eq: ex.eq||[], door: ex.anchor||false,
+    personal: ex.personal||false, warmup: ex.warmup||false,
+    name: ex.t, desc: ex.desc||''
+  }));
+}
+function _dbBuiltinExercises() { return _dbAllExercises().filter(e => !e.personal); }
+function _dbWarmupExercises()  { return personalExercises.filter(e => e.warmup); }
+function _dbExDisplay(id) { return EX[id]?.t || id; }
+function _dbExDesc(id)    { return EX[id]?.desc || ''; }
+
+function dbInitPage() {
+  if (!_dbInitialized) {
+    _dbInitialized = true;
+    dbBuildButtons();
+    dbBuildGraph();
+  } else {
+    // Refresh personal exercise list in case data changed
+    dbBuildButtons();
+  }
+}
+
+// ── BUILD BUTTONS ─────────────────────────────────────────────────────────────
+function dbBuildButtons() {
+  const mgBtns = document.getElementById('db-mgBtns');
+  mgBtns.innerHTML = '';
+  const allMgs = [...new Set(_dbBuiltinExercises().map(e=>e.mg))];
+  allMgs.forEach(mg => {
+    const btn = document.createElement('button');
+    btn.className = 'db-btn';
+    btn.textContent = MG_DISPLAY[mg] || mg;
+    btn.dataset.mg = mg;
+    btn.onclick = () => dbToggleFilter('mg', mg, btn);
+    mgBtns.appendChild(btn);
+  });
+
+  const progBtns = document.getElementById('db-progBtns');
+  progBtns.innerHTML = '';
+  PROGRAMS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'db-btn';
+    btn.textContent = p.name;
+    btn.dataset.prog = p.id;
+    btn.onclick = () => dbToggleFilter('prog', p.id, btn);
+    progBtns.appendChild(btn);
+  });
+
+  const myProgBtns = document.getElementById('db-myProgBtns');
+  myProgBtns.innerHTML = '';
+  personalPrograms.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'db-btn';
+    btn.textContent = p.name;
+    btn.dataset.prog = p.id;
+    btn.onclick = () => dbToggleFilter('prog', p.id, btn);
+    myProgBtns.appendChild(btn);
+  });
+
+  const eqBtns = document.getElementById('db-eqBtns');
+  eqBtns.innerHTML = '';
+  const allEqs = [...new Set(_dbBuiltinExercises().flatMap(e=>e.eq))];
+  allEqs.forEach(eq => {
+    const btn = document.createElement('button');
+    btn.className = 'db-btn';
+    btn.textContent = EQ_DISPLAY[eq] || eq;
+    btn.dataset.eq = eq;
+    btn.onclick = () => dbToggleFilter('eq', eq, btn);
+    eqBtns.appendChild(btn);
+  });
+
+  dbRenderPersonalExList();
+}
+
+function dbToggleFilter(type, value, btn) {
+  const wasActive = btn.classList.contains('active');
+  document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('active'));
+  if (!wasActive) {
+    btn.classList.add('active');
+    _dbFilter = {type, value};
+  } else {
+    _dbFilter = null;
+  }
+  dbBuildGraph();
+}
+
+// ── VIEWS ─────────────────────────────────────────────────────────────────────
+function dbSetView(view, tabEl) {
+  _dbView = view;
+  document.querySelectorAll('.db-tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+
+  document.getElementById('db-mg-filters').style.display  = 'none';
+  document.getElementById('db-prog-filters').style.display = 'none';
+  document.getElementById('db-eq-filters').style.display   = 'none';
+  document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('active'));
+  _dbFilter = null;
+
+  const isListView = view === 'oevelser';
+  document.getElementById('db-network').style.display       = isListView ? 'none' : 'block';
+  document.getElementById('db-ex-list-panel').style.display = isListView ? 'block' : 'none';
+  document.getElementById('db-searchBox').style.display     = isListView ? 'none' : 'block';
+
+  if (view === 'muskelgrupper') document.getElementById('db-mg-filters').style.display  = 'block';
+  else if (view === 'programmer') document.getElementById('db-prog-filters').style.display = 'block';
+  else if (view === 'udstyr') document.getElementById('db-eq-filters').style.display   = 'block';
+  else if (view === 'oevelser') { dbPopulateExListFilters(); dbRenderExerciseList(); return; }
+
+  dbBuildGraph();
+}
+
+function dbFilterSearch() {
+  _dbSearch = document.getElementById('db-searchBox').value.toLowerCase();
+  dbBuildGraph();
+}
+
+// ── GRAPH BUILDER ─────────────────────────────────────────────────────────────
+function dbBuildGraph() {
+  const nodes = new vis.DataSet();
+  const edges = new vis.DataSet();
+  const allEx = _dbAllExercises();
+
+  let visibleExIds = allEx.map(e => e.id);
+
+  if (_dbSearch) {
+    visibleExIds = allEx.filter(e => _dbExDisplay(e.id).toLowerCase().includes(_dbSearch)).map(e => e.id);
+  }
+
+  if (_dbFilter) {
+    if (_dbFilter.type === 'mg') {
+      visibleExIds = visibleExIds.filter(id => { const ex = allEx.find(e=>e.id===id); return ex && ex.mg===_dbFilter.value; });
+    } else if (_dbFilter.type === 'eq') {
+      visibleExIds = visibleExIds.filter(id => { const ex = allEx.find(e=>e.id===id); return ex && ex.eq.includes(_dbFilter.value); });
+    } else if (_dbFilter.type === 'prog') {
+      const prog = allPrograms().find(p=>p.id===_dbFilter.value);
+      if (prog) {
+        const progExIds = new Set(prog.days.flatMap(d=>d.exs));
+        visibleExIds = visibleExIds.filter(id => progExIds.has(id));
+      }
+    }
+  }
+
+  const visibleSet = new Set(visibleExIds);
+
+  if (_dbView === 'muskelgrupper' || _dbView === 'alle') {
+    const shownMgs = new Set();
+    allEx.filter(e => visibleSet.has(e.id)).forEach(e => shownMgs.add(e.mg));
+    shownMgs.forEach(mg => {
+      nodes.add({
+        id: `mg_${mg}`, label: MG_DISPLAY[mg] || mg,
+        shape:'box', color:{background:MG_COLORS[mg]||'#555',border:'#fff',highlight:{background:'#fff',border:MG_COLORS[mg]}},
+        font:{color:'#fff',size:14,bold:true}, margin:8, shadow:true,
+        nodeType:'muscle_group', mgKey:mg
+      });
+    });
+  }
+
+  if (_dbView === 'udstyr' || _dbView === 'alle') {
+    const shownEqs = new Set();
+    allEx.filter(e => visibleSet.has(e.id)).forEach(e => e.eq.forEach(eq => shownEqs.add(eq)));
+    shownEqs.forEach(eq => {
+      nodes.add({
+        id:`eq_${eq}`, label:EQ_DISPLAY[eq]||eq, shape:'diamond',
+        color:{background:'#0f3460',border:'#4fc3f7',highlight:{background:'#4fc3f7',border:'#fff'}},
+        font:{color:'#fff',size:13}, size:20, shadow:true,
+        nodeType:'equipment', eqKey:eq
+      });
+    });
+  }
+
+  if (_dbView === 'programmer' || _dbView === 'alle') {
+    let shownProgs = allPrograms();
+    if (_dbFilter && _dbFilter.type === 'prog') shownProgs = allPrograms().filter(p=>p.id===_dbFilter.value);
+    shownProgs.forEach(prog => {
+      const hasSomeEx = prog.days.some(d => d.exs.some(eid => visibleSet.has(eid)));
+      if (!hasSomeEx && visibleExIds.length > 0 && _dbFilter) return;
+      nodes.add({
+        id:prog.id, label:prog.personal ? '★ '+prog.name : prog.name,
+        shape:'box',
+        color:{background:prog.color, border:prog.personal?'#f0a500':'#e94560', highlight:{background:'#e94560',border:'#fff'}},
+        font:{color:'#fff',size:13,bold:true}, margin:8, shadow:true,
+        borderDashes:prog.personal?[5,3]:false,
+        nodeType:'program', progData:prog
+      });
+      prog.days.forEach(day => {
+        const dayExs = day.exs.filter(eid => visibleSet.has(eid));
+        if (dayExs.length===0 && visibleExIds.length>0) return;
+        nodes.add({
+          id:day.id, label:`Dag ${day.n}\n${day.type}`,
+          shape:'ellipse',
+          color:{background:prog.color+'88',border:prog.color,highlight:{background:prog.color,border:'#fff'}},
+          font:{color:'#fff',size:11}, shadow:true,
+          nodeType:'day', dayData:day, progName:prog.name
+        });
+        edges.add({from:prog.id,to:day.id,color:{color:'#333355'},dashes:true,arrows:{to:{enabled:false}}});
+        dayExs.forEach(eid => {
+          edges.add({id:`de_${day.id}_${eid}`,from:day.id,to:eid,
+            color:{color:prog.color+'aa'},width:1,arrows:{to:{enabled:true,scaleFactor:0.5}}});
+        });
+      });
+    });
+  }
+
+  allEx.filter(e => visibleSet.has(e.id)).forEach(ex => {
+    const color = ex.personal ? '#f0a500' : (MG_COLORS[ex.mg] || '#555');
+    const rawLabel = _dbExDisplay(ex.id).replace(/ m\. /g,' m.\n');
+    const label = ex.personal ? '★ '+rawLabel : rawLabel;
+    nodes.add({
+      id:ex.id, label:label, shape:'roundRect',
+      color:ex.personal
+        ? {background:'#2a2000',border:'#f0a500',highlight:{background:'#f0a50033',border:'#f0a500'}}
+        : {background:color+'cc',border:color,highlight:{background:'#fff',border:color}},
+      font:{color:ex.personal?'#f0a500':'#fff',size:11,multi:false},
+      margin:6, shadow:true, nodeType:'exercise', exData:ex
+    });
+    if (_dbView==='muskelgrupper'||_dbView==='alle') {
+      edges.add({from:ex.id,to:`mg_${ex.mg}`,color:{color:color+'66'},width:1.5,arrows:{to:{enabled:true,scaleFactor:0.4}}});
+    }
+    if (_dbView==='udstyr'||_dbView==='alle') {
+      ex.eq.forEach(eq => {
+        edges.add({from:ex.id,to:`eq_${eq}`,color:{color:'#4fc3f766'},width:1,arrows:{to:{enabled:true,scaleFactor:0.4}}});
+      });
+    }
+  });
+
+  const container = document.getElementById('db-network');
+  const data = {nodes, edges};
+  const layoutOptions = _dbView==='alle'
+    ? {hierarchical:false}
+    : (_dbView==='programmer'
+      ? {hierarchical:{direction:'LR',sortMethod:'directed',levelSeparation:180,nodeSpacing:80}}
+      : {hierarchical:false});
+  const options = {
+    physics:{
+      enabled:_dbView!=='programmer',
+      stabilization:{iterations:100},
+      barnesHut:{gravitationalConstant:-3000,springLength:120,springConstant:0.04}
+    },
+    layout:layoutOptions,
+    interaction:{hover:true,tooltipDelay:200,zoomView:true,dragView:true},
+    nodes:{borderWidth:1.5},
+    edges:{smooth:{type:'continuous',roundness:0.3}}
+  };
+
+  if (_dbNet) {
+    _dbNet.setData(data);
+    _dbNet.setOptions(options);
+  } else {
+    _dbNet = new vis.Network(container, data, options);
+    _dbNet.on('click', dbOnNodeClick);
+  }
+
+  document.getElementById('db-statNodes').textContent = nodes.length;
+  document.getElementById('db-statEdges').textContent = edges.length;
+}
+
+function dbOnNodeClick(params) {
+  if (params.nodes.length===0) { dbCloseInfo(); return; }
+  const nodeId = params.nodes[0];
+  const node = _dbNet.body.data.nodes.get(nodeId);
+  if (!node) return;
+
+  const panel = document.getElementById('db-infoPanel');
+  const title = document.getElementById('db-infoTitle');
+  const body  = document.getElementById('db-infoBody');
+
+  if (node.nodeType==='exercise') {
+    const ex = node.exData;
+    const name = _dbExDisplay(ex.id);
+    title.textContent = name;
+    const mgColor = MG_COLORS[ex.mg] || '#555';
+    if (ex.personal) {
+      const descHtml = ex.desc ? `<p style="margin-top:8px;color:#aaa;font-size:0.8rem;line-height:1.5">${ex.desc}</p>` : '';
+      body.innerHTML = `
+        <p><span class="db-info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+           ${ex.eq.map(e=>`<span class="db-info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
+           ${ex.door?'<span class="db-info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>':'<span class="db-info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
+        </p>
+        ${descHtml}
+        <p style="margin-top:8px;color:#f0a500">★ Personlig øvelse</p>
+        <p style="margin-top:8px">
+          <button class="db-btn-cancel" style="font-size:0.75rem" onclick="dbOpenExerciseModal('${ex.id}')">✏️ Rediger</button>
+          &nbsp;
+          <button class="db-btn-cancel" style="font-size:0.75rem;border-color:#e94560;color:#e94560" onclick="dbDeletePersonalExercise('${ex.id}')">🗑️ Slet</button>
+        </p>`;
+    } else {
+      const url = `https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}`;
+      const builtinDesc = _dbExDesc(ex.id);
+      const descHtml = builtinDesc ? `<p style="margin-top:8px;color:#ccc;font-size:0.8rem;line-height:1.5">${builtinDesc}</p>` : '';
+      body.innerHTML = `
+        <p><span class="db-info-tag" style="background:${mgColor}22;border-color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+           ${ex.eq.map(e=>`<span class="db-info-tag">${EQ_DISPLAY[e]||e}</span>`).join('')}
+           ${ex.door?'<span class="db-info-tag" style="border-color:#e94560;color:#e94560">Døranker</span>':'<span class="db-info-tag" style="border-color:#27ae60;color:#27ae60">Uden døranker</span>'}
+        </p>
+        ${descHtml}
+        <p style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="db-btn-cancel" style="font-size:0.75rem;border-color:#f39c12;color:#f39c12" onclick="dbOpenExerciseModal('${ex.id}',true)">✏️ ${builtinDesc?'Rediger':'Tilføj'} beskrivelse</button>
+          <a href="${url}" target="_blank" style="font-size:0.78rem;color:#4fc3f7">🔗 JAAFIT video</a>
+        </p>`;
+    }
+  } else if (node.nodeType==='muscle_group') {
+    const mg = node.mgKey;
+    const exsInMg = _dbAllExercises().filter(e=>e.mg===mg);
+    title.textContent = MG_DISPLAY[mg] || mg;
+    body.innerHTML = `<p style="color:#888;margin-bottom:8px">${exsInMg.length} øvelser</p>`
+      + exsInMg.map(e=>`<span class="db-info-tag">${_dbExDisplay(e.id)}</span>`).join('');
+  } else if (node.nodeType==='equipment') {
+    const eq = node.eqKey;
+    const exsWithEq = _dbAllExercises().filter(e=>e.eq.includes(eq));
+    title.textContent = EQ_DISPLAY[eq] || eq;
+    body.innerHTML = `<p style="color:#888;margin-bottom:8px">${exsWithEq.length} øvelser bruger dette udstyr</p>`
+      + exsWithEq.map(e=>`<span class="db-info-tag">${_dbExDisplay(e.id)}</span>`).join('');
+  } else if (node.nodeType==='program') {
+    const prog = node.progData;
+    title.textContent = 'Program ' + prog.name;
+    const totalEx = new Set(prog.days.flatMap(d=>d.exs)).size;
+    const editBtn = prog.personal
+      ? `<p style="margin-top:8px">
+           <button class="db-btn-cancel" style="font-size:0.75rem" onclick="dbOpenProgramModal('${prog.id}')">✏️ Rediger</button>
+           &nbsp;
+           <button class="db-btn-cancel" style="font-size:0.75rem;border-color:#e94560;color:#e94560" onclick="dbDeletePersonalProgram('${prog.id}')">🗑️ Slet</button>
+         </p>`
+      : `<p style="margin-top:8px"><a href="https://www.skool.com/jaafit/classroom/448639cb" target="_blank">🔗 Se program på JAAFIT (kræver login)</a></p>`;
+    body.innerHTML = `<p style="color:#888;margin-bottom:8px">${prog.days.length} dage · ${totalEx} unikke øvelser</p>`
+      + prog.days.map(d => {
+          const wu = d.warmupId ? personalExercises.find(e=>e.id===d.warmupId) : null;
+          const wuStr = wu ? `<span style="color:#f39c12">${wu.name}</span>, ` : (!prog.personal ? `<span style="color:#f39c12">Opvarmning</span>, ` : '');
+          return `<p style="margin-bottom:4px"><b style="color:#e94560">Dag ${d.n}</b> · ${d.type}: `
+            + wuStr + d.exs.map(eid=>_dbExDisplay(eid)).join(', ') + '</p>';
+        }).join('')
+      + editBtn;
+  } else if (node.nodeType==='day') {
+    const day = node.dayData;
+    title.textContent = `${node.progName} – Dag ${day.n}: ${day.type}`;
+    const wu = day.warmupId ? personalExercises.find(e=>e.id===day.warmupId) : null;
+    const wuHtml = wu
+      ? `<p style="color:#f39c12;font-weight:600">0. ${wu.name}</p>${wu.desc?`<p style="color:#888;font-size:0.78rem;margin:-4px 0 6px 12px">${wu.desc}</p>`:''}`
+      : `<p style="color:#f39c12;font-weight:600">0. Opvarmning</p>`;
+    body.innerHTML = wuHtml + day.exs.map((eid,i)=>`<p>${i+1}. ${_dbExDisplay(eid)}</p>`).join('');
+  } else {
+    dbCloseInfo(); return;
+  }
+  panel.classList.add('show');
+}
+
+function dbCloseInfo() {
+  document.getElementById('db-infoPanel').classList.remove('show');
+}
+
+// ── PERSONAL EXERCISE LIST ────────────────────────────────────────────────────
+function dbRenderPersonalExList() {
+  const ul = document.getElementById('db-personalExList');
+  ul.innerHTML = '';
+  personalExercises.forEach(ex => {
+    const li = document.createElement('li');
+    li.className = 'db-personal-item';
+    li.innerHTML = `<span class="db-personal-item-name">${ex.name}</span>
+      <button class="db-icon-btn" title="Rediger" onclick="dbOpenExerciseModal('${ex.id}')">✏️</button>
+      <button class="db-icon-btn" title="Slet" onclick="dbDeletePersonalExercise('${ex.id}')">🗑️</button>`;
+    ul.appendChild(li);
+  });
+}
+
+// ── EXERCISE MODAL ────────────────────────────────────────────────────────────
+let _dbEditingExId = null;
+let _dbEditingBuiltin = false;
+
+function dbOpenExerciseModal(id, builtinOnly) {
+  _dbEditingExId = id || null;
+  _dbEditingBuiltin = !!builtinOnly;
+
+  document.getElementById('db-exPersonalFields').style.display = builtinOnly ? 'none' : '';
+  document.getElementById('db-exBuiltinNote').style.display    = builtinOnly ? '' : 'none';
+
+  if (builtinOnly) {
+    document.getElementById('db-exModalTitle').textContent  = 'Rediger beskrivelse';
+    document.getElementById('db-exBuiltinName').textContent = EX[id]?.t || id;
+    document.getElementById('db-exDesc').value = exDescriptions[id] || '';
+    document.getElementById('db-exDesc').placeholder = 'Beskriv udførelse, tips, sæt/reps…';
+  } else {
+    document.getElementById('db-exModalTitle').textContent = id ? 'Rediger øvelse' : 'Tilføj øvelse';
+    const mgSel = document.getElementById('db-exMg');
+    mgSel.innerHTML = Object.keys(MG_DISPLAY).map(k=>`<option value="${k}">${MG_DISPLAY[k]}</option>`).join('');
+    const eqSel = document.getElementById('db-exEq');
+    eqSel.innerHTML = Object.keys(EQ_DISPLAY).map(k=>`<option value="${k}">${EQ_DISPLAY[k]}</option>`).join('');
+    if (id) {
+      const ex = personalExercises.find(e=>e.id===id);
+      if (ex) {
+        document.getElementById('db-exName').value = ex.name;
+        mgSel.value = ex.mg;
+        Array.from(eqSel.options).forEach(o => { o.selected = ex.eq.includes(o.value); });
+        document.getElementById('db-exDoor').checked    = !!ex.door;
+        document.getElementById('db-exIsWarmup').checked = !!ex.warmup;
+        document.getElementById('db-exDesc').value = ex.desc || '';
+      }
+    } else {
+      document.getElementById('db-exName').value = '';
+      document.getElementById('db-exDoor').checked    = false;
+      document.getElementById('db-exIsWarmup').checked = false;
+      document.getElementById('db-exDesc').value = '';
+    }
+  }
+  document.getElementById('db-exModal').classList.add('show');
+}
+
+function dbCloseExerciseModal() {
+  document.getElementById('db-exModal').classList.remove('show');
+}
+
+function dbSaveExercise() {
+  const desc = document.getElementById('db-exDesc').value.trim();
+  if (_dbEditingBuiltin) {
+    if (desc) exDescriptions[_dbEditingExId] = desc;
+    else delete exDescriptions[_dbEditingExId];
+    saveExDescriptions(exDescriptions);
+    dbCloseExerciseModal();
+    if (_dbView==='oevelser') dbRenderExerciseList();
+    dbBuildGraph();
+    return;
+  }
+  const name = document.getElementById('db-exName').value.trim();
+  if (!name) { alert('Angiv et navn'); return; }
+  const mg     = document.getElementById('db-exMg').value;
+  const eq     = Array.from(document.getElementById('db-exEq').selectedOptions).map(o=>o.value);
+  const door   = document.getElementById('db-exDoor').checked;
+  const warmup = document.getElementById('db-exIsWarmup').checked;
+  if (_dbEditingExId) {
+    const ex = personalExercises.find(e=>e.id===_dbEditingExId);
+    if (ex) { ex.name=name; ex.mg=mg; ex.eq=eq.length?eq:['kropsvagt']; ex.door=door; ex.desc=desc; ex.warmup=warmup; }
+  } else {
+    personalExercises.push({id:'pe_'+Date.now(),name,mg,eq:eq.length?eq:['kropsvagt'],door,desc,warmup,personal:true});
+  }
+  savePersonalExercises(personalExercises);
+  dbCloseExerciseModal();
+  dbRenderPersonalExList();
+  dbBuildGraph();
+}
+
+function dbDeletePersonalExercise(id) {
+  if (!confirm('Slet denne øvelse?')) return;
+  personalExercises = personalExercises.filter(e=>e.id!==id);
+  savePersonalExercises(personalExercises);
+  dbRenderPersonalExList();
+  dbBuildGraph();
+}
+
+// ── PROGRAM MODAL ─────────────────────────────────────────────────────────────
+let _dbEditingProgId = null;
+let _dbBuilderDays = [];
+
+function dbOpenProgramModal(id) {
+  _dbEditingProgId = id || null;
+  _dbBuilderDays = [];
+  document.getElementById('db-progModalTitle').textContent = id ? 'Rediger program' : 'Nyt program';
+  if (id) {
+    const prog = personalPrograms.find(p=>p.id===id);
+    if (prog) {
+      document.getElementById('db-progName').value  = prog.name;
+      document.getElementById('db-progColor').value = prog.color || '#4a4a8a';
+      _dbBuilderDays = prog.days.map(d=>({...d,exs:[...d.exs],warmupId:d.warmupId||null}));
+    }
+  } else {
+    document.getElementById('db-progName').value  = '';
+    document.getElementById('db-progColor').value = '#4a4a8a';
+    _dbBuilderDays = [];
+  }
+  dbRenderBuilderDays();
+  document.getElementById('db-progModal').classList.add('show');
+}
+
+function dbCloseProgramModal() {
+  document.getElementById('db-progModal').classList.remove('show');
+}
+
+function dbAddBuilderDay() {
+  const n = _dbBuilderDays.length + 1;
+  _dbBuilderDays.push({id:'bd_'+Date.now()+'_'+n,n,type:'Fullbody',exs:[],warmupId:null});
+  dbRenderBuilderDays();
+}
+
+function dbRemoveBuilderDay(idx) {
+  _dbBuilderDays.splice(idx,1);
+  _dbBuilderDays.forEach((d,i)=>{d.n=i+1;});
+  dbRenderBuilderDays();
+}
+
+function dbRenderBuilderDays() {
+  const container = document.getElementById('db-builderDays');
+  container.innerHTML = '';
+  _dbBuilderDays.forEach((day,idx) => {
+    const div = document.createElement('div');
+    div.className = 'db-day-block';
+    div.innerHTML = `
+      <div class="db-day-block-header">
+        <b style="color:#e94560;min-width:50px">Dag ${day.n}</b>
+        <input class="db-form-input" style="flex:1" placeholder="Type (fx Fullbody)" value="${day.type}"
+          oninput="_dbBuilderDays[${idx}].type=this.value">
+        <button class="db-icon-btn" onclick="dbRemoveBuilderDay(${idx})">✕</button>
+      </div>
+      <div style="margin-bottom:8px">
+        <span style="color:#f39c12;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Opvarmning</span>
+        <div style="margin-top:4px" id="db-dayWarmup_${idx}"></div>
+      </div>
+      <div class="db-day-exs" id="db-dayExs_${idx}"></div>
+      <button class="db-ex-picker-toggle" id="db-exPickerToggle_${idx}" onclick="dbToggleExPicker(${idx})">▼ Vælg øvelser</button>
+      <div class="db-ex-picker" id="db-exPicker_${idx}" style="display:none">
+        <input class="db-ex-picker-search" placeholder="Søg øvelse eller muskelgruppe…" oninput="dbRenderPickerList(${idx},this.value)">
+        <div class="db-ex-picker-list" id="db-exPickerList_${idx}"></div>
+      </div>`;
+    container.appendChild(div);
+    dbRenderDayWarmup(idx);
+    dbRenderDayChips(idx);
+  });
+}
+
+function dbRenderDayWarmup(idx) {
+  const area = document.getElementById('db-dayWarmup_'+idx);
+  if (!area) return;
+  const wExs = _dbWarmupExercises();
+  const curId = _dbBuilderDays[idx].warmupId || '';
+  if (wExs.length===0) {
+    area.innerHTML = `<span style="font-size:0.75rem;color:#555;font-style:italic">Ingen opvarmningsøvelser. Opret en øvelse og marker "Opvarmningsøvelse".</span>`;
+    return;
+  }
+  const opts = [`<option value="">– Ingen opvarmning –</option>`]
+    .concat(wExs.map(e=>`<option value="${e.id}" ${e.id===curId?'selected':''}>${e.name}${e.eq&&e.eq.length?' ('+e.eq.map(q=>EQ_DISPLAY[q]||q).join(', ')+')':''}</option>`))
+    .join('');
+  area.innerHTML = `<select style="padding:5px 8px;background:#1a180a;border:1px solid #f39c1244;border-radius:5px;color:#f39c12;font-size:0.78rem;width:100%" onchange="dbSetDayWarmup(${idx},this.value)">${opts}</select>`;
+}
+
+function dbSetDayWarmup(idx, val) {
+  _dbBuilderDays[idx].warmupId = val || null;
+}
+
+function dbRenderDayChips(idx) {
+  const day  = _dbBuilderDays[idx];
+  const area = document.getElementById('db-dayExs_'+idx);
+  if (!area) return;
+  area.innerHTML = day.exs.map(eid =>
+    `<span class="db-ex-chip">${_dbExDisplay(eid)}<span class="rm" onclick="dbRemoveDayEx(${idx},'${eid}')">✕</span></span>`
+  ).join('');
+}
+
+function dbRemoveDayEx(idx, eid) {
+  _dbBuilderDays[idx].exs = _dbBuilderDays[idx].exs.filter(e=>e!==eid);
+  dbRenderDayChips(idx);
+}
+
+function dbToggleExPicker(idx) {
+  const panel  = document.getElementById('db-exPicker_'+idx);
+  const toggle = document.getElementById('db-exPickerToggle_'+idx);
+  const open   = panel.style.display==='none';
+  panel.style.display  = open ? 'block' : 'none';
+  toggle.textContent   = open ? '▲ Luk øvelsesvælger' : '▼ Vælg øvelser';
+  toggle.classList.toggle('open', open);
+  if (open) { dbRenderPickerList(idx,''); panel.querySelector('.db-ex-picker-search').focus(); }
+}
+
+function dbRenderPickerList(idx, q) {
+  const list  = document.getElementById('db-exPickerList_'+idx);
+  if (!list) return;
+  const lower = (q||'').toLowerCase();
+  const day   = _dbBuilderDays[idx];
+  const groups = {};
+  _dbAllExercises().forEach(ex => {
+    const name  = _dbExDisplay(ex.id);
+    const mgLbl = MG_DISPLAY[ex.mg] || ex.mg;
+    if (lower && !name.toLowerCase().includes(lower) && !mgLbl.toLowerCase().includes(lower)) return;
+    if (!groups[ex.mg]) groups[ex.mg] = [];
+    groups[ex.mg].push(ex);
+  });
+  list.innerHTML = '';
+  const mgOrder   = Object.keys(MG_DISPLAY);
+  const sortedMgs = [...new Set([...mgOrder,...Object.keys(groups)])].filter(mg=>groups[mg]);
+  sortedMgs.forEach(mg => {
+    const hdr = document.createElement('div');
+    hdr.className = 'db-ex-picker-group-hdr';
+    hdr.style.borderLeftColor = MG_COLORS[mg] || '#555';
+    hdr.textContent = MG_DISPLAY[mg] || mg;
+    list.appendChild(hdr);
+    groups[mg].forEach(ex => {
+      const checked = day.exs.includes(ex.id);
+      const uid = 'db-pick_'+idx+'_'+ex.id;
+      const row = document.createElement('div');
+      row.className = 'db-ex-picker-item'+(checked?' checked':'');
+      const cb = document.createElement('input');
+      cb.type='checkbox'; cb.id=uid; cb.checked=checked;
+      cb.addEventListener('change', function() { dbToggleDayEx(idx,ex.id,cb.checked,row); });
+      const dot = document.createElement('div');
+      dot.className='db-ex-picker-dot'; dot.style.background=MG_COLORS[ex.mg]||'#555';
+      const lbl = document.createElement('label');
+      lbl.htmlFor=uid; lbl.textContent=(ex.personal?'\u2605 ':'')+_dbExDisplay(ex.id);
+      row.appendChild(cb); row.appendChild(dot); row.appendChild(lbl);
+      row.addEventListener('click', function(e) { if(e.target!==cb){cb.checked=!cb.checked;dbToggleDayEx(idx,ex.id,cb.checked,row);} });
+      list.appendChild(row);
+    });
+  });
+}
+
+function dbToggleDayEx(idx, eid, checked, row) {
+  const exs = _dbBuilderDays[idx].exs;
+  if (checked && !exs.includes(eid)) exs.push(eid);
+  else if (!checked) _dbBuilderDays[idx].exs = exs.filter(e=>e!==eid);
+  if (row) row.classList.toggle('checked', checked);
+  dbRenderDayChips(idx);
+}
+
+function dbSaveProgram() {
+  const name = document.getElementById('db-progName').value.trim();
+  if (!name) { alert('Angiv et programnavn'); return; }
+  const color = document.getElementById('db-progColor').value;
+  const days = _dbBuilderDays.map((d,i)=>({
+    id: d.id||('pd_'+Date.now()+'_'+i),
+    n:i+1, type:d.type||'Dag '+(i+1), exs:d.exs, warmupId:d.warmupId||null
+  }));
+  if (_dbEditingProgId) {
+    const prog = personalPrograms.find(p=>p.id===_dbEditingProgId);
+    if (prog) { prog.name=name; prog.color=color; prog.days=days; }
+  } else {
+    personalPrograms.push({id:'mp_'+Date.now(),name,color,days,personal:true});
+  }
+  savePersonalPrograms(personalPrograms);
+  dbCloseProgramModal();
+  dbBuildButtons();
+  dbBuildGraph();
+}
+
+function dbDeletePersonalProgram(id) {
+  if (!confirm('Slet dette program?')) return;
+  personalPrograms = personalPrograms.filter(p=>p.id!==id);
+  savePersonalPrograms(personalPrograms);
+  dbBuildButtons();
+  dbBuildGraph();
+}
+
+// ── EXERCISE LIST VIEW ────────────────────────────────────────────────────────
+function dbPopulateExListFilters() {
+  const sel = document.getElementById('db-exListMg');
+  if (sel.options.length > 1) return;
+  Object.keys(MG_DISPLAY).forEach(k => {
+    const opt = document.createElement('option');
+    opt.value=k; opt.textContent=MG_DISPLAY[k];
+    sel.appendChild(opt);
+  });
+}
+
+function dbRenderExerciseList() {
+  const q     = (document.getElementById('db-exListSearch').value||'').toLowerCase();
+  const mgF   = document.getElementById('db-exListMg').value;
+  const typeF = document.getElementById('db-exListType').value;
+
+  let pool = _dbAllExercises();
+  if (typeF==='jaafit')   pool = pool.filter(e=>!e.personal);
+  if (typeF==='personal') pool = pool.filter(e=> e.personal);
+  if (mgF) pool = pool.filter(e=>e.mg===mgF);
+  if (q)   pool = pool.filter(e=>_dbExDisplay(e.id).toLowerCase().includes(q));
+  pool.sort((a,b) => {
+    if (!!a.personal!==!!b.personal) return a.personal?-1:1;
+    return _dbExDisplay(a.id).localeCompare(_dbExDisplay(b.id),'da');
+  });
+
+  const grid = document.getElementById('db-exCards');
+  grid.innerHTML = '';
+  if (!pool.length) {
+    grid.innerHTML='<p style="color:#555;padding:20px">Ingen øvelser matcher filtret.</p>';
+    return;
+  }
+  pool.forEach(ex => {
+    const name = _dbExDisplay(ex.id);
+    const color = MG_COLORS[ex.mg] || '#555';
+    const mgLabel = MG_DISPLAY[ex.mg] || ex.mg;
+    const eqLabels = ex.eq.map(e=>EQ_DISPLAY[e]||e);
+    const card = document.createElement('div');
+    card.className = 'db-ex-card'+(ex.personal?' personal':'');
+    const actionsHtml = ex.personal
+      ? `<div class="db-ex-card-actions">
+           <button class="db-icon-btn" title="Rediger" onclick="dbOpenExerciseModal('${ex.id}')">✏️</button>
+           <button class="db-icon-btn" title="Slet" onclick="dbDeletePersonalExercise('${ex.id}')">🗑️</button>
+         </div>`
+      : `<div class="db-ex-card-actions">
+           <button class="db-icon-btn" title="Rediger beskrivelse" onclick="dbOpenExerciseModal('${ex.id}',true)" style="color:#f39c12">✏️</button>
+           <a class="db-ex-card-link" href="https://www.skool.com/jaafit/classroom/1b2baa38?md=${ex.id}" target="_blank" title="Se på SKOOL">↗</a>
+         </div>`;
+    const desc = _dbExDesc(ex.id);
+    const descHtml = desc ? `<div class="db-ex-card-desc">${desc}</div>` : '';
+    const doorHtml = ex.door ? `<span class="db-ex-card-tag" style="border-color:#e9456066;color:#e94560">Døranker</span>` : '';
+    card.innerHTML = `
+      ${actionsHtml}
+      <div class="db-ex-card-name">${ex.personal?'<span class="star">★</span>':''}${name}</div>
+      ${descHtml}
+      <div class="db-ex-card-tags">
+        <span class="db-ex-card-tag mg" style="background:${color}">${mgLabel}</span>
+        ${eqLabels.map(l=>`<span class="db-ex-card-tag">${l}</span>`).join('')}
+        ${doorHtml}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── IMPORT ────────────────────────────────────────────────────────────────────
+function dbTriggerImport() {
+  document.getElementById('db-importFileInput').value = '';
+  document.getElementById('db-importFileInput').click();
+}
+
+function dbHandleImportFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => dbParseAndPreviewImport(file.name, e.target.result);
+  reader.readAsText(file, 'utf-8');
+}
+
+function dbParseAndPreviewImport(filename, text) {
+  let raw;
+  try { raw = JSON.parse(text); } catch(err) {
+    dbShowImportError(`Filen "${filename}" er ikke gyldig JSON: ${err.message}`); return;
+  }
+  if (!Array.isArray(raw)) { dbShowImportError('Importfilen skal indeholde et JSON-array ([ ... ]).'); return; }
+  if (raw.length===0) { dbShowImportError('Importfilen er tom (tomt array).'); return; }
+
+  const knownMgs  = new Set(Object.keys(MG_DISPLAY));
+  const knownEqs  = new Set(Object.keys(EQ_DISPLAY));
+  const existingIds = new Set(personalExercises.map(e=>e.id));
+  const valid=[], skipped=[], errors=[];
+  const newMgs=new Set(), newEqs=new Set();
+
+  raw.forEach((item,i) => {
+    const label = item.name ? `"${item.name}"` : `#${i+1}`;
+    if (!item.name||typeof item.name!=='string'||!item.name.trim()) { errors.push({label:`Øvelse #${i+1}`,msg:'Mangler "name" (navn).'}); return; }
+    if (!item.mg||typeof item.mg!=='string'||!item.mg.trim()) { errors.push({label,msg:'Mangler "mg" (muskelgruppe).'}); return; }
+    if (item.eq!==undefined&&!Array.isArray(item.eq)) { errors.push({label,msg:'"eq" skal være et array.'}); return; }
+    if (item.id && existingIds.has(item.id)) { skipped.push({label,msg:`ID "${item.id}" er allerede importeret.`}); return; }
+    if (!knownMgs.has(item.mg)) newMgs.add(item.mg);
+    (item.eq||[]).forEach(e => { if (!knownEqs.has(e)) newEqs.add(e); });
+    valid.push({
+      id: item.id||('pe_import_'+Date.now()+'_'+i),
+      name:item.name.trim(), mg:item.mg.trim(),
+      eq:Array.isArray(item.eq)?item.eq:[],
+      door:!!item.door, warmup:!!item.warmup,
+      desc:(item.desc||'').trim(), personal:true
+    });
+  });
+  dbShowImportPreview(filename, valid, skipped, errors, newMgs, newEqs);
+}
+
+function dbShowImportError(msg) {
+  document.getElementById('db-importModalBody').innerHTML = `<div class="db-import-item error" style="margin-bottom:0">${msg}</div>`;
+  document.getElementById('db-importModalFooter').innerHTML = `<button class="db-btn-cancel" onclick="dbCloseImportModal()">Luk</button>`;
+  document.getElementById('db-importModal').classList.add('show');
+}
+
+function dbShowImportPreview(filename, valid, skipped, errors, newMgs, newEqs) {
+  let html = `<div class="db-import-summary">
+    <b style="color:#e0e0e0">Fil:</b> ${filename}<br>
+    <b style="color:#27ae60">${valid.length}</b> klar til import &nbsp;·&nbsp;
+    <b style="color:#555">${skipped.length}</b> springer over (duplikater) &nbsp;·&nbsp;
+    <b style="color:#e94560">${errors.length}</b> fejl
+  </div>`;
+
+  if (newMgs.size>0) {
+    html += `<div class="db-import-section">
+      <div class="db-import-section-title warn">Nye muskelgrupper (ikke i databasen)</div>
+      <div style="margin-bottom:6px">${[...newMgs].map(m=>`<span class="db-import-new-tag">${m}</span>`).join('')}</div>
+      <div style="font-size:0.75rem;color:#888">Disse øvelser importeres med de nye muskelgruppe-værdier.</div>
+    </div>`;
+  }
+  if (newEqs.size>0) {
+    html += `<div class="db-import-section">
+      <div class="db-import-section-title warn">Nyt udstyr (ikke i databasen)</div>
+      <div style="margin-bottom:6px">${[...newEqs].map(e=>`<span class="db-import-new-tag">${e}</span>`).join('')}</div>
+      <div style="font-size:0.75rem;color:#888">Disse udstyrtyper gemmes som de er.</div>
+    </div>`;
+  }
+  if (errors.length>0) {
+    html += `<div class="db-import-section">
+      <div class="db-import-section-title error">${errors.length} øvelse(r) med fejl — springes over</div>
+      ${errors.map(e=>`<div class="db-import-item error">❌ ${e.label}: ${e.msg}</div>`).join('')}
+    </div>`;
+  }
+  if (skipped.length>0) {
+    html += `<div class="db-import-section">
+      <div class="db-import-section-title" style="color:#555;border-color:#2a2a4a">${skipped.length} duplikat(er) — springes over</div>
+      ${skipped.map(s=>`<div class="db-import-item skip">⏭ ${s.label}: ${s.msg}</div>`).join('')}
+    </div>`;
+  }
+  if (valid.length>0) {
+    html += `<div class="db-import-section">
+      <div class="db-import-section-title ok">${valid.length} øvelse(r) klar til import</div>
+      ${valid.map(ex => {
+        const mgColor = MG_COLORS[ex.mg] || '#555';
+        const wBadge = ex.warmup ? ' <span style="color:#f39c12;font-size:0.7rem">(opvarmning)</span>' : '';
+        return `<div class="db-import-item ok">
+          <b style="color:#e0e0e0">${ex.name}</b>${wBadge}
+          <span class="db-import-new-tag" style="border-color:${mgColor}55;background:${mgColor}18;color:${mgColor}">${MG_DISPLAY[ex.mg]||ex.mg}</span>
+          ${ex.eq.map(e=>`<span class="db-import-new-tag" style="border-color:#3a3a5a">${EQ_DISPLAY[e]||e}</span>`).join('')}
+          ${ex.desc?`<div style="color:#666;font-size:0.73rem;margin-top:2px;font-style:italic">${ex.desc.slice(0,80)}${ex.desc.length>80?'…':''}</div>`:''}
+        </div>`;
+      }).join('')}
+    </div>`;
+  } else {
+    html += `<div style="color:#555;font-size:0.82rem;margin-top:8px">Ingen øvelser at importere.</div>`;
+  }
+
+  document.getElementById('db-importModalBody').innerHTML = html;
+  const footer = document.getElementById('db-importModalFooter');
+  if (valid.length>0) {
+    window._dbPendingImport = valid;
+    footer.innerHTML = `
+      <button class="db-btn-cancel" onclick="dbCloseImportModal()">Annuller</button>
+      <button class="db-btn-primary" onclick="dbConfirmImport()">⬆ Importer ${valid.length} øvelse${valid.length===1?'':'r'}</button>`;
+  } else {
+    footer.innerHTML = `<button class="db-btn-cancel" onclick="dbCloseImportModal()">Luk</button>`;
+  }
+  document.getElementById('db-importModal').classList.add('show');
+}
+
+async function dbConfirmImport() {
+  const toAdd = window._dbPendingImport || [];
+  if (!toAdd.length) { dbCloseImportModal(); return; }
+  personalExercises = [...personalExercises, ...toAdd];
+  await savePersonalData();
+  dbCloseImportModal();
+  dbRenderPersonalExList();
+  if (_dbView==='oevelser') dbRenderExerciseList();
+  dbBuildButtons();
+  dbBuildGraph();
+  const t = document.createElement('div');
+  t.style.cssText='position:fixed;bottom:20px;right:20px;background:#27ae60;color:#fff;padding:10px 20px;border-radius:8px;font-size:0.85rem;z-index:999';
+  t.textContent = `✓ ${toAdd.length} øvelse${toAdd.length===1?'':'r'} importeret`;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+function dbCloseImportModal() {
+  document.getElementById('db-importModal').classList.remove('show');
+  window._dbPendingImport = null;
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 async function initApp() {
@@ -1818,7 +3051,11 @@ async function initApp() {
   if (!DB) DB = {users:{Klaus:{program_id:'prog4',workouts:[]},Dorte:{program_id:'prog2',workouts:[]}}};
 
   if (pdRes.status === 'fulfilled' && pdRes.value.ok) {
-    applyPersonalData(await pdRes.value.json());
+    const pd = await pdRes.value.json();
+    personalExercises = pd.personal_exercises   || [];
+    personalPrograms  = pd.personal_programs    || [];
+    exDescriptions    = pd.exercise_descriptions || {};
+    applyPersonalData(pd);
   }
 
   renderDashboard();
