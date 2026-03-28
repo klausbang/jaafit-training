@@ -178,7 +178,11 @@
           "id": "bd_1774639663856_3",
           "n": 3,
           "type": "Fullbody",
-          "exs": [],
+          "exs": [
+            "pe_import_10",
+            "pe_import_04",
+            "pe_import_02"
+          ],
           "warmupId": "pe_1774640343407"
         }
       ],
