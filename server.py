@@ -95,4 +95,10 @@ if __name__ == '__main__':
     print(f'JAAFIT server: http://localhost:{port}/')
     print(f'Brugerdata:    {DATA_FILE}')
     print(f'Personlig:     {PERSONAL_FILE}')
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
+        print('\nServer stoppet.')

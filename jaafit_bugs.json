@@ -50,6 +50,16 @@
       "status": "implemented",
       "implemented_date": "2026-04-26",
       "implemented_note": "Tilføjet data-trained='1/0' attribut på alle <tr>-elementer i mydata-tabellen. CSS-regel skjuler [data-trained=0] når #mydata-body har klassen 'trained-only'. Knap 'Vis kun trænede øvelser'/'Vis alle øvelser' i headeren kalder toggleTrainedOnly() der toggler klassen og opdaterer knapteksten."
+    },
+    {
+      "id": "bug_1777232910448",
+      "timestamp": "2026-04-26T19:48:30.448Z",
+      "control": "h2:\"Træningshistorik\"",
+      "description": "Min træningshistorik er tom - den plejer at vise mine seneste træninger. Kan du genskabe min træningshistorik?",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "Data verificeret til stede (14 workouts i jaafit_userdata.json). Årsag: app viser tom historik når server ikke kører (initApp() brugte blank DEFAULT_DATA). Fix: saveData() skriver nu også til localStorage. initApp() prøver localStorage som fallback inden blank default – historik forsvinder ikke selvom serveren er offline."
     }
   ]
 }

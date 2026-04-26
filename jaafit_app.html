@@ -1218,6 +1218,7 @@ let DB = null;
 function loadData() { return DB; }
 function saveData(data) {
   DB = data;
+  try { localStorage.setItem('jaafit_userdata', JSON.stringify(data)); } catch(e) {}
   fetch('/api/userdata', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -1342,13 +1343,13 @@ function warmupHtml(day, compact) {
   if (wex) {
     const eqs = wex.eq || [];
     if (compact) {
-      const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
+      const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
       return `<span class="tag warmup-pill">${wex.t}${eqNote}</span>`;
     }
     const eqRow = eqs.length
       ? `<div class="next-eq-summary" style="margin-left:28px;margin-bottom:8px">`
         + `<span class="next-eq-label">Udstyr opvarmning:</span>`
-        + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')
+        + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_WARMUP_EQ_LABELS[e]||e}</span>`).join('')
         + `</div>`
       : '';
     return `<div class="next-ex-row warmup-row">
@@ -1363,13 +1364,13 @@ function warmupHtml(day, compact) {
   const desc = day.warmup || '';
   const eqs = day.warmupEq || [];
   if (compact) {
-    const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
+    const eqNote = eqs.length ? ' (' + eqs.map(e=>WARMUP_WARMUP_EQ_LABELS[e]||e).join(', ') + ')' : '';
     return `<span class="tag warmup-pill">Opvarmning${eqNote}</span>`;
   }
   const eqRow = eqs.length
     ? `<div class="next-eq-summary" style="margin-left:28px;margin-bottom:8px">`
       + `<span class="next-eq-label">Udstyr opvarmning:</span>`
-      + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')
+      + eqs.map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12">${WARMUP_WARMUP_EQ_LABELS[e]||e}</span>`).join('')
       + `</div>`
     : '';
   return `<div class="next-ex-row warmup-row">
@@ -1388,7 +1389,6 @@ function renderNextWorkoutCard(targetId) {
   const nextDayIdx = lastDay === null ? 0 : (lastDay + 1) % prog.days.length;
   const nextDay = prog.days[nextDayIdx];
   const BASE_URL = 'https://www.skool.com/jaafit/classroom/1b2baa38?md=';
-  const EQ_LABELS = {elastik:'Elastik',bar:'Bar',haandtag:'Håndtag',ankelstropper:'Ankelstropper',PowerPress:'PowerPress',kropsvagt:'Kropsvægt'};
 
   const dayLink = nextDay.url
     ? `<a href="${nextDay.url}" target="_blank" rel="noopener" style="color:#e94560;font-weight:600;font-size:1rem;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Dag ${nextDay.n}: ${nextDay.type}</a>`
@@ -1427,7 +1427,7 @@ function renderNextWorkoutCard(targetId) {
   });
 
   // Equipment summary
-  const eqTags = [...eqSet].map(e => `<span class="next-eq-tag">${EQ_LABELS[e]||e}</span>`).join('');
+  const eqTags = [...eqSet].map(e => `<span class="next-eq-tag">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
   const anchorTag = needsAnchor ? `<span class="next-eq-tag" style="border-color:#e9456066;color:#e94560">Dør-anker</span>` : '';
   if (eqSet.size > 0 || needsAnchor) {
     html += `<div class="next-eq-summary"><span class="next-eq-label">Udstyr:</span>${eqTags}${anchorTag}</div>`;
@@ -1582,7 +1582,7 @@ function onLogDayChange() {
       if (ex.anchor) needsAnchor = true;
     }
   });
-  const eqTags = [...eqSet].map(e => `<span class="next-eq-tag">${EQ_LABELS[e]||e}</span>`).join('');
+  const eqTags = [...eqSet].map(e => `<span class="next-eq-tag">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
   const anchorTag = needsAnchor ? `<span class="next-eq-tag" style="border-color:#e9456066;color:#e94560">Dør-anker</span>` : '';
   const eqDiv = document.getElementById('log-eq-summary');
   if (eqDiv) {
@@ -2148,7 +2148,7 @@ function renderMyPrograms() {
       const wex = (day.warmupId && EX[day.warmupId]) ? EX[day.warmupId] : null;
       let warmupRow;
       if (wex) {
-        const wEqs = (wex.eq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+        const wEqs = (wex.eq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_WARMUP_EQ_LABELS[e]||e}</span>`).join('');
         warmupRow = `<tr class="warmup-tr">
           <td colspan="4">
             <span style="color:#f39c12;font-weight:600">0. ${wex.t}</span>
@@ -2158,7 +2158,7 @@ function renderMyPrograms() {
         </tr>`;
       } else {
         const wDesc = day.warmup || '';
-        const wEqs = (day.warmupEq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_EQ_LABELS[e]||e}</span>`).join('');
+        const wEqs = (day.warmupEq||[]).map(e=>`<span class="next-eq-tag" style="border-color:#f39c1255;color:#f39c12;font-size:0.68rem">${WARMUP_WARMUP_EQ_LABELS[e]||e}</span>`).join('');
         warmupRow = `<tr class="warmup-tr">
           <td colspan="4">
             <span style="color:#f39c12;font-weight:600">0. Opvarmning</span>
@@ -2181,7 +2181,7 @@ function renderMyPrograms() {
         html += `<tr>
           <td class="myprog-ex-name">${ex ? ex.t : eid}</td>
           <td class="myprog-ex-mg" style="color:${mgColor}">${mgDisplay}</td>
-          <td class="myprog-ex-eq">${(ex ? (ex.eq||[]) : []).map(e=>`<span class="myprog-eq-tag">${WARMUP_EQ_LABELS[e]||e}</span>`).join('')}${ex&&ex.anchor?'<span class="myprog-eq-tag anchor">Dør-anker</span>':''}</td>
+          <td class="myprog-ex-eq">${(ex ? (ex.eq||[]) : []).map(e=>`<span class="myprog-eq-tag">${WARMUP_WARMUP_EQ_LABELS[e]||e}</span>`).join('')}${ex&&ex.anchor?'<span class="myprog-eq-tag anchor">Dør-anker</span>':''}</td>
           <td class="myprog-ex-weight">${weight ? weight + ' kg' : '–'}</td>
         </tr>`;
         if (ex && ex.desc) {
@@ -3209,6 +3209,10 @@ async function initApp() {
 
   if (udRes.status === 'fulfilled' && udRes.value.ok) {
     DB = await udRes.value.json();
+    try { localStorage.setItem('jaafit_userdata', JSON.stringify(DB)); } catch(e) {}
+  }
+  if (!DB) {
+    try { const cached = localStorage.getItem('jaafit_userdata'); if (cached) DB = JSON.parse(cached); } catch(e) {}
   }
   if (!DB) DB = {users:{Klaus:{program_id:'prog4',workouts:[]},Dorte:{program_id:'prog2',workouts:[]}}};
 
