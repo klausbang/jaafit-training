@@ -3,7 +3,8 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-DATA_FILE = 'jaafit_userdata.json'
+DATA_FILE    = 'jaafit_userdata.json'
+BUG_FILE     = 'jaafit_bugs.json'
 DEFAULT_DATA = {
     'users': {
         'Klaus': {'program_id': 'prog4', 'workouts': []},
@@ -29,6 +30,19 @@ def write_json(path, body_bytes):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(parsed, f, ensure_ascii=False, indent=2)
 
+def append_bug(body_bytes):
+    report = json.loads(body_bytes.decode('utf-8'))
+    data = {}
+    if os.path.exists(BUG_FILE):
+        with open(BUG_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    if isinstance(data, list):
+        # migrate legacy array format
+        data = {'bugs': data}
+    data.setdefault('bugs', []).append(report)
+    with open(BUG_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/api/userdata':
@@ -36,6 +50,11 @@ class Handler(SimpleHTTPRequestHandler):
             self._json_response(200, data.encode('utf-8'))
         elif self.path == '/api/personaldata':
             data = read_json(PERSONAL_FILE, DEFAULT_PERSONAL)
+            self._json_response(200, data.encode('utf-8'))
+        elif self.path == '/api/ping':
+            self._json_response(200, b'{"ok":true}')
+        elif self.path == '/api/buglog':
+            data = read_json(BUG_FILE, {'bugs': []})
             self._json_response(200, data.encode('utf-8'))
         else:
             super().do_GET()
@@ -50,6 +69,10 @@ class Handler(SimpleHTTPRequestHandler):
         elif self.path == '/api/personaldata':
             write_json(PERSONAL_FILE, body)
             print(f'Saved: {PERSONAL_FILE}')
+            self._json_response(200, b'{"ok":true}')
+        elif self.path == '/api/buglog':
+            append_bug(body)
+            print(f'Bug logged → {BUG_FILE}')
             self._json_response(200, b'{"ok":true}')
         else:
             self.send_response(404)
@@ -66,7 +89,7 @@ class Handler(SimpleHTTPRequestHandler):
             pass  # already printed in do_POST
 
 if __name__ == '__main__':
-    port = 8080
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else 9000
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     server = HTTPServer(('localhost', port), Handler)
     print(f'JAAFIT server: http://localhost:{port}/')

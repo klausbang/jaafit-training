@@ -1,0 +1,55 @@
+{
+  "_prompt": "Du er en erfaren webudvikler der vedligeholder JAAFIT-træningsappen (jaafit_app.html + server.py). Implementer alle bugs/forbedringsforslag uden status-felt (eller med status != 'implemented'). Arbejdsgang: (1) læs den relevante kode i jaafit_app.html, (2) lav ændringen minimalt og præcist, (3) sæt status='implemented', implemented_date (YYYY-MM-DD) og implemented_note. Nye poster tilføjes med: id, timestamp (ISO 8601), control (CSS-selector eller komponentnavn), description, user. Nyttige eksisterende funktioner og mønstre: adjBadge(adj), getLastWeight(exId), getLastWeightAdj(exId), getLastTrainedInfo(exId) → {date,weight,adj}, allPrograms(), getProgram(id), EQ_LABELS{}, MG_COLORS{}, MG_DISPLAY{}, next-eq-summary/next-eq-tag CSS-klasser, ex-prog-badge/ex-prog-list CSS-klasser, data-trained attribut på <tr> i mydata-tabellen, toggleTrainedOnly(), toggleAllPrograms(). Server: append_bug() skriver til bugs[]-arrayet i {_prompt, bugs:[]} strukturen.",
+  "bugs": [
+    {
+      "id": "bug_1777189526097",
+      "timestamp": "2026-04-26T07:45:26.097Z",
+      "control": "div.card:\"Øvelser med seneste vægt og da\"",
+      "description": "I \"Mine data\", \"Øvelser med seneste vægt og dato\", tilføj informationen om \"Tilpas\", \"Kan hæves\" og \"Skal sænkes\", med informationen fra seneste træning.",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "Tilføjet 'Tilpas'-kolonne i mydata-tabellen. getLastTrainedInfo() returnerer nu også adj-feltet fra seneste træning. adjBadge() bruges til at vise ↑/✓/↓ symbolet i kolonnen."
+    },
+    {
+      "id": "bug_1777189623431",
+      "timestamp": "2026-04-26T07:47:03.431Z",
+      "control": "h2:\"Registrer træningssession\"",
+      "description": "I \"Log træning\", \"Registrer træningssession\", vis hvilket udstyr der skal bruges til programmet, ligesom det vises i \"Dashboard\"",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "Tilføjet udstyrsoversigt (#log-eq-summary) i onLogDayChange(). Bygger eqSet fra dagens øvelser og rendrer next-eq-summary med EQ_LABELS[], inklusive dør-anker markering – samme mønster som Dashboard."
+    },
+    {
+      "id": "bug_1777229615489",
+      "timestamp": "2026-04-26T18:53:35.489Z",
+      "control": "button.nav-tab:\"📄 Mine data\"",
+      "description": "I fanen \"Mine data\" skal der for hver øvelse være en indikation af om øvelsen indgår i et eller flere programmer. Hvis brugeren klikker på indikationen skal programmerne hvor øvelsen indgår vises.",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "renderMyData() bygger nu et exPrograms-map (exId → [{name, dayN, dayType}]) fra allPrograms(). Øvelser der indgår i programmer viser et klikbart badge '2 prog.' under øvelsesnavnet. Klik toggles en hidden div med .tag-spans der viser program og dag, fx '4: Fundamental Styrke – Dag 1: Lower 1'."
+    },
+    {
+      "id": "bug_1777231088758",
+      "timestamp": "2026-04-26T19:18:08.758Z",
+      "control": "div.card:\"Øvelser med seneste vægt og da\"",
+      "description": "For hver øvelse vises der hvor mange programmer øvelsen indgår i samt  hvilke programmer. Lav det om så der kun vises hvor mange programmer øvelsen indgår i - og først når der klikkes på knappen med antal programmer skal de enkelte programmer vises.\nTilføj også en knap \"Vis programmer\"/\"Skjul programmer\" der toggler mellem de to (vis/skjul) og hhv viser eller skjuler programmerne for alle øvelser på siden.\n\nØvelse\tMuskelgruppe\tSeneste vægt\tTilpas\tSenest trænet\nBrystfly m. håndtag\n5 prog.\n1: Effektiv Velvære – Dag 2: Fullbody\n4: Fundamental Styrke – Dag 2: Upper 1\n5: Maksimal Styrke – Dag 1: Push 1\n5: Maksimal Styrke – Dag 4: Push 2\nKlaus ugeprogram – Dag 2: Fullbody\nBryst\t15 kg\t\t22. mar. 2026",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "Rettet CSS-konflikt: .ex-prog-list har nu display:none som default (ikke flex), og åbnes med klassen .open. Badge onclick toggler .open-klassen. Tilføjet global knap 'Vis programmer'/'Skjul programmer' i header-kortet, implementeret i toggleAllPrograms() der tjekker om nogen er åbne og toggler alle på én gang."
+    },
+    {
+      "id": "bug_1777231676808",
+      "timestamp": "2026-04-26T19:27:56.808Z",
+      "control": "div.card:\"Øvelser med seneste vægt og da\"",
+      "description": "Tilføj endnu en knap \"Vis kun trænede øvelser\"/\"Vis alle øvelser\". Knappen toggler i mellem at vise alle øvelser (som nu) eller kun at vise de øvelser som brugeren har trænet en eller flere gange.",
+      "user": "Klaus",
+      "status": "implemented",
+      "implemented_date": "2026-04-26",
+      "implemented_note": "Tilføjet data-trained='1/0' attribut på alle <tr>-elementer i mydata-tabellen. CSS-regel skjuler [data-trained=0] når #mydata-body har klassen 'trained-only'. Knap 'Vis kun trænede øvelser'/'Vis alle øvelser' i headeren kalder toggleTrainedOnly() der toggler klassen og opdaterer knapteksten."
+    }
+  ]
+}
