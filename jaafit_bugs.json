@@ -60,6 +60,13 @@
       "status": "implemented",
       "implemented_date": "2026-04-26",
       "implemented_note": "Data verificeret til stede (14 workouts i jaafit_userdata.json). Årsag: app viser tom historik når server ikke kører (initApp() brugte blank DEFAULT_DATA). Fix: saveData() skriver nu også til localStorage. initApp() prøver localStorage som fallback inden blank default – historik forsvinder ikke selvom serveren er offline."
+    },
+    {
+      "id": "bug_1777437221187",
+      "timestamp": "2026-04-29T04:33:41.187Z",
+      "control": "h2:\"Næste træning\"",
+      "description": "Ikke alt udstyr der skal bruges til dagens øvelser er listet. List alt udstyr fra alle øvelserne i dagens program.",
+      "user": "Klaus"
     }
   ]
 }

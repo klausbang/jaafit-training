@@ -312,6 +312,309 @@
             }
           ],
           "note": ""
+        },
+        {
+          "id": "mnbge6dn7623ia3yfb5",
+          "date": "2026-03-29",
+          "program_id": "prog3",
+          "day_number": 3,
+          "day_type": "Bryst & Skuldre",
+          "exercises": [
+            {
+              "exercise_id": "573e4c0f38d147f593ab1f52f036eb16",
+              "exercise_title": "Stående Brystpres m. bar",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "785b16d8e44744a49db0c2abd1322004",
+              "exercise_title": "Lateral Raises m. håndtag",
+              "weight_kg": 5,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mne7ijb8gk4yk6e2g9i",
+          "date": "2026-03-31",
+          "program_id": "prog3",
+          "day_number": 4,
+          "day_type": "Ben & Biceps",
+          "exercises": [
+            {
+              "exercise_id": "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "exercise_title": "Front Squat m. bar",
+              "weight_kg": 15,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "3be46dbb6f4d45b08d0570c100b2e835",
+              "exercise_title": "Hammercurl m. elastik",
+              "weight_kg": 10,
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mnfmmz87uc1qpe02krb",
+          "date": "2026-04-01",
+          "program_id": "prog3",
+          "day_number": 5,
+          "day_type": "Mave & Skuldre",
+          "exercises": [
+            {
+              "exercise_id": "03b4a420e2b04921a89813fd2dfddbe7",
+              "exercise_title": "Overhead Press m. bar",
+              "weight_kg": 10,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+              "exercise_title": "Chrunches m. elastik",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mnlgpiqyn7t8nmdey2",
+          "date": "2026-04-05",
+          "program_id": "prog4",
+          "day_number": 1,
+          "day_type": "Lower 1",
+          "exercises": [
+            {
+              "exercise_id": "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "exercise_title": "Front Squat m. bar",
+              "weight_kg": 15,
+              "weight_adj": "up",
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "4a63032c35fe402ab6416a127eac5ecd",
+              "exercise_title": "Rumænsk Dødløft m. bar",
+              "weight_kg": 20,
+              "weight_adj": "ok",
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "23cda7c5540d4549996cf51ecd23479a",
+              "exercise_title": "Leg Extension m. ankelstropper",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "ff6526db998140368cee351fa2184ed1",
+              "exercise_title": "Leg Curl m. ankelstropper",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+              "exercise_title": "Chrunches m. elastik",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mnwq9stsedc9v31x46t",
+          "date": "2026-04-13",
+          "program_id": "prog3",
+          "day_number": 1,
+          "day_type": "Ben & Biceps",
+          "exercises": [
+            {
+              "exercise_id": "f77d97b6c2db4271af5496cb9d036bf5",
+              "exercise_title": "Dødløft m. bar",
+              "weight_kg": 15,
+              "weight_adj": "up",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1e407305f56e4c178e5f67fea9ca5d84",
+              "exercise_title": "Biceps Curl m. bar",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mo9m0xtyonjnux8ah9",
+          "date": "2026-04-22",
+          "program_id": "prog3",
+          "day_number": 2,
+          "day_type": "Ryg & Triceps",
+          "exercises": [
+            {
+              "exercise_id": "1a2b6b6a598941259e97506f0dde70c6",
+              "exercise_title": "Træk til Hofte m. håndtag",
+              "weight_kg": 15,
+              "weight_adj": null,
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "07d4f5ea9a444a83901be6c2485164a5",
+              "exercise_title": "Triceps Pushdown m. håndtag",
+              "weight_kg": 15,
+              "weight_adj": null,
+              "sets": 4,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mofglc7qkhnyq0ar3w",
+          "date": "2026-04-26",
+          "program_id": "prog3",
+          "day_number": 3,
+          "day_type": "Bryst & Skuldre",
+          "exercises": [
+            {
+              "exercise_id": "573e4c0f38d147f593ab1f52f036eb16",
+              "exercise_title": "Stående Brystpres m. bar",
+              "weight_kg": 15,
+              "weight_adj": "up",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "785b16d8e44744a49db0c2abd1322004",
+              "exercise_title": "Lateral Raises m. håndtag",
+              "weight_kg": 5,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mogpleuk9u53ubs85v7",
+          "date": "2026-04-27",
+          "program_id": "prog3",
+          "day_number": 4,
+          "day_type": "Ben & Biceps",
+          "exercises": [
+            {
+              "exercise_id": "ce15f8fe0c9d47ec8f2278f534b96b20",
+              "exercise_title": "Front Squat m. bar",
+              "weight_kg": 20,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "3be46dbb6f4d45b08d0570c100b2e835",
+              "exercise_title": "Hammercurl m. elastik",
+              "weight_kg": 10,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "mojl17t41upgngm8rvbi",
+          "date": "2026-04-29",
+          "program_id": "prog3",
+          "day_number": 5,
+          "day_type": "Mave & Skuldre",
+          "exercises": [
+            {
+              "exercise_id": "03b4a420e2b04921a89813fd2dfddbe7",
+              "exercise_title": "Overhead Press m. bar",
+              "weight_kg": 10,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+              "exercise_title": "Chrunches m. elastik",
+              "weight_kg": 15,
+              "weight_adj": "up",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "id": "moqqc7wt0btj2tp9m6c7",
+          "date": "2026-05-04",
+          "program_id": "prog3",
+          "day_number": 1,
+          "day_type": "Ben & Biceps",
+          "exercises": [
+            {
+              "exercise_id": "f77d97b6c2db4271af5496cb9d036bf5",
+              "exercise_title": "Dødløft m. bar",
+              "weight_kg": 20,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            },
+            {
+              "exercise_id": "1e407305f56e4c178e5f67fea9ca5d84",
+              "exercise_title": "Biceps Curl m. bar",
+              "weight_kg": 15,
+              "weight_adj": "ok",
+              "sets": 3,
+              "reps": "12",
+              "note": ""
+            }
+          ],
+          "note": ""
         }
       ],
       "myPrograms": [
@@ -325,6 +628,10 @@
         },
         {
           "id": "mp_1774610194635",
+          "printSelected": true
+        },
+        {
+          "id": "prog4",
           "printSelected": true
         }
       ]
