@@ -6,12 +6,12 @@ BASE_URL = "https://www.skool.com/jaafit/classroom/1b2baa38?md="
 exercises_raw = [
     # Bryst
     {"id": "2b1ab4ce18d84fc8a6989120e00d1824", "title": "Brystfly m. haandtag",           "muscle_group": "Bryst",                         "equipment": ["haandtag"], "requires_door_anchor": True},
-    {"id": "573e4c0f38d147f593ab1f52f036eb16", "title": "Staaende Brystpres m. bar",      "muscle_group": "Bryst",                         "equipment": ["bar"],      "requires_door_anchor": True},
+    {"id": "573e4c0f38d147f593ab1f52f036eb16", "title": "Staaende Brystpres m. bar",      "muscle_group": "Bryst",                         "equipment": ["bar", "doeranker", "elastik"], "requires_door_anchor": True},
     {"id": "1f7932321cb340d38ccead6c6bf3d28b", "title": "Fritstaaende Brystpres m. bar",  "muscle_group": "Bryst",                         "equipment": ["bar"],      "requires_door_anchor": False},
     {"id": "7a19ac3633ea47688ad8de5859c93f03", "title": "Armboejning m. elastik",          "muscle_group": "Bryst",                         "equipment": ["elastik"],  "requires_door_anchor": False},
     # Ryg
     {"id": "2a85ddf941904c7b8793f91cbee7a963", "title": "Bent over Row m. bar",            "muscle_group": "Ryg",                           "equipment": ["bar"],      "requires_door_anchor": False},
-    {"id": "1a2b6b6a598941259e97506f0dde70c6", "title": "Traek til Hofte m. haandtag",    "muscle_group": "Ryg",                           "equipment": ["haandtag"], "requires_door_anchor": True},
+    {"id": "1a2b6b6a598941259e97506f0dde70c6", "title": "Traek til Hofte m. haandtag",    "muscle_group": "Ryg",                           "equipment": ["haandtag", "doeranker", "elastik"], "requires_door_anchor": True},
     {"id": "bc8448939d6b4de4bbaf1f868898f220", "title": "Staaende Row m. bar",             "muscle_group": "Ryg",                           "equipment": ["bar"],      "requires_door_anchor": True},
     {"id": "21c670a4f5d84c01a8a0e3a84280d087", "title": "Pullover m. bar",                 "muscle_group": "Ryg",                           "equipment": ["bar"],      "requires_door_anchor": True},
     {"id": "a4612851822b47518aa797ab0c28fc72", "title": "Siddende Traek til Bryst m. bar", "muscle_group": "Ryg",                           "equipment": ["bar"],      "requires_door_anchor": True},
@@ -20,40 +20,40 @@ exercises_raw = [
     # Forlaar
     {"id": "bb50d1d9bee444528887906d40c07b34", "title": "Squat m. bar",                    "muscle_group": "Forlaar",                       "equipment": ["bar"],      "requires_door_anchor": False},
     {"id": "8461e0d9e9dd4c35872734d03092b8ea", "title": "Split Squat m. bar",              "muscle_group": "Forlaar",                       "equipment": ["bar"],      "requires_door_anchor": False},
-    {"id": "ce15f8fe0c9d47ec8f2278f534b96b20", "title": "Front Squat m. bar",              "muscle_group": "Forlaar",                       "equipment": ["bar"],      "requires_door_anchor": False},
+    {"id": "ce15f8fe0c9d47ec8f2278f534b96b20", "title": "Front Squat m. bar",              "muscle_group": "Forlaar",                       "equipment": ["bar", "elastik"], "requires_door_anchor": False},
     {"id": "ea1a793cfae948e2819054015ce6a5cd", "title": "Begyndervenlig Squat m. bar",      "muscle_group": "Forlaar",                       "equipment": ["bar"],      "requires_door_anchor": False},
     {"id": "23cda7c5540d4549996cf51ecd23479a", "title": "Leg Extension m. ankelstropper",   "muscle_group": "Forlaar",                       "equipment": ["ankelstropper"], "requires_door_anchor": True},
     # Baglaar og baller
     {"id": "7aee8ec48aab422fb2df2b4a09452b55", "title": "Hofte Extension m. haandtag",     "muscle_group": "Baglaar og baller",             "equipment": ["haandtag"], "requires_door_anchor": True},
     {"id": "171aaafa82e147439900695ac5eaec36", "title": "Donkey Kick m. ankelstropper",    "muscle_group": "Baglaar og baller",             "equipment": ["ankelstropper"], "requires_door_anchor": True},
     {"id": "4a63032c35fe402ab6416a127eac5ecd", "title": "Rumaensk Doedloeft m. bar",       "muscle_group": "Baglaar og baller",             "equipment": ["bar"],      "requires_door_anchor": False},
-    {"id": "f77d97b6c2db4271af5496cb9d036bf5", "title": "Doedloeft m. bar",                "muscle_group": "Baglaar og baller",             "equipment": ["bar"],      "requires_door_anchor": False},
+    {"id": "f77d97b6c2db4271af5496cb9d036bf5", "title": "Doedloeft m. bar",                "muscle_group": "Baglaar og baller",             "equipment": ["bar", "elastik"], "requires_door_anchor": False},
     {"id": "ff6526db998140368cee351fa2184ed1", "title": "Leg Curl m. ankelstropper",       "muscle_group": "Baglaar og baller",             "equipment": ["ankelstropper"], "requires_door_anchor": True},
     {"id": "b43cec0635494eeaa7eb602bab97b6c1", "title": "Hip Thrust m. bar",               "muscle_group": "Baglaar og baller",             "equipment": ["bar"],      "requires_door_anchor": False},
     # Inder og ydersiden
     {"id": "794c1c718af9464a9d8099973e00fdaa", "title": "Adduction m. ankelstropper",      "muscle_group": "Inder og ydersiden af laarene", "equipment": ["ankelstropper"], "requires_door_anchor": True},
     {"id": "5aeac24a3d354740b2314864e005386a", "title": "Abduktion m. ankelstropper",      "muscle_group": "Inder og ydersiden af laarene", "equipment": ["ankelstropper"], "requires_door_anchor": True},
     # Biceps
-    {"id": "1e407305f56e4c178e5f67fea9ca5d84", "title": "Biceps Curl m. bar",              "muscle_group": "Biceps",                        "equipment": ["bar"],      "requires_door_anchor": False},
+    {"id": "1e407305f56e4c178e5f67fea9ca5d84", "title": "Biceps Curl m. bar",              "muscle_group": "Biceps",                        "equipment": ["bar", "elastik"], "requires_door_anchor": False},
     {"id": "6f01796cb46f4d798d2ec24e017edff9", "title": "Biceps Curl Faceaway m. haandtag","muscle_group": "Biceps",                        "equipment": ["haandtag"], "requires_door_anchor": True},
     {"id": "3be46dbb6f4d45b08d0570c100b2e835", "title": "Hammercurl m. elastik",           "muscle_group": "Biceps",                        "equipment": ["elastik"],  "requires_door_anchor": False},
     # Triceps
-    {"id": "07d4f5ea9a444a83901be6c2485164a5", "title": "Triceps Pushdown m. haandtag",    "muscle_group": "Triceps",                       "equipment": ["haandtag"], "requires_door_anchor": True},
+    {"id": "07d4f5ea9a444a83901be6c2485164a5", "title": "Triceps Pushdown m. haandtag",    "muscle_group": "Triceps",                       "equipment": ["haandtag", "doeranker", "elastik"], "requires_door_anchor": True},
     {"id": "39e9e9e70fd441b0978840bcb99fbcf0", "title": "Skullcrusher m. bar",             "muscle_group": "Triceps",                       "equipment": ["bar"],      "requires_door_anchor": False},
     {"id": "6c5732539ca24ce69ba99790fc39d519", "title": "Triceps Extension m. elastik",    "muscle_group": "Triceps",                       "equipment": ["elastik"],  "requires_door_anchor": False},
     {"id": "1883d88e769548d3a6a09419e4ae1b8c", "title": "Triceps Kickback m. elastik",     "muscle_group": "Triceps",                       "equipment": ["elastik"],  "requires_door_anchor": False},
     {"id": "3d282b1b76424a8a88850cae89c55ff2", "title": "Triceps Pushdown m. elastik",     "muscle_group": "Triceps",                       "equipment": ["elastik"],  "requires_door_anchor": False},
     {"id": "831f796f738d41478e165a2c03924dcb", "title": "Triceps Pushdown m. bar",         "muscle_group": "Triceps",                       "equipment": ["bar"],      "requires_door_anchor": True},
     # Skulder
-    {"id": "03b4a420e2b04921a89813fd2dfddbe7", "title": "Overhead Press m. bar",           "muscle_group": "Skulder",                       "equipment": ["bar"],      "requires_door_anchor": False},
-    {"id": "785b16d8e44744a49db0c2abd1322004", "title": "Lateral Raises m. haandtag",      "muscle_group": "Skulder",                       "equipment": ["haandtag"], "requires_door_anchor": False},
+    {"id": "03b4a420e2b04921a89813fd2dfddbe7", "title": "Overhead Press m. bar",           "muscle_group": "Skulder",                       "equipment": ["bar", "elastik"], "requires_door_anchor": False},
+    {"id": "785b16d8e44744a49db0c2abd1322004", "title": "Lateral Raises m. haandtag",      "muscle_group": "Skulder",                       "equipment": ["haandtag", "elastik"], "requires_door_anchor": False},
     {"id": "3e7115bbf11a4b3186734902c07c59a1", "title": "Rear Delt Fly m. elastik",        "muscle_group": "Skulder",                       "equipment": ["elastik"],  "requires_door_anchor": False},
     {"id": "0f13ee8efc0449e582961b757adefdc1", "title": "Lateral Raise m. dooranker Oevetl","muscle_group": "Skulder",                      "equipment": ["haandtag"], "requires_door_anchor": True},
     {"id": "946f3cabfd314b2883520918a2abfc82", "title": "Front Raise m. haandtag",         "muscle_group": "Skulder",                       "equipment": ["haandtag"], "requires_door_anchor": False},
     {"id": "55b79aab39ad4e1f9ac8323abe15f3ac", "title": "Face Pull m. haandtag",           "muscle_group": "Skulder",                       "equipment": ["haandtag"], "requires_door_anchor": True},
     # Mave
     {"id": "fa7a7fc50aeb41688709858222bf800e", "title": "Side Bend m. elastik",            "muscle_group": "Mave",                          "equipment": ["elastik"],  "requires_door_anchor": False},
-    {"id": "3c405fd6ecf94a53b5d10e6f2c7e48b3", "title": "Chrunches m. elastik",            "muscle_group": "Mave",                          "equipment": ["elastik"],  "requires_door_anchor": False},
+    {"id": "3c405fd6ecf94a53b5d10e6f2c7e48b3", "title": "Chrunches m. elastik",            "muscle_group": "Mave",                          "equipment": ["doeranker", "elastik"],  "requires_door_anchor": True},
     {"id": "4c48a8783f3f4925b5ece9a0c3b2c767", "title": "Leg Raises m. ankelstropper",     "muscle_group": "Mave",                          "equipment": ["ankelstropper"], "requires_door_anchor": True},
     # Laeg
     {"id": "888cc143f1214523adb2bfd576b1356d", "title": "Calf Raises m. bar",              "muscle_group": "Laeg",                          "equipment": ["bar"],      "requires_door_anchor": False},
@@ -179,7 +179,7 @@ programs = [
 
 muscle_groups_order = ["Bryst","Ryg","Forlaar","Baglaar og baller","Inder og ydersiden af laarene",
                         "Biceps","Triceps","Skulder","Mave","Laeg"]
-all_equipment = ["elastik","bar","haandtag","ankelstropper","PowerPress","kropsvagt"]
+all_equipment = ["elastik","bar","haandtag","doeranker","ankelstropper","PowerPress","kropsvagt"]
 
 graph = {
     "meta": {
@@ -187,7 +187,7 @@ graph = {
         "source": "https://www.skool.com/jaafit",
         "exercises_library_url": "https://www.skool.com/jaafit/classroom/1b2baa38",
         "programs_url": "https://www.skool.com/jaafit/classroom/448639cb",
-        "last_updated": "2026-03-16",
+        "last_updated": "2026-06-26",
         "note": "Kraever JAAFIT-medlemskab for adgang. Webadresser virker kun med login paa skool.com."
     },
     "nodes": {

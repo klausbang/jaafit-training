@@ -1,0 +1,34 @@
+Program: Hverdagskrigeren (5 dage)
+Formaal: Oversigt over dag, oevelser og udstyr pr. oevelse.
+Note: Opdater manuelt hvis der mangler udstyr.
+
+Dag 1 - Ben og Biceps
+1) Doedloeft m. bar
+   Udstyr: bar, elastik
+
+2) Biceps Curl m. bar
+   Udstyr: bar, elastik
+
+Dag 2 - Ryg og Triceps
+1) Traek til Hofte m. haandtag
+   Udstyr: haandtag, doeranker, elastik
+2) Triceps Pushdown m. haandtag, elastik
+   Udstyr: haandtag, doeranker, elastik
+
+Dag 3 - Bryst og Skuldre
+1) Staaende Brystpres m. bar
+   Udstyr: bar, doeranker, elastik
+2) Lateral Raises m. haandtag
+   Udstyr: haandtag, elastik
+
+Dag 4 - Ben og Biceps
+1) Front Squat m. bar
+   Udstyr: bar, elastik
+2) Hammercurl m. elastik
+   Udstyr: elastik
+
+Dag 5 - Mave og Skuldre
+1) Overhead Press m. bar
+   Udstyr: bar, elastik
+2) Chrunches m. elastik
+   Udstyr: doeranker, elastik

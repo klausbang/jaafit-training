@@ -4,7 +4,7 @@
     "source": "https://www.skool.com/jaafit",
     "exercises_library_url": "https://www.skool.com/jaafit/classroom/1b2baa38",
     "programs_url": "https://www.skool.com/jaafit/classroom/448639cb",
-    "last_updated": "2026-03-16",
+    "last_updated": "2026-06-26",
     "note": "Kraever JAAFIT-medlemskab for adgang. Webadresser virker kun med login paa skool.com."
   },
   "nodes": {
@@ -64,6 +64,10 @@
         "label": "haandtag"
       },
       {
+        "id": "eq_doeranker",
+        "label": "doeranker"
+      },
+      {
         "id": "eq_ankelstropper",
         "label": "ankelstropper"
       },
@@ -92,7 +96,9 @@
         "title": "Staaende Brystpres m. bar",
         "muscle_group": "Bryst",
         "equipment": [
-          "bar"
+          "bar",
+          "doeranker",
+          "elastik"
         ],
         "requires_door_anchor": true,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=573e4c0f38d147f593ab1f52f036eb16"
@@ -132,7 +138,9 @@
         "title": "Traek til Hofte m. haandtag",
         "muscle_group": "Ryg",
         "equipment": [
-          "haandtag"
+          "haandtag",
+          "doeranker",
+          "elastik"
         ],
         "requires_door_anchor": true,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1a2b6b6a598941259e97506f0dde70c6"
@@ -212,7 +220,8 @@
         "title": "Front Squat m. bar",
         "muscle_group": "Forlaar",
         "equipment": [
-          "bar"
+          "bar",
+          "elastik"
         ],
         "requires_door_anchor": false,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=ce15f8fe0c9d47ec8f2278f534b96b20"
@@ -272,7 +281,8 @@
         "title": "Doedloeft m. bar",
         "muscle_group": "Baglaar og baller",
         "equipment": [
-          "bar"
+          "bar",
+          "elastik"
         ],
         "requires_door_anchor": false,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=f77d97b6c2db4271af5496cb9d036bf5"
@@ -322,7 +332,8 @@
         "title": "Biceps Curl m. bar",
         "muscle_group": "Biceps",
         "equipment": [
-          "bar"
+          "bar",
+          "elastik"
         ],
         "requires_door_anchor": false,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=1e407305f56e4c178e5f67fea9ca5d84"
@@ -352,7 +363,9 @@
         "title": "Triceps Pushdown m. haandtag",
         "muscle_group": "Triceps",
         "equipment": [
-          "haandtag"
+          "haandtag",
+          "doeranker",
+          "elastik"
         ],
         "requires_door_anchor": true,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=07d4f5ea9a444a83901be6c2485164a5"
@@ -412,7 +425,8 @@
         "title": "Overhead Press m. bar",
         "muscle_group": "Skulder",
         "equipment": [
-          "bar"
+          "bar",
+          "elastik"
         ],
         "requires_door_anchor": false,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=03b4a420e2b04921a89813fd2dfddbe7"
@@ -422,7 +436,8 @@
         "title": "Lateral Raises m. haandtag",
         "muscle_group": "Skulder",
         "equipment": [
-          "haandtag"
+          "haandtag",
+          "elastik"
         ],
         "requires_door_anchor": false,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=785b16d8e44744a49db0c2abd1322004"
@@ -482,9 +497,10 @@
         "title": "Chrunches m. elastik",
         "muscle_group": "Mave",
         "equipment": [
+          "doeranker",
           "elastik"
         ],
-        "requires_door_anchor": false,
+        "requires_door_anchor": true,
         "url": "https://www.skool.com/jaafit/classroom/1b2baa38?md=3c405fd6ecf94a53b5d10e6f2c7e48b3"
       },
       {
@@ -1072,6 +1088,16 @@
       "relation": "BRUGER_UDSTYR"
     },
     {
+      "from": "573e4c0f38d147f593ab1f52f036eb16",
+      "to": "eq_doeranker",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "573e4c0f38d147f593ab1f52f036eb16",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
       "from": "1f7932321cb340d38ccead6c6bf3d28b",
       "to": "eq_bar",
       "relation": "BRUGER_UDSTYR"
@@ -1089,6 +1115,16 @@
     {
       "from": "1a2b6b6a598941259e97506f0dde70c6",
       "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1a2b6b6a598941259e97506f0dde70c6",
+      "to": "eq_doeranker",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "1a2b6b6a598941259e97506f0dde70c6",
+      "to": "eq_elastik",
       "relation": "BRUGER_UDSTYR"
     },
     {
@@ -1132,6 +1168,11 @@
       "relation": "BRUGER_UDSTYR"
     },
     {
+      "from": "ce15f8fe0c9d47ec8f2278f534b96b20",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
       "from": "ea1a793cfae948e2819054015ce6a5cd",
       "to": "eq_bar",
       "relation": "BRUGER_UDSTYR"
@@ -1162,6 +1203,11 @@
       "relation": "BRUGER_UDSTYR"
     },
     {
+      "from": "f77d97b6c2db4271af5496cb9d036bf5",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
       "from": "ff6526db998140368cee351fa2184ed1",
       "to": "eq_ankelstropper",
       "relation": "BRUGER_UDSTYR"
@@ -1187,6 +1233,11 @@
       "relation": "BRUGER_UDSTYR"
     },
     {
+      "from": "1e407305f56e4c178e5f67fea9ca5d84",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
       "from": "6f01796cb46f4d798d2ec24e017edff9",
       "to": "eq_haandtag",
       "relation": "BRUGER_UDSTYR"
@@ -1199,6 +1250,16 @@
     {
       "from": "07d4f5ea9a444a83901be6c2485164a5",
       "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "07d4f5ea9a444a83901be6c2485164a5",
+      "to": "eq_doeranker",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "07d4f5ea9a444a83901be6c2485164a5",
+      "to": "eq_elastik",
       "relation": "BRUGER_UDSTYR"
     },
     {
@@ -1232,8 +1293,18 @@
       "relation": "BRUGER_UDSTYR"
     },
     {
+      "from": "03b4a420e2b04921a89813fd2dfddbe7",
+      "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
       "from": "785b16d8e44744a49db0c2abd1322004",
       "to": "eq_haandtag",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "785b16d8e44744a49db0c2abd1322004",
+      "to": "eq_elastik",
       "relation": "BRUGER_UDSTYR"
     },
     {
@@ -1259,6 +1330,11 @@
     {
       "from": "fa7a7fc50aeb41688709858222bf800e",
       "to": "eq_elastik",
+      "relation": "BRUGER_UDSTYR"
+    },
+    {
+      "from": "3c405fd6ecf94a53b5d10e6f2c7e48b3",
+      "to": "eq_doeranker",
       "relation": "BRUGER_UDSTYR"
     },
     {

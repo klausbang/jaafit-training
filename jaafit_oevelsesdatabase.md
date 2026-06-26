@@ -59,7 +59,7 @@ erDiagram
 |---------|-------------|-------|
 | `Øvelse` | Enkelt øvelse med URL og udstyrskrav | 49 |
 | `Muskelgruppe` | Muskelgruppe der trænes | 10 |
-| `Udstyr` | Type udstyr/attachment | 6 |
+| `Udstyr` | Type udstyr/attachment | 7 |
 | `Træningsprogram` | Samlet træningsprogram | 5 |
 | `Træningsdag` | Dag i et program med øvelsesliste | 24 |
 
@@ -81,6 +81,7 @@ erDiagram
 | `eq_elastik` | Elastik | JAAFIT PRO elastik direkte |
 | `eq_bar` | Bar | JAAFIT PRO bar-attachment |
 | `eq_haandtag` | Håndtag | JAAFIT PRO håndtag-attachment |
+| `eq_doeranker` | Døranker | Døranker til fastgørelse af elastik/attachment |
 | `eq_ankelstropper` | Ankelstropper | JAAFIT PRO ankelstropper |
 | `eq_PowerPress` | PowerPress | JAAFIT PowerPress tilbehør |
 | `eq_kropsvagt` | Kropsvægt | Kun kropsvægt (ingen attachment) |
@@ -212,6 +213,20 @@ erDiagram
 | 4 | Ben & Biceps | Front Squat, Hammercurl m. elastik |
 | 5 | Mave & Skuldre | Overhead Press, Chrunches m. elastik |
 
+#### Nye udstyrstilføjelser (2026-06-26)
+
+Følgende øvelser i Hverdagskrigeren blev opdateret med ekstra udstyr baseret på manuel gennemgang:
+
+- Dødløft m. bar: tilføjet elastik
+- Biceps Curl m. bar: tilføjet elastik
+- Træk til Hofte m. håndtag: tilføjet døranker og elastik
+- Triceps Pushdown m. håndtag: tilføjet døranker og elastik
+- Stående Brystpres m. bar: tilføjet døranker og elastik
+- Lateral Raises m. håndtag: tilføjet elastik
+- Front Squat m. bar: tilføjet elastik
+- Overhead Press m. bar: tilføjet elastik
+- Chrunches m. elastik: tilføjet døranker
+
 ### Program 4: Fundamental Styrke
 4 dage / upper-lower split
 
@@ -263,4 +278,4 @@ Disse øvelser kan laves overalt uden at fastgøre elastikken i en dør:
 
 ---
 
-*Sidst opdateret: 2026-03-16 | Data kilde: JAAFIT Community på skool.com*
+*Sidst opdateret: 2026-06-26 | Data kilde: JAAFIT Community på skool.com*
